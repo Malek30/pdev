@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Repport implements Serializable {
 	private String object ;
 	private String text ;
 	private int state;	
-	private Date date ;
+	private Date date =Calendar.getInstance().getTime() ;
 	@ManyToOne
 	private User user;
 	@ManyToOne
@@ -84,6 +85,19 @@ public class Repport implements Serializable {
 	}
 
 	public void setMission(Mission mission) {
+		this.mission = mission;
+	}
+	
+
+	public Repport(String object, String text, int state, User user, Mission mission) {
+		super();
+		this.object = object;
+		this.text = text;
+		this.state = state;
+		
+		this.idRepport.setIdMisssionPK(mission.getIdMission());
+		this.idRepport.setIdUserPK(user.getIdUser());
+		this.user=user;
 		this.mission = mission;
 	}
    

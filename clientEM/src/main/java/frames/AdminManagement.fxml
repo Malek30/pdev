@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frames.AdminManagementController">
+   <children>
+      <ImageView fitHeight="551.0" fitWidth="910.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/b1.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbmission" layoutX="240.0" layoutY="-11.0" text="Liste des missions" textFill="#458994">
+         <font>
+            <Font name="System Bold" size="39.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tablemission" layoutX="14.0" layoutY="92.0" prefHeight="215.0" prefWidth="882.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="40.0" text="Id" />
+          <TableColumn fx:id="title" prefWidth="183.0" text="Title" />
+            <TableColumn fx:id="type" prefWidth="98.0" text="Type" />
+            <TableColumn fx:id="price" prefWidth="51.0" text="Price" />
+            <TableColumn fx:id="skills" prefWidth="65.66668701171875" text="skills" />
+            <TableColumn fx:id="state" prefWidth="83.0" text="State" />
+            <TableColumn fx:id="description" prefWidth="270.0" text="Description" />
+            <TableColumn fx:id="field" prefWidth="87.0" text="field" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnvalidate" layoutX="717.0" layoutY="410.0" mnemonicParsing="false" onAction="#validermission" prefHeight="45.0" prefWidth="123.0" text="Validate" textFill="#111010">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="70.0" fitWidth="142.0" layoutX="748.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Easy%20Mission.png" />
+         </image>
+      </ImageView>
+     
+  
+      <Label fx:id="labeltype" layoutX="68.0" layoutY="347.0" text="Type" textFill="#fcf9f9">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tftype" layoutX="179.0" layoutY="353.0" />
+      <Label fx:id="labelstate" layoutX="73.0" layoutY="403.0" text="State" textFill="#f8f6f6">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfstate" layoutX="173.0" layoutY="408.0" />
+      <Label layoutX="71.0" layoutY="452.0" text="Field" textFill="#fcfcfc">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tffield" layoutX="174.0" layoutY="462.0" />
+   </children>
+</AnchorPane>

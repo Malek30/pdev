@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="easyMission">
+		<class>entities.Application</class>
+		<class>entities.Contact</class>
+		<class>entities.Discussion</class>
+		<class>entities.Employer</class>
+		<class>entities.Message</class>
+		<class>entities.Mission</class>
+		<class>entities.Notification</class>
+		<class>entities.Rating</class>
+		<class>entities.Recommendation</class>
+		<class>entities.Repport</class>
+		<class>entities.Skill</class>
+		<class>entities.Suggestion</class>
+		<class>entities.User</class>
+		<class>entities.Worker</class>
+		<class>embadableIDs.ApplicationId</class>
+		<class>embadableIDs.ContactId</class>
+		<class>embadableIDs.DiscussionId</class>
+		<class>embadableIDs.MessageId</class>
+		<class>embadableIDs.RatingId</class>
+		<class>embadableIDs.RecommendationId</class>
+		<class>embadableIDs.RepportId</class>
+		<class>embadableIDs.SuggestionId</class>
+	</persistence-unit>
+</persistence>

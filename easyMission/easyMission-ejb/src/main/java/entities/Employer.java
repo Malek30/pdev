@@ -3,6 +3,7 @@ package entities;
 import entities.User;
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -57,6 +58,13 @@ public class Employer extends User implements Serializable {
 	}
 	public void setCompanyLogo(String companyLogo) {
 		CompanyLogo = companyLogo;
+	}
+	
+	public void addMission(Mission m)
+	{
+		if (this.missions == null)
+			this.missions= new ArrayList<Mission>();
+		this.missions.add(m);
 	}
    
 }

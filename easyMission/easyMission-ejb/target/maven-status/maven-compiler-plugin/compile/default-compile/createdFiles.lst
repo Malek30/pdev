@@ -1,9 +1,11 @@
 entities\Application.class
 entities\Suggestion.class
+services\AdminserviceEJBLocal.class
 embadableIDs\ContactId.class
 entities\Discussion.class
 embadableIDs\RepportId.class
 entities\Mission.class
+services\ReclamationserviceEJBRemote.class
 entities\Contact.class
 embadableIDs\DiscussionId.class
 entities\Message.class
@@ -14,11 +16,15 @@ services\UserServicesEJBLocal.class
 entities\Repport.class
 entities\Notification.class
 embadableIDs\RecommendationId.class
+services\AdminserviceEJB.class
+services\AdminserviceEJBRemote.class
 embadableIDs\SuggestionId.class
 entities\Skill.class
+services\ReclamationserviceEJB.class
 entities\Rating.class
 embadableIDs\ApplicationId.class
 entities\Worker.class
+services\ReclamationserviceEJBLocal.class
 entities\Recommendation.class
 embadableIDs\RatingId.class
 services\UserServicesEJB.class

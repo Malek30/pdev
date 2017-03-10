@@ -46,6 +46,70 @@ public class Mission implements Serializable {
 	public Mission() {
 		super();
 	}
+	
+	public Mission(int idMission, String title, String description, String missionType, float price, String skills,
+			String state) {
+		super();
+		this.idMission = idMission;
+		this.title = title;
+		this.description = description;
+		this.missionType = missionType;
+		this.skills = skills;
+		this.price = price;
+		this.state = state;
+	}
+	
+	public Mission(String title, String description, String missionType, float price, String skills,
+			String state) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.missionType = missionType;
+		this.skills = skills;
+		this.price = price;
+		this.state = state;
+	}
+
+
+
+	
+
+
+
+	public Mission(Employer employer, String title, String description, String skills, String field, float price,
+			String state, String missionType) {
+		super();
+		this.employer = employer;
+		this.title = title;
+		this.description = description;
+		this.skills = skills;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.missionType = missionType;
+	}
+
+
+
+	
+	
+	
+
+
+
+	public Mission(int idMission, String title, String description, String skills, String field, float price,
+			String state, String missionType) {
+		super();
+		this.idMission = idMission;
+		this.title = title;
+		this.description = description;
+		this.skills = skills;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.missionType = missionType;
+	}
+
 
 	public int getIdMission() {
 		return this.idMission;
@@ -144,5 +208,39 @@ public class Mission implements Serializable {
 	public void setLocal(Boolean local) {
 		this.local = local;
 	}
+
+	public Employer getEmployer() {
+		return employer;
+	}
+
+	public void setEmployer(Employer employer) {
+		this.employer = employer;
+	}
+
+	public List<Suggestion> getSuggestions() {
+		return suggestions;
+	}
+
+	public void setSuggestions(List<Suggestion> suggestions) {
+		this.suggestions = suggestions;
+	}
+
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	public List<Repport> getRepports() {
+		return repports;
+	}
+
+	public void setRepports(List<Repport> repports) {
+		this.repports = repports;
+	}
+	
+	
 
 }
