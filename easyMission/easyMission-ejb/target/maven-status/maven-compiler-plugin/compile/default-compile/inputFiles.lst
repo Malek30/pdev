@@ -6,11 +6,14 @@ D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\Recommendati
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\MessageId.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\Notification.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\SuggestionId.java
+D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\services\UserRecommandationServiceEJB.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\Employer.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\Rating.java
+D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\services\UserRecommandationServiceEJBRemote.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\Repport.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\User.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\ApplicationId.java
+D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\services\UserRecommandationServiceEJBLocal.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\RepportId.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\entities\Contact.java
 D:\pdevMalek\easyMission\easyMission-ejb\src\main\java\embadableIDs\RatingId.java

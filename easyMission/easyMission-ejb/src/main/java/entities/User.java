@@ -35,9 +35,9 @@ public class User implements Serializable {
 	// fetch=FetchType.LAZY 
 	@OneToMany(mappedBy="user")	
 	private List<Contact> contacts =new ArrayList<Contact>() ;
-	@OneToMany(mappedBy="recommender")
+	@OneToMany(mappedBy="recommender",cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private List<Recommendation> recommendations;
-	@OneToMany(mappedBy="recommended")
+	@OneToMany(mappedBy="recommended", cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private List<Recommendation> recievedRecomendations;
 	@OneToMany(mappedBy="reciever")
 	private List<Discussion> discussions ;

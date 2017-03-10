@@ -8,7 +8,6 @@ import javax.persistence.*;
  *
  */
 @Embeddable
-
 public class RecommendationId implements Serializable {
 
 	private int idRecommendedPK ;
@@ -19,6 +18,14 @@ public class RecommendationId implements Serializable {
 	public RecommendationId() {
 		super();
 	}
+	
+
+	public RecommendationId(int idRecommendedPK, int idRecommenderPK) {
+		super();
+		this.idRecommendedPK = idRecommendedPK;
+		this.idRecommenderPK = idRecommenderPK;
+	}
+
 
 	@Override
 	public int hashCode() {

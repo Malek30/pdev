@@ -27,7 +27,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/D:/JEE/workspace/clientEM/src/main/java/img/icon.png" />
+                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/icon.png" />
                </source>
             </ImageInput>
          </effect>
