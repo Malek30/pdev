@@ -58,5 +58,11 @@ public class Employer extends User implements Serializable {
 	public void setCompanyLogo(String companyLogo) {
 		CompanyLogo = companyLogo;
 	}
+	@Override
+	public String toString() {
+		return "Employer [adress=" + adress + ", company=" + company + ", companyNumber=" + companyNumber
+				+ ", CompanyLogo=" + CompanyLogo + ", missions=" + missions + ", suggestions=" + suggestions + "]";
+	}
+	
    
 }
