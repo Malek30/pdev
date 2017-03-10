@@ -1,0 +1,90 @@
+package entities;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.*;
+
+import embadableIDs.RepportId;
+
+/**
+ * Entity implementation class for Entity: Repport
+ *
+ */
+@Entity
+
+public class Repport implements Serializable {
+
+	@Id
+	private RepportId idRepport;
+	private String object ;
+	private String text ;
+	private int state;	
+	private Date date ;
+	@ManyToOne
+	private User user;
+	@ManyToOne
+	private Mission mission;
+	private static final long serialVersionUID = 1L;
+
+	public Repport() {
+		super();
+	}
+
+	public RepportId getIdRepport() {
+		return idRepport;
+	}
+
+	public void setIdRepport(RepportId idRepport) {
+		this.idRepport = idRepport;
+	}
+
+	public String getObject() {
+		return object;
+	}
+
+	public void setObject(String object) {
+		this.object = object;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Mission getMission() {
+		return mission;
+	}
+
+	public void setMission(Mission mission) {
+		this.mission = mission;
+	}
+   
+}
