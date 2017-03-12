@@ -19,10 +19,16 @@ import java.util.ResourceBundle;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import entities.Employer;
 import entities.User;
+import entities.Worker;
 import javafx.event.ActionEvent;
 
 public class frame1Controller implements Initializable{
+	public static Employer e=null;
+	public static Worker w=null;
+	public static String x="";
+	public static int id;
 	@FXML
 	private TextField login;
 	@FXML
@@ -54,6 +60,40 @@ alert.setHeaderText(null);
 alert.setContentText("welcome "+u1.getFirstName()+" "+u1.getLastName()+" :)" );
 
 alert.showAndWait();
+id=u1.getIdUser();
+
+
+Stage stage = (Stage) l1.getScene().getWindow();
+stage.close();
+
+
+
+
+
+//System.out.println(u1.getType());
+
+if(u1.getType().equals("worker")){
+	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+	Scene scene1 = new Scene(root);
+	stage.setScene(scene1);
+	stage.show();
+	x="worker";
+	System.out.println("worker");
+}
+
+
+else{
+	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+	Scene scene1 = new Scene(root);
+	stage.setScene(scene1);
+	stage.show();
+//	x="employer";
+	System.out.println("employer");
+}
+
+
+
+
     }else{
     	 Alert alert = new Alert(Alert.AlertType.INFORMATION);
     	 alert.setTitle("wrong id ");

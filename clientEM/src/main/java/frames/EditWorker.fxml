@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1367.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frames.EditWorkerController">
+   <children>
+      <ImageView fx:id="iv" fitHeight="768.0" fitWidth="1367.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/b1.jpg" />
+         </image></ImageView>
+      <JFXHamburger fx:id="ham" layoutX="1269.0" layoutY="38.0">
+         <effect>
+            <ColorAdjust brightness="1.0" />
+         </effect></JFXHamburger>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="190.0" layoutY="-6.0" prefHeight="774.0" prefWidth="284.0" />
+      <Text fill="WHITE" layoutX="256.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="256.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="257.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="261.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Button layoutX="965.0" layoutY="-209.0" mnemonicParsing="false" onAction="#exit" prefHeight="514.0" prefWidth="517.0" scaleX="0.08" scaleY="0.08" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/icon.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <ImageView fx:id="ppic" fitHeight="150.0" fitWidth="200.0" layoutX="289.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fill="WHITE" layoutX="259.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BirthDate  :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Line endX="100.0" layoutX="652.0" layoutY="395.0" rotate="90.0" scaleX="3.0" startX="-100.0" stroke="WHITE" translateX="100.0" />
+      <TextField fx:id="firstname" layoutX="401.0" layoutY="303.0" opacity="0.7" prefHeight="41.0" prefWidth="332.0" />
+      <TextField fx:id="lastname" layoutX="401.0" layoutY="364.0" opacity="0.7" prefHeight="41.0" prefWidth="332.0" />
+      <TextField fx:id="email" layoutX="401.0" layoutY="427.0" opacity="0.7" prefHeight="41.0" prefWidth="332.0" />
+      <ComboBox fx:id="field" layoutX="401.0" layoutY="498.0" prefHeight="44.0" prefWidth="332.0" promptText="Field" style="-fx-opacity: 70%;" />
+      <DatePicker fx:id="bdate" layoutX="401.0" layoutY="560.0" opacity="0.7" prefHeight="44.0" prefWidth="332.0" />
+      <Button fx:id="btpic" layoutX="278.0" layoutY="-82.0" mnemonicParsing="false" onAction="#changePic" prefHeight="514.0" prefWidth="519.0" scaleX="0.08" scaleY="0.08" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/picture.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Text fill="WHITE" layoutX="517.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Profile Picture">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Button fx:id="update" layoutX="564.0" layoutY="703.0" mnemonicParsing="false" onAction="#update" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: white;" text="Update" />
+      <TextField fx:id="cnumber" layoutX="477.0" layoutY="631.0" opacity="0.7" prefHeight="41.0" prefWidth="256.0" />
+      <Text fill="WHITE" layoutX="261.0" layoutY="660.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tabskill" layoutX="1065.0" layoutY="215.0" opacity="0.7" prefHeight="200.0" prefWidth="250.0">
+         <columns>
+            <TableColumn fx:id="skil" prefWidth="249.0" text="Skill list" />
+         </columns>
+      </TableView>
+      <TextArea fx:id="desc" layoutX="779.0" layoutY="215.0" opacity="0.7" prefHeight="200.0" prefWidth="270.0" />
+      <TableView fx:id="rcd" layoutX="779.0" layoutY="480.0" opacity="0.7" prefHeight="200.0" prefWidth="514.0">
+         <columns>
+            <TableColumn fx:id="txt" prefWidth="355.0" text="Recommandation" />
+            <TableColumn fx:id="user" prefWidth="158.0" text="Recommander" />
+         </columns>
+      </TableView>
+      <ComboBox fx:id="sk" layoutX="779.0" layoutY="154.0" opacity="0.6" prefHeight="44.0" prefWidth="270.0" promptText="Skills list" />
+      <Button fx:id="adsk" layoutX="1125.0" layoutY="160.0" mnemonicParsing="false" onAction="#adskill" style="-fx-background-color: white;" text="Add Skill" />
+      <Button fx:id="delrcd" layoutX="1111.0" layoutY="703.0" mnemonicParsing="false" onAction="#delrcd" style="-fx-background-color: white;" text="Delete Recommandation" />
+   </children>
+</AnchorPane>

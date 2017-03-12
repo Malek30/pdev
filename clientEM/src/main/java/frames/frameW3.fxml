@@ -32,13 +32,14 @@
       <TextField fx:id="fn" layoutX="284.0" layoutY="286.0" prefHeight="44.0" prefWidth="313.0" promptText="First name" style="-fx-opacity: 60%;" />
       <TextField fx:id="ln" layoutX="284.0" layoutY="356.0" prefHeight="44.0" prefWidth="313.0" promptText="Last Name" style="-fx-opacity: 60%;" />
       <TextField fx:id="email" layoutX="284.0" layoutY="428.0" prefHeight="44.0" prefWidth="313.0" promptText="Email" style="-fx-opacity: 60%;" />
-      <DatePicker fx:id="date" layoutX="758.0" layoutY="356.0" prefHeight="44.0" prefWidth="313.0" promptText="Date of birth" style="-fx-opacity: 60%;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="rpwd" accessibleRole="PASSWORD_FIELD" layoutX="758.0" layoutY="507.0" prefHeight="44.0" prefWidth="313.0" promptText="Retype Password" style="-fx-opacity: 60%;" />
-      <TextField fx:id="pwd" accessibleRole="PASSWORD_FIELD" layoutX="758.0" layoutY="428.0" prefHeight="44.0" prefWidth="313.0" promptText="Password" style="-fx-opacity: 60%;" />
+      <DatePicker fx:id="date" layoutX="764.0" layoutY="437.0" prefHeight="44.0" prefWidth="313.0" promptText="Date of birth" style="-fx-opacity: 60%;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="rpwd" accessibleRole="PASSWORD_FIELD" layoutX="764.0" layoutY="588.0" prefHeight="44.0" prefWidth="313.0" promptText="Retype Password" style="-fx-opacity: 60%;" />
+      <TextField fx:id="pwd" accessibleRole="PASSWORD_FIELD" layoutX="764.0" layoutY="509.0" prefHeight="44.0" prefWidth="313.0" promptText="Password" style="-fx-opacity: 60%;" />
       <ComboBox fx:id="coutry" layoutX="284.0" layoutY="507.0" prefHeight="44.0" prefWidth="313.0" promptText="Country" style="-fx-opacity: 60%;" />
-      <Button fx:id="add" defaultButton="true" layoutX="912.0" layoutY="595.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.47" prefHeight="31.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Register" textFill="WHITE" />
-      <ComboBox fx:id="gender" layoutX="758.0" layoutY="286.0" prefHeight="44.0" prefWidth="313.0" promptText="Gender" style="-fx-opacity: 60%;" />
+      <Button fx:id="add" defaultButton="true" layoutX="918.0" layoutY="665.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.47" prefHeight="31.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Register" textFill="WHITE" />
+      <ComboBox fx:id="gender" layoutX="764.0" layoutY="367.0" prefHeight="44.0" prefWidth="313.0" promptText="Gender" style="-fx-opacity: 60%;" />
       <ComboBox fx:id="field" layoutX="284.0" layoutY="588.0" prefHeight="44.0" prefWidth="313.0" promptText="Field" style="-fx-opacity: 60%;" />
+      <TextField fx:id="login" layoutX="764.0" layoutY="286.0" prefHeight="44.0" prefWidth="313.0" promptText="Login" style="-fx-opacity: 60%;" />
       <Button fx:id="back" layoutX="-159.0" layoutY="-122.0" mnemonicParsing="false" onAction="#handle2ButtonAction" prefHeight="336.0" prefWidth="408.0" rotate="180.0" scaleX="0.15" scaleY="0.15" text="Button">
          <effect>
             <ImageInput>

@@ -22,12 +22,12 @@
          </image>
       </ImageView>
       <Line endX="100.0" layoutX="633.0" layoutY="211.0" rotate="90.0" scaleX="3.0" scaleY="3.0" startX="-100.0" stroke="#a7a7a7" translateY="200.0" />
-      <Text fill="#a7a7a7" layoutX="231.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color:: white;" text="Employer">
+      <Text fill="#a7a7a7" layoutX="231.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color:: white;" text="Worker">
          <font>
             <Font size="50.0" />
          </font>
       </Text>
-      <Text fill="#a7a7a7" layoutX="935.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color:: white;" text="Worker">
+      <Text fill="#a7a7a7" layoutX="935.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color:: white;" text="Employer">
          <font>
             <Font size="50.0" />
          </font>
@@ -45,7 +45,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/e.png" />
+                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/f.png" />
                </source>
             </ImageInput>
          </effect>

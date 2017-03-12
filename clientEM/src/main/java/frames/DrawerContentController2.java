@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class DrawerContentController implements Initializable{
+public class DrawerContentController2 implements Initializable{
 	@FXML
 	private VBox box;
 
@@ -55,7 +55,7 @@ public class DrawerContentController implements Initializable{
                 break;
             case "Edit":
             	Stage stage=new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("EditEmployer.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("EditWorker.fxml"));
             Scene scene1 = new Scene(root);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene1);
@@ -74,6 +74,7 @@ public class DrawerContentController implements Initializable{
     	
 
     }
+
 
 
 }

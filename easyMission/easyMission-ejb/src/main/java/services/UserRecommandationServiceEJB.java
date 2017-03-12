@@ -1,5 +1,14 @@
 package services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -8,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import embadableIDs.RecommendationId;
 import entities.Recommendation;
 import entities.User;
+import entities.Worker;
 
 /**
  * Session Bean implementation class UserRecommandationServiceEJB
@@ -33,8 +43,18 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 		r.setRecommender(u1);
 		r.setRecommended(u2);
 		r.setText(text);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		System.out.println(dateFormat.format(cal.getTime()));
+		//Date d=new Date();
+		r.setDate(cal.getTime());
 		em.persist(em.merge(r));
 		
+	}
+	@Override
+	public List<Recommendation> findAllRecommandation() {
+		// TODO Auto-generated method stub
+		return  em.createQuery("select c from  Recommendation c ",Recommendation.class).getResultList();
 	}
 
 

@@ -51,6 +51,8 @@ public class frameW3Controller2 implements Initializable{
 	private ComboBox field;
 	@FXML
 	private Button back;
+    @FXML
+    private TextField login;
 
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,13 +83,14 @@ public class frameW3Controller2 implements Initializable{
 		Employer e=new Employer();
 		e.setBirthDate(date.getValue().toString());
 		e.setCountry(coutry.getPromptText());
-		e.setField(field.getPromptText());
+		e.setField(field.getValue().toString());
 		e.setFirstName(fn.getText());
 		e.setLastName(ln.getText());
-		e.setLogin(ln.getText());
+		e.setLogin(login.getText());
 		e.setEmail(email.getText());
 		e.setPassword(pwd.getText());
 		e.setState("active");
+		e.setType("employer");
 		proxy.addEmployer(e);
 		nn=fn.getText();
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);

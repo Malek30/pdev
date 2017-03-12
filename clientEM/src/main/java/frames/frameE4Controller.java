@@ -52,6 +52,8 @@ public class frameE4Controller implements Initializable{
 	private ComboBox field;
 	@FXML
 	private Button back;
+    @FXML
+    private TextField login;
 
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -80,15 +82,16 @@ public class frameE4Controller implements Initializable{
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
 		Worker e=new Worker();
-		e.setBirthDate(date.getPromptText());
+		e.setBirthDate(date.getValue().toString());
 		e.setCountry(coutry.getPromptText());
-		e.setField(field.getPromptText());
+		e.setField(field.getValue().toString());
 		e.setFirstName(fn.getText());
 		e.setLastName(ln.getText());
-		e.setLogin(ln.getText());
+		e.setLogin(login.getText());
 		e.setEmail(email.getText());
 		e.setPassword(pwd.getText());
 		e.setState("active");
+		e.setType("worker");
 		proxy.addWorker(e);
 		nn=fn.getText();
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);

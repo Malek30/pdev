@@ -15,14 +15,20 @@ import embadableIDs.RecommendationId;
 @Entity
 public class Recommendation implements Serializable {
 
+	@Override
+	public String toString() {
+		return "Recommendation [idRecommendation=" + idRecommendation + ", text=" + text + ", date=" + date
+				+ ", recommended=" + recommended + ", recommender=" + recommender + "]";
+	}
+
 	@Id
 	private RecommendationId idRecommendation ;
 	private String text ;
 	private Date date ;
-	@ManyToOne(cascade = { CascadeType.PERSIST ,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST ,CascadeType.MERGE},fetch=FetchType.EAGER)
 	@JoinColumn(name="idRecommendedPK",insertable=false,updatable=false)
 	private User recommended;
-	@ManyToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	@JoinColumn(name="idRecommenderPK",insertable=false,updatable=false)
 	private User recommender;
 	private static final long serialVersionUID = 1L;
@@ -73,6 +79,15 @@ public class Recommendation implements Serializable {
 	}
 	
 
+
+	public Recommendation(String text, User recommender) {
+		super();
+		this.text = text;
+		this.recommender = recommender;
+	}
+	public String getRecommanderName(){
+		return this.recommender.getFirstName();
+	}
 
 	public void setIdRecommendation(RecommendationId idRecommendation) {
 		this.idRecommendation = idRecommendation;

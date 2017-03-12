@@ -29,8 +29,8 @@ import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 
 public class frame6Controller implements Initializable{
-	public static Image image;
-	File picture;
+	public static Image image,image1;
+	File picture,picture1;
 	@FXML
 	private TextField c;
 	@FXML
@@ -40,9 +40,13 @@ public class frame6Controller implements Initializable{
 	@FXML
 	private Button pick;
 	@FXML
+	private Button pick1;
+	@FXML
 	private Button fill;
 	@FXML
 	private ImageView img;
+	@FXML
+	private ImageView img1;
 
 	// Event Listener on Button[#pick].onAction
 	@FXML
@@ -65,6 +69,26 @@ public class frame6Controller implements Initializable{
 		}
                 System.out.println(picture);
 	}
+	@FXML
+	public void handleButton3Action(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+		picture1 = fileChooser.showOpenDialog(null);
+		if (picture1 == null) {
+			return;
+		}
+		try {
+			BufferedImage bufferedImage = ImageIO.read(picture1);
+		 image1 = SwingFXUtils.toFXImage(bufferedImage, null);
+			img1.setImage(image1);
+                        
+                        
+		} catch (IOException ex) {
+		}
+                System.out.println(picture1);
+	}
 	// Event Listener on Button[#fill].onAction
 	@FXML
 	public void handleButtonAction(ActionEvent event) throws NamingException {
@@ -76,9 +100,10 @@ public class frame6Controller implements Initializable{
 		Employer x=(Employer) proxy.findUserById(y.getIdUser());
 		System.out.println("that work "+x.getFirstName());
 		x.setAdress(ad.getText());
-		x.setCompany(cn.getText());
+		x.setCompany(c.getText());
 		x.setCompanyNumber(cn.getText());
 		x.setCompanyLogo(picture.toString());
+		x.setPicture(picture1.toString());
 		proxy.updateEmployer(x);
 		
 		

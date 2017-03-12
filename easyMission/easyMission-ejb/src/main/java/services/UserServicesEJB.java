@@ -126,6 +126,12 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 		return em.createQuery("select DISTINCT c from  Skill c ",Skill.class).getResultList();
 	}
 
+	@Override
+	public List<Worker> findAllWorkers() {
+		// TODO Auto-generated method stub
+		return em.createQuery("select DISTINCT c from  Worker c ",Worker.class).getResultList();
+	}
+
 	
 
 }

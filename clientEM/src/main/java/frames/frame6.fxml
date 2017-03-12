@@ -43,7 +43,19 @@
             </ImageInput>
          </effect>
       </Button>
-      <Button fx:id="fill" layoutX="642.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.68" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: white;" text="Fill" />
+      <Button fx:id="fill" layoutX="642.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.68" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: white;" text="Fill" />
       <ImageView fx:id="img" fitHeight="291.0" fitWidth="231.0" layoutX="818.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="pick1" layoutX="327.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleButton3Action" opacity="0.68" prefHeight="518.0" prefWidth="519.0" scaleX="0.07" scaleY="0.07" style="-fx-background-color: white;" text="Fill">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/D:/pdevMalek/clientEM/src/main/java/img/picture.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Text fill="WHITE" layoutX="621.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile picture" />
+      <Text fill="WHITE" layoutX="449.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Logo" />
+      <ImageView fx:id="img1" fitHeight="291.0" fitWidth="231.0" layoutX="46.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

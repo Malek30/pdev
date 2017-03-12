@@ -30,5 +30,6 @@ public interface UserServicesEJBRemote {
 	public Employer findEmployerByName(String name);
 	public User findUserBYLoginAndPassword(String login ,String pwd);
 	public List<Skill> findAllSkills();
+	public List<Worker> findAllWorkers();
 
 }
