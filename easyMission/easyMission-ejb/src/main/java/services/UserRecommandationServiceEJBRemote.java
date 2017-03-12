@@ -12,4 +12,6 @@ import entities.User;
 public interface UserRecommandationServiceEJBRemote {
 	public void addUserRecommandation(User u1, User u2, String text);
 	public List<Recommendation>findAllRecommandation();
+	public Recommendation FindRecommandationBTextAndRecommander(String text);
+	public void deleteRecommandation(Recommendation r);
 }

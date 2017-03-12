@@ -343,8 +343,12 @@ public class EditWorkerController implements Initializable{
 		UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
 		
     	Recommendation m = rcd.getSelectionModel().getSelectedItem();
-    	System.out.println(m.toString());
-    	
+    	//System.out.println(m.getIdRecommendation());
+    	Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
+    	System.out.println(r.getRecommanderName());
+    	System.out.println(r.getIdRecommendation().getIdRecommendedPK());
+    	proxy.deleteRecommandation(r);
+    
     	
 
     }

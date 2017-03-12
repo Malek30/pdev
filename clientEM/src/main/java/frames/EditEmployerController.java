@@ -24,6 +24,8 @@ import com.jfoenix.controls.JFXHamburger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -228,7 +230,7 @@ public class EditEmployerController implements Initializable{
     }
 
     @FXML
-    void update(ActionEvent event) {
+    void update(ActionEvent event) throws IOException {
     	//-------------- server cnx------------
 		InitialContext ctx = null;
 		try {
@@ -260,6 +262,12 @@ public class EditEmployerController implements Initializable{
     	emp.setCompanyLogo(picture.toString());
     	emp.setPicture(picture1.toString());
     	proxy.updateEmployer(emp);
+    	Stage stage = (Stage) cname.getScene().getWindow();
+	    stage.close();
+	    Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
     }
 
 }

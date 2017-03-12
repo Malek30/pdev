@@ -56,6 +56,25 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 		// TODO Auto-generated method stub
 		return  em.createQuery("select c from  Recommendation c ",Recommendation.class).getResultList();
 	}
+	@Override
+	public Recommendation FindRecommandationBTextAndRecommander(String text) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select c from  Recommendation c where c.text=:ptext ",Recommendation.class).setParameter("ptext", text).getSingleResult();
+	}
+	@Override
+	public void deleteRecommandation(Recommendation r) {
+		//System.out.println(r.getIdRecommendation().getIdRecommendedPK());
+		User recommender=r.getRecommender();
+		recommender.getRecommendations().remove(r);
+		User recommended=r.getRecommended();
+		recommended.getRecievedRecomendations().remove(r);
+		em.merge(recommended);
+		em.merge(recommender);
+		
+		em.remove(em.merge(r));
+
+		
+	}
 
 
 

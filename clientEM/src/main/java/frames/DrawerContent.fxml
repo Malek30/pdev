@@ -14,7 +14,7 @@
       </ImageView>
       <JFXButton fx:id="btn1" buttonType="RAISED" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Home" />
       <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Edit" />
-      <JFXButton fx:id="btn3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Mission" />
+      <JFXButton fx:id="btn3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Recommandation" />
       <JFXButton fx:id="btn4" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="EXIT" />
    </children>
 </VBox>
