@@ -105,7 +105,8 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 	@Override
 	public Worker findWorkerByName(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("select c from Worker c where c.firstName=:pname",Worker.class)
+				.setParameter("pname", name).getSingleResult();
 	}
 
 	@Override

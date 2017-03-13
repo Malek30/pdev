@@ -1,10 +1,14 @@
 package frames;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -18,6 +22,7 @@ import entities.Skill;
 import entities.Worker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,12 +31,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
 public class RecommandationController implements Initializable{
@@ -96,14 +104,18 @@ public class RecommandationController implements Initializable{
     private Text number1;
 
     @FXML
-    private ComboBox<Worker> sk;
+    private ComboBox<String> sk;
 
     @FXML
     private Button show;
 
     @FXML
     private Button add;
-    private  static ObservableList<Worker>data2;
+    private  static ObservableList<Recommendation>data1;
+    private  static ObservableList<String>data2;
+    private  static ObservableList<Skill>data;
+    public static Image image;
+    File picture;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -148,8 +160,11 @@ public class RecommandationController implements Initializable{
 		}
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
 		ArrayList<Worker>workers=(ArrayList<Worker>)proxy.findAllWorkers();
-		
-		data2 =FXCollections.observableArrayList(workers);
+		List<String>workername=new ArrayList<>();
+		for(Worker w : workers){
+			workername.add(w.getFirstName());
+		}
+		data2 =FXCollections.observableArrayList(workername);
 		sk.getItems().addAll(data2);
 		
 	}
@@ -166,6 +181,102 @@ public class RecommandationController implements Initializable{
 
 	    @FXML
 	    void show(ActionEvent event) {
+	    	String name=sk.getValue().toString();
+	    	InitialContext ctx = null;
+			try {
+				ctx = new InitialContext();
+			} catch (NamingException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			Object objet = null;
+			try {
+				objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
+			} catch (NamingException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+			Worker emp=proxy.findWorkerByName(name);
+			System.out.println(emp.getFirstName());
+			fn.setText("First Name : "+emp.getFirstName());
+			ln.setText("Last Name : "+emp.getLastName());
+			mail.setText("Email address : "+emp.getEmail());
+			country.setText("Country : "+emp.getCountry());
+			field.setText("Field : "+emp.getField());
+			bdate.setText("BirthDate  :"+emp.getBirthDate());
+			bank.setText("Bank Account : "+emp.getRib());
+	        number.setText("Phone Number : "+emp.getPhoneNumber());
+	        picture=new File(emp.getPicture());
+	        BufferedImage bufferedImage = null;
+		      
+			try {
+				bufferedImage = ImageIO.read(picture);
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			 image = SwingFXUtils.toFXImage(bufferedImage, null);
+			
+				ppic.setImage(image);
+				desc.setText(emp.getDescription());
+				//----------------list skills
+				int userid=emp.getIdUser();
+				List<Skill> sklist=proxy.findAllSkills();
+				List<Worker>lw=proxy.findAllWorkers();
+				List<Skill>lskl=new ArrayList<>();
+				List<Worker>lworkers=null;
+				data=FXCollections.observableArrayList();
+				for(Skill s : sklist){
+					lworkers=s.getWorkers();
+					for(Worker w : lworkers){
+						if(w.getIdUser()==userid){
+							lskl.add(s);}}}
+				
+				for( Skill s : lskl){
+					System.out.println(s.getName());
+					data.add(new Skill(s.getName()));
+				}
+				tabskill.setItems(data);
+				skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
+				
+				//-------------------------- list recommandation-----------
+				InitialContext ctx2 = null;
+				try {
+					ctx2 = new InitialContext();
+				} catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Object objet2 = null;
+				try {
+					objet2 = ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
+				} catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;
+				
+				List<Recommendation>lrr=new ArrayList<>();
+				List<Recommendation>lr=proxy2.findAllRecommandation();
+				for(Recommendation r : lr){
+					if(r.getRecommended().getIdUser()==1){
+						//System.out.println("test");
+						lrr.add(r);
+					}}
+				data1=FXCollections.observableArrayList();
+				
+				
+				for(Recommendation r: lrr){
+					System.out.println(r.getText()+" "+r.getRecommender().getFirstName());
+					data1.add(new Recommendation(r.getText(),r.getRecommender()));
+					
+				}
+				rcd.setItems(data1);
+				txt.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("text"));
+				user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));
+	    	
 	    	
 	    }
 
