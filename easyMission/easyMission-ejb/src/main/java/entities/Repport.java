@@ -17,7 +17,7 @@ import embadableIDs.RepportId;
 public class Repport implements Serializable {
 
 	@Id
-	private RepportId idRepport;
+	private RepportId idRepport=new RepportId();
 	private String object ;
 	private String text ;
 	private int state;	
@@ -31,9 +31,23 @@ public class Repport implements Serializable {
 	public Repport() {
 		super();
 	}
+	
+
+	public Repport(String object, String text, int state, User user) {
+		super();
+		this.object = object;
+		this.text = text;
+		this.state = state;
+		this.user = user;
+	}
+
 
 	public RepportId getIdRepport() {
 		return idRepport;
+	}
+	
+	public String getReporterFullName(){
+		return this.user.getFirstName()+" "+this.user.getLastName();
 	}
 
 	public void setIdRepport(RepportId idRepport) {

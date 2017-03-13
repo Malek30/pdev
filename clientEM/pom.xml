@@ -32,6 +32,13 @@
 			<version>9.0.0.Alpha1</version>
 			<type>pom</type>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+<dependency>
+    <groupId>org.jfree</groupId>
+    <artifactId>jfreechart</artifactId>
+    <version>1.0.14</version>
+</dependency>
+		
 	</dependencies>
 
 	<build>

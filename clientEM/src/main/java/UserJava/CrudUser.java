@@ -28,9 +28,9 @@ public class CrudUser {
 		InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
-		/*User u=new User();
-		Date d=new Date(2017,6,3);
-		u.setBirthDate(d);
+		User u=new User();
+		//Date d=new Date(2017,6,3);
+		//u.setBirthDate(d);
 		u.setCountry("Tunisia");
 		u.setEmail("malek.bejaoui@esprit.tn");
 		u.setField("GL");
@@ -40,13 +40,13 @@ public class CrudUser {
 		u.setPassword("123");
 		u.setPicture("url");
 		u.setState("Active");
-		//proxy.addUser(u);
+		proxy.addUser(u);
 		//User u1=proxy.findUserByName("Bejaoui");
-		User u1=proxy.findUserBYLoginAndPassword("malek1","123");
-		System.out.println(u1.getFirstName());*/
-	Worker u=new Worker();
+		//User u1=proxy.findUserBYLoginAndPassword("malek1","123");
+		//System.out.println(u1.getFirstName());
+	//Worker u=new Worker();
 		
-		u.setBirthDate("12/12/2015");
+		/*u.setBirthDate("12/12/2015");
 		u.setCountry("Tunisia");
 		u.setEmail("malek.bejaoui@esprit.tn");
 		u.setField("GL");
@@ -73,7 +73,7 @@ public class CrudUser {
 		ls.add(s3);
 		u.setSkills(ls);
 		proxy.addWorker(u);
-		
+		*/
 		
 		
 		

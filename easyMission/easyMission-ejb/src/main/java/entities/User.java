@@ -54,6 +54,25 @@ public class User implements Serializable {
 	public User() {
 		super();
 	}   
+	
+	
+	public User(int idUser, String login, String firstName, String lastName, String email, String password,
+			String country, String state) {
+		super();
+		this.idUser = idUser;
+		Login = login;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.country = country;
+		this.state = state;
+	}
+	
+
+	
+
+
 	public int getIdUser() {
 		return this.idUser;
 	}
@@ -169,6 +188,8 @@ public class User implements Serializable {
 	public void setLogin(String login) {
 		Login = login;
 	}
+	
+	
 	
 	
    

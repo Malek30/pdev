@@ -97,20 +97,34 @@ public class Mission implements Serializable {
 
 
 
-	public Mission(int idMission, String title, String description, String skills, String field, float price,
-			String state, String missionType) {
+	public Mission(int idMission, String title, String description, String skills, String field,Date startDate ,Date endDate, float price,
+			String state, String missionType , Employer employer) {
 		super();
 		this.idMission = idMission;
 		this.title = title;
 		this.description = description;
 		this.skills = skills;
 		this.field = field;
+		this.startDate=startDate;
+		this.endDate=endDate;
 		this.price = price;
 		this.state = state;
 		this.missionType = missionType;
+		this.employer=employer;
 	}
 
-
+public String getSdmission()
+{
+	return this.startDate.toString();
+}
+public String getEdmission()
+{
+	return this.endDate.toString();
+}
+	public String getEmployerFullName(){
+		return this.employer.getFirstName()+" "+this.employer.getLastName();
+	}
+	
 	public int getIdMission() {
 		return this.idMission;
 	}

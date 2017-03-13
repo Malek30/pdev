@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import embadableIDs.RepportId;
 import entities.Employer;
@@ -62,8 +63,9 @@ EntityManager em;
 	}
 
 	@Override
-	public void treatReport(Repport R) {
-		// TODO Auto-generated method stub
+	public void treatReport(Repport r) {
+		em.merge(r);
+		
 		
 	}
 
@@ -133,7 +135,7 @@ EntityManager em;
 	public void repport(User u, Mission m) {
 	em.merge(u);
 	em.merge(m);
-	Repport r = new Repport("test","text",0,u,m);
+	Repport r = new Repport("rec1","terrible mission",0,u,m);
 	em.persist(r);
 		
 	}
@@ -143,16 +145,13 @@ EntityManager em;
 	@Override
 	public List<Repport> displaytraitedReclmations() {
 		
-		return em.createQuery("select r from Repport r where r.state= 1",Repport.class).getResultList();
+		return em.createQuery("select r from Repport r where r.state= 2",Repport.class).getResultList();
 				
 	}
 
 
 
-	@Override
-	public List<Repport> displayuntraitedReclmations() {
-		return em.createQuery("select r from Repport r where r.state= 0",Repport.class).getResultList();
-	}
+	
 
 
 
@@ -171,6 +170,76 @@ EntityManager em;
 		
 		return em.find(Repport.class, idrepport);
 	}
+
+
+
+	@Override
+	public List<Repport> displayinprogresstraitmentReclmations() {
+		
+		return em.createQuery("select r from Repport r where r.state=1",Repport.class).getResultList();
+	}
+
+
+
+	@Override
+	public List<Repport> displayholdingReclmations() {
+		return em.createQuery("select r from Repport r where r.state=0",Repport.class).getResultList();
+		
+	}
+
+
+
+	@Override
+	public List<Worker> displayallworkers() {
+		
+		return em.createQuery("select w from Worker w",Worker.class).getResultList();
+	}
+
+
+
+	@Override
+	public long nbrworkers() {
+		
+		String sql = "SELECT COUNT(w) FROM Worker w";
+		Query q = em.createQuery(sql);
+		long count = (long)q.getSingleResult();
+		return count;
+	}
+
+
+
+	@Override
+	public long nbremployers() {
+		
+		String sql = "SELECT COUNT(e) FROM Employer e";
+		Query q = em.createQuery(sql);
+		long count = (long)q.getSingleResult();
+		return count;
+	}
+
+
+
+	@Override
+	public void addnewmission(Mission m) {
+		em.persist(m);
+		
+	}
+
+
+
+	@Override
+	public void blockuser(User u) {
+		u.setState("blocked");
+		em.merge(u);
+		
+	}
+
+
+
+
+
+
+	
 
 
 

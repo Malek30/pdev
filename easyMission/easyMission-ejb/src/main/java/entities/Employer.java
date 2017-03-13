@@ -22,7 +22,7 @@ public class Employer extends User implements Serializable {
 	private String company;
 	private String companyNumber;
 	private String CompanyLogo;
-	@OneToMany(mappedBy="employer")
+	@OneToMany(mappedBy="employer",fetch=FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Mission> missions;
 	
 	@OneToMany(mappedBy="employer")
@@ -33,6 +33,14 @@ public class Employer extends User implements Serializable {
 	public Employer() {
 		super();
 	}   
+	
+	public Employer(int idUser, String login, String firstName, String lastName, String email, String password,
+			String country, String state,String adress,String company) {
+		super(idUser, login, firstName, lastName, email, password, country, state);
+		this.adress=adress;
+		this.company=company;
+	}
+
 	public String getAdress() {
 		return this.adress;
 	}

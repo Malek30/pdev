@@ -1,11 +1,16 @@
 package frames;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import services.AdminserviceEJBRemote;
 import javafx.scene.control.TableColumn;
 
@@ -50,9 +56,19 @@ public class AdminManagementController implements Initializable{
 	private TableColumn<Mission,String> state;
 	@FXML
 	private TableColumn<Mission,String> field;
+	 @FXML
+	    private TableColumn<Mission, String> columnstartdate;
+
+	    @FXML
+	    private TableColumn<Mission, String> columnenddate;
+	@FXML
+	private TableColumn<Mission,String> colemployer;
 	
 	@FXML
 	private Button btnvalidate;
+	   @FXML
+	    private Button btnrefresh;
+
 	@FXML
 	private TextField tfstate;
 	@FXML
@@ -76,7 +92,9 @@ public class AdminManagementController implements Initializable{
 			for (Mission ms :elist)
 				
 			{
-				data.add(new Mission(ms.getIdMission(),ms.getTitle(),ms.getDescription(),ms.getSkills(),ms.getField(),ms.getPrice(),ms.getState(),ms.getMissionType()));
+				String ch="";
+				ch=ch+ms.getEmployer().getFirstName();
+				data.add(new Mission(ms.getIdMission(),ms.getTitle(),ms.getDescription(),ms.getSkills(),ms.getField(),ms.getStartDate(),ms.getEndDate(),ms.getPrice(),ms.getState(),ms.getMissionType(),ms.getEmployer()));
 			}
 			
 			tablemission.setItems(data);
@@ -88,6 +106,9 @@ public class AdminManagementController implements Initializable{
 			skills.setCellValueFactory(new PropertyValueFactory<Mission, String>("skills"));
 			state.setCellValueFactory(new PropertyValueFactory<Mission, String>("state"));
 			field.setCellValueFactory(new PropertyValueFactory<Mission, String >("field"));
+			columnstartdate.setCellValueFactory(new PropertyValueFactory<Mission, String >("sdmission"));
+			columnenddate.setCellValueFactory(new PropertyValueFactory<Mission, String >("edmission"));
+			colemployer.setCellValueFactory(new PropertyValueFactory<Mission, String >("employerFullName"));
 			
 			
 		 } catch (NamingException e) {
@@ -155,7 +176,7 @@ catch (NamingException e) {
 				
 */
 	
-		/*try {
+		try {
 			InitialContext ic2 = new InitialContext();
 			AdminserviceEJBRemote proxy2 = (AdminserviceEJBRemote) ic2.lookup("/easyMission-ear/easyMission-ejb/"
 					+ "AdminserviceEJB!services.AdminserviceEJBRemote");
@@ -170,8 +191,19 @@ catch (NamingException e) {
 		} catch (NamingException e)
 		{
 			e.printStackTrace();
-		}*/
+		}
 } 
+	
+	@FXML
+    void refresh(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("AdminManagement.fxml"));
+   	 Scene scene = new Scene(root);
+   	 Stage st = (Stage) lbmission.getScene().getWindow();
+   	 st.setScene(scene);
+   	 st.close();
+	 st.show();
+
+    }
 				
 				
 				

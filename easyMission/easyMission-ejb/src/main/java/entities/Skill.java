@@ -19,7 +19,7 @@ public class Skill implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSkill;
 	private String name;	
-	@ManyToMany(mappedBy="skills")
+	@ManyToMany(mappedBy="skills",fetch=FetchType.EAGER)
 	private List<Worker> workers;
 	private static final long serialVersionUID = 1L;
 
