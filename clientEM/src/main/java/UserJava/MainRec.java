@@ -2,6 +2,8 @@ package UserJava;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -11,6 +13,17 @@ import javax.naming.NamingException;
 
 
 public class MainRec {
+	public static boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 public static void main(String[] args) throws NamingException {
 
 	/*
@@ -40,13 +53,16 @@ public static void main(String[] args) throws NamingException {
 				lrr.add(r);
 			}}
 		
-		for(Recommendation r: lrr){
-			System.out.println(r.getText()+" "+r.getRecommender().getFirstName());
-			
-		}
-
-		
-		*/
+	*/
+String mail="malek.bejaoui@esprit.tn";
+ boolean x=isEmail(mail);
+ if (x==true) {
+	 System.out.println("ok");
+	
+}else{
+	System.out.println("no ok");
+}
+	
 		
 	}
 }

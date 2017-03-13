@@ -99,13 +99,34 @@ public class frame6Controller implements Initializable{
 		System.out.println("test"+frameW3Controller2.nn);
 		Employer x=(Employer) proxy.findUserById(y.getIdUser());
 		System.out.println("that work "+x.getFirstName());
+		if((ad.getText().equals(""))||(c.getText().equals(""))||(cn.getText().equals(""))||(picture.toString().equals(""))
+				||(picture1.toString().equals("")))
+		{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Warning ");
+			alert.setHeaderText(null);
+			alert.setContentText(" fill All the Information");
+
+			alert.showAndWait();	
+		}else{
 		x.setAdress(ad.getText());
 		x.setCompany(c.getText());
 		x.setCompanyNumber(cn.getText());
 		x.setCompanyLogo(picture.toString());
 		x.setPicture(picture1.toString());
-		proxy.updateEmployer(x);
+		try {
+			proxy.updateEmployer(x);
+			
+		} catch (Exception E) {
+			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);
+			alert22.setTitle("warning ");
+			alert22.setHeaderText(null);
+			alert22.setContentText("Please Fill all the fields" );
+
+			alert22.showAndWait();
+		}
 		
+		}
 		
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Welcome ");

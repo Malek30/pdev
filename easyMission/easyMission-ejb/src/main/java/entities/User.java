@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String field ;
 	private String picture;
 	private String password ;
-	private String type;
+	//private String type;
 	@OneToMany
 	private List<Notification> notifications;
 	// fetch=FetchType.LAZY 
@@ -170,12 +170,7 @@ public class User implements Serializable {
 	public void setLogin(String login) {
 		Login = login;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	
 	
 	

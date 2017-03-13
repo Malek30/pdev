@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
@@ -32,7 +32,7 @@ public class frame1Controller implements Initializable{
 	@FXML
 	private TextField login;
 	@FXML
-	private TextField pwd;
+	private PasswordField pwd;
 	@FXML
 	private Button l1;
 	@FXML
@@ -50,10 +50,23 @@ public class frame1Controller implements Initializable{
     	InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		User u1=null;
 		
-		User u1=proxy.findUserBYLoginAndPassword(login.getText(),pwd.getText());
+		try {
+			u1=proxy.findUserBYLoginAndPassword(login.getText(),pwd.getText());
+			
+		} catch (Exception e) {
+			Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+			alert2.setTitle("Wrong Informations ");
+			alert2.setHeaderText(null);
+			alert2.setContentText("check your Login or your Password" );
+
+			alert2.showAndWait();
+		}
+		 
 		System.out.println(u1.getFirstName());
-		if(u1!=null){
+	
+		if(u1.getPassword()!=pwd.getText()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
 alert.setTitle("Welcome ");
 alert.setHeaderText(null);
@@ -66,13 +79,7 @@ id=u1.getIdUser();
 Stage stage = (Stage) l1.getScene().getWindow();
 stage.close();
 
-
-
-
-
-//System.out.println(u1.getType());
-
-if(u1.getType().equals("worker")){
+if(u1 instanceof Worker){
 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
 	Scene scene1 = new Scene(root);
 	stage.setScene(scene1);
@@ -90,17 +97,13 @@ else{
 //	x="employer";
 	System.out.println("employer");
 }
+}else{
+	Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+	alert2.setTitle("Wrong Informations ");
+	alert2.setHeaderText(null);
+	alert2.setContentText("check your Login or your Password" );
 
-
-
-
-    }else{
-    	 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    	 alert.setTitle("wrong id ");
-    	 alert.setHeaderText(null);
-    	 alert.setContentText("wrong ");
-
-    	 alert.showAndWait();
+	alert2.showAndWait();
     }
 		//Stage stage = (Stage) l1.getScene().getWindow();
 	    //stage.close();

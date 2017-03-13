@@ -117,6 +117,7 @@ public class frame7Controller implements Initializable{
 	}
 	@FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
+		//------cnx serveur---------
 		InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
@@ -124,13 +125,35 @@ public class frame7Controller implements Initializable{
 		System.out.println("test"+frameW3Controller2.nn);
 		Worker x=(Worker) proxy.findUserById(y.getIdUser());
 		System.out.println("that work "+x.getFirstName());
+		//----------------------------
+		if((pn.getText().equals(""))||(rib.getText().equals(""))||(d.getText().equals(""))||(picture.toString().equals(""))
+				||(picture2.toString().equals(""))){
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Warning ");
+			alert.setHeaderText(null);
+			alert.setContentText(" fill All the Information");
+
+			alert.showAndWait();	
+		}else{
 		x.setPhoneNumber(pn.getText());
 		x.setRib(rib.getText());
 		x.setDescription(d.getText());
 		x.setCv(picture2.toString());
 		x.setPicture(picture.toString());
 		x.setSkills(skill);
-		proxy.updateWorker(x);
+		
+		try {
+			proxy.updateWorker(x);
+			
+		} catch (Exception E) {
+			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);
+			alert22.setTitle("warning ");
+			alert22.setHeaderText(null);
+			alert22.setContentText("Please Fill all the fields" );
+
+			alert22.showAndWait();
+		}
+		}
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Welcome ");
 		alert.setHeaderText(null);

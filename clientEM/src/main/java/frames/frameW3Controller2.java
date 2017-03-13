@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -26,6 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 
 public class frameW3Controller2 implements Initializable{
 	public static String nn;
@@ -38,9 +41,9 @@ public class frameW3Controller2 implements Initializable{
 	@FXML
 	private DatePicker date;
 	@FXML
-	private TextField rpwd;
+	private PasswordField rpwd;
 	@FXML
-	private TextField pwd;
+	private PasswordField pwd;
 	@FXML
 	private ComboBox coutry;
 	@FXML
@@ -53,7 +56,17 @@ public class frameW3Controller2 implements Initializable{
 	private Button back;
     @FXML
     private TextField login;
-
+    public static boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
 		coutry.getItems().addAll(
@@ -77,21 +90,81 @@ public class frameW3Controller2 implements Initializable{
        
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
+    	
+    	//------serveur cnx---------
     	InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		//------------
 		Employer e=new Employer();
+		Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+		alert2.setTitle("missing fiels");
+		alert2.setHeaderText(null);
+		alert2.setContentText("fill fields" );
+
+		
 		e.setBirthDate(date.getValue().toString());
 		e.setCountry(coutry.getPromptText());
 		e.setField(field.getValue().toString());
-		e.setFirstName(fn.getText());
+		if(fn.getText().equals("")){
+			alert2.showAndWait();
+		}else{
+		e.setFirstName(fn.getText());}
+		
+		if(ln.getText().equals("")){
+			alert2.showAndWait();
+		}else{
 		e.setLastName(ln.getText());
-		e.setLogin(login.getText());
-		e.setEmail(email.getText());
-		e.setPassword(pwd.getText());
+		}
+		if(login.getText().equals("")){
+			alert2.showAndWait();
+		}else{
+		e.setLogin(login.getText());}
+		if(email.getText().equals("")){
+			alert2.showAndWait();
+		}else{
+			if(isEmail(email.getText())==true){
+			e.setEmail(email.getText());}
+			else{
+				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+				alert1.setTitle("Wrong Email");
+				alert1.setHeaderText(null);
+				alert1.setContentText("Email is not valid" );
+				alert1.showAndWait();
+			}
+		}
+		if(pwd.getText().equals("")){
+			alert2.showAndWait();
+		}else{
+			if(pwd.getText().equals(rpwd.getText()))
+			e.setPassword(pwd.getText());
+			else{
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Passwords are not the same");
+				alert.setHeaderText(null);
+				alert.setContentText("retype the correct Password" );
+				alert.showAndWait();
+			}
+		}
+		
+		
+		
 		e.setState("active");
-		e.setType("employer");
-		proxy.addEmployer(e);
+		//e.setType("employer");
+		try {
+			proxy.addEmployer(e);
+			
+		} catch (Exception E) {
+			Alert alert21 = new Alert(Alert.AlertType.INFORMATION);
+			alert21.setTitle("Wrong Informations ");
+			alert21.setHeaderText(null);
+			alert21.setContentText("Fill all the fields" );
+
+			alert21.showAndWait();
+		}
+		
+		
+		
 		nn=fn.getText();
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Welcome ");
