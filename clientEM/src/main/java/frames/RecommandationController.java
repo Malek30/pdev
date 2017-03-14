@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import delegate.RecommadationServiceDelegate;
 import entities.Employer;
 import entities.Recommendation;
 import entities.Skill;
@@ -49,6 +50,7 @@ import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
 public class RecommandationController implements Initializable{
+	private RecommadationServiceDelegate delegate=new RecommadationServiceDelegate();
 	@FXML
     private AnchorPane ap;
 
@@ -200,7 +202,10 @@ public class RecommandationController implements Initializable{
 			
 			if(txtrcd.getText().equals(null)){}else{
 				try{
-			proxy.addUserRecommandation(emp,w,txtrcd.getText() );}
+			//proxy.addUserRecommandation(emp,w,txtrcd.getText() );
+					delegate.doAddRecommandation(emp, w, txtrcd.getText());
+			
+				}
 			catch (Exception e) {
 				Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
 				alert2.setTitle("Warning ");
