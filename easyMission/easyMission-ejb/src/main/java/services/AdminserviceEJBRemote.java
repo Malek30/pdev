@@ -28,15 +28,19 @@ public interface AdminserviceEJBRemote {
 	public void addWorker(Worker w);
 	public void repport(User u , Mission m);
 	public List<Repport> displaytraitedReclmations();
-	public List<Repport> displayinprogresstraitmentReclmations();
+	public List<Repport> displayallpReclmations();
 	public List<Repport> displayholdingReclmations();
 	public void addReclamation(Repport r);
-	public Repport findRepportByiRepportid (RepportId idrepport);
+	public List<Repport> findRepportidmission(int id);
+	public Repport findRepportbyidmission(int id);
+	public Repport findRepportById(RepportId id);
+	public Repport findRepport(User u , Mission m);
 	public List<Worker> displayallworkers();
 	public void addnewmission(Mission m);
 	public void blockuser(User u);
 	public long nbrworkers ();
 	public long nbremployers ();
+	public void declinereclamation(Repport r);
 	
 
 }

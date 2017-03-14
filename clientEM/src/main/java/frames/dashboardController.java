@@ -82,7 +82,45 @@ public class dashboardController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+		
+		else if (x=="Manage Reclamations")
+		{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("RepportManagement.fxml"));
+				Scene scene = new Scene(root);
+				 Stage st = (Stage) vbox.getScene().getWindow();
+			       // st.initStyle(StageStyle.DECORATED);
+			        st.setScene(scene);
+			        
+			        st.show();
+			   
+			        	
+			        
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("Chart1.fxml"));
+				Scene scene = new Scene(root);
+				 Stage st = (Stage) vbox.getScene().getWindow();
+			       // st.initStyle(StageStyle.DECORATED);
+			        st.setScene(scene);
+			        
+			        st.show();
+			   
+			        	
+			        
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 			
 	}
 
@@ -92,6 +130,7 @@ public class dashboardController implements Initializable {
 ObservableList<String> list =FXCollections.observableArrayList("Manage Users","","","","Manage Missions","","","","Manage Reclamations","","","","Statictics");
 		
 		listView.setItems(list);
+		
 		//listView.setPrefWidth(170);
 		//listView.setPrefHeight(270);
 		

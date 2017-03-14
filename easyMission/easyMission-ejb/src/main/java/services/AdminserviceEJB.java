@@ -64,6 +64,7 @@ EntityManager em;
 
 	@Override
 	public void treatReport(Repport r) {
+		r.setState(1);
 		em.merge(r);
 		
 		
@@ -133,8 +134,7 @@ EntityManager em;
 
 	@Override
 	public void repport(User u, Mission m) {
-	em.merge(u);
-	em.merge(m);
+	
 	Repport r = new Repport("rec1","terrible mission",0,u,m);
 	em.persist(r);
 		
@@ -145,7 +145,7 @@ EntityManager em;
 	@Override
 	public List<Repport> displaytraitedReclmations() {
 		
-		return em.createQuery("select r from Repport r where r.state= 2",Repport.class).getResultList();
+		return em.createQuery("select r from Repport r where r.state=1",Repport.class).getResultList();
 				
 	}
 
@@ -165,20 +165,10 @@ EntityManager em;
 
 
 
-	@Override
-	public Repport findRepportByiRepportid(RepportId idrepport) {
-		
-		return em.find(Repport.class, idrepport);
-	}
+	
 
 
-
-	@Override
-	public List<Repport> displayinprogresstraitmentReclmations() {
-		
-		return em.createQuery("select r from Repport r where r.state=1",Repport.class).getResultList();
-	}
-
+	
 
 
 	@Override
@@ -234,6 +224,55 @@ EntityManager em;
 		
 	}
 
+
+
+	@Override
+	public void declinereclamation(Repport r) {
+		em.remove(r);
+		
+	}
+
+
+
+	@Override
+	public List<Repport> displayallpReclmations() {
+		return em.createQuery("select r from Repport r ",Repport.class).getResultList();
+	}
+
+
+
+	@Override
+	public List<Repport> findRepportidmission(int id) {
+		
+		Mission m = em.find(Mission.class,id);
+		m.getRepports().size();
+		return m.getRepports();
+	}
+
+
+
+	@Override
+	public Repport findRepportById(RepportId id) {
+		return em.find(Repport.class, id);
+		
+	}
+
+
+
+	@Override
+	public Repport findRepport(User u, Mission m) {
+		return null;
+	}
+
+
+
+	@Override
+	public Repport findRepportbyidmission(int id) {
+		return em.find(Repport.class,id);
+
+	}
+
+	
 
 
 

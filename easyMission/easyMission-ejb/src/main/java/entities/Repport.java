@@ -16,7 +16,7 @@ import embadableIDs.RepportId;
 
 public class Repport implements Serializable {
 
-	@Id
+	@EmbeddedId
 	private RepportId idRepport=new RepportId();
 	private String object ;
 	private String text ;
@@ -40,12 +40,20 @@ public class Repport implements Serializable {
 		this.state = state;
 		this.user = user;
 	}
+	
+	
 
+
+	
 
 	public RepportId getIdRepport() {
 		return idRepport;
 	}
 	
+	public int getIdmissionreport()
+	{
+		return this.idRepport.getIdMisssionPK();
+	}
 	public String getReporterFullName(){
 		return this.user.getFirstName()+" "+this.user.getLastName();
 	}
@@ -114,5 +122,17 @@ public class Repport implements Serializable {
 		this.user=user;
 		this.mission = mission;
 	}
-   
+
+
+	public Repport(String object, String text, int state, User user, RepportId idRepport) {
+		super();
+		this.object = object;
+		this.text = text;
+		this.state = state;
+		this.user = user;
+		this.idRepport = idRepport;
+	}
+	
+
+	
 }

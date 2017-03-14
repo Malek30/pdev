@@ -20,7 +20,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="listView" layoutX="14.0" layoutY="117.0" onMouseClicked="#handle" prefHeight="319.0" prefWidth="149.0" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="117.0" onMouseClicked="#handle" prefHeight="319.0" prefWidth="149.0" stylesheets="@../list.css" />
       <VBox fx:id="vbox" layoutX="230.0" layoutY="115.0" prefHeight="297.0" prefWidth="593.0">
          <children>
             <ImageView fitHeight="319.0" fitWidth="524.0" pickOnBounds="true" preserveRatio="true">

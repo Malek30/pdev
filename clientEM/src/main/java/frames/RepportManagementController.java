@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import embadableIDs.RepportId;
 import entities.Repport;
 import entities.User;
 import entities.Worker;
@@ -54,6 +55,8 @@ public class RepportManagementController implements Initializable {
     private Button btnrefresh;
     @FXML
     private Button btndecline;
+    @FXML
+    private Button btnretour;
 
     @FXML
     private TableView<Repport> tableuntraitedreports;
@@ -69,8 +72,12 @@ public class RepportManagementController implements Initializable {
 
     @FXML
     private TableColumn<Repport, String> treporter;
+    @FXML
+    private TableColumn<Repport, Integer> colmissionid;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Repport rp= tableuntraitedreports.getItems().get(tableuntraitedreports.getSelectionModel().getSelectedIndex());
+		//System.out.println("hihi"+rp.getMission().getIdMission());
 		try {
 			 InitialContext	ic = new InitialContext();
 				
@@ -78,7 +85,7 @@ public class RepportManagementController implements Initializable {
 					+ "AdminserviceEJB!services.AdminserviceEJBRemote");
 		
 		List<Repport>  elistR = proxy.displayholdingReclmations();
-		List<Repport> elistRt= proxy.displayinprogresstraitmentReclmations();
+		List<Repport> elistRt= proxy.displaytraitedReclmations();
 		
 		dataRp=FXCollections.observableArrayList();
 		
@@ -86,7 +93,7 @@ public class RepportManagementController implements Initializable {
 				
 			{
 				
-				dataRp.add(new Repport(r.getObject(),r.getText(),r.getState(),r.getUser()));
+				dataRp.add(new Repport(r.getObject(),r.getText(),r.getState(),r.getUser(),r.getIdRepport()));
 				//dataw.add(new User (us.getIdUser(),us.getLogin(),us.getFirstName(),us.getLastName(),us.getEmail(),us.getPassword(),us.getCountry(),us.getState(),((Worker) us).getCv()));
 					//dataw.add(new Worker(us.getIdUser(),us.getLogin(),us.getFirstName(),us.getLastName(),us.getEmail(),us.getPassword(),us.getCountry(),us.getState(),((Worker) us).getCv(),((Worker) us).getDescription()));
 			
@@ -97,7 +104,7 @@ public class RepportManagementController implements Initializable {
 			ttest.setCellValueFactory(new PropertyValueFactory<Repport, String>("text"));
 			 tstate.setCellValueFactory(new PropertyValueFactory<Repport, String>("state"));
 			 treporter.setCellValueFactory(new PropertyValueFactory<Repport, String>("reporterFullName"));
-			
+			 colmissionid.setCellValueFactory(new PropertyValueFactory<Repport, Integer>("idmissionreport"));
 			
 			//description.setCellValueFactory(new PropertyValueFactory<Repport, String>("reporterFullName"));
 
@@ -118,6 +125,7 @@ public class RepportManagementController implements Initializable {
 				columntext.setCellValueFactory(new PropertyValueFactory<Repport, String>("text"));
 				 columnstate.setCellValueFactory(new PropertyValueFactory<Repport, String>("state"));
 				 columnreporter.setCellValueFactory(new PropertyValueFactory<Repport, String>("reporterFullName"));
+				 
 			
 			
 		 } catch (NamingException e) {
@@ -135,13 +143,27 @@ public class RepportManagementController implements Initializable {
 					+ "AdminserviceEJB!services.AdminserviceEJBRemote");
 			
 			
-			Repport r= tableuntraitedreports.getItems().get(tableuntraitedreports.getSelectionModel().getSelectedIndex());
-			System.out.println("object"+r.getObject());
-			System.out.println("state "+r.getState());
-			System.out.println("idmiddionreported : "+r.getMission());
-			r.setState(1);
+			Repport rp= tableuntraitedreports.getItems().get(tableuntraitedreports.getSelectionModel().getSelectedIndex());
+			System.out.println("here"+rp.getIdmissionreport());
+			RepportId ti = new RepportId(rp.getIdRepport().getIdUserPK(), rp.getIdRepport().getIdMisssionPK());
+			proxy2.findRepportById(ti);
+			proxy2.treatReport(rp);
+			//proxy2.findmissionbyId(m.getIdMission());
+			//proxy2.validatemission(m);
+			//proxy2.treatReport(rp);
 			
-			proxy2.treatReport(r);
+			//System.out.println("object"+r.getObject());
+			//System.out.println("state "+r.getState());
+			//System.out.println("idmiddionreported : "+r.getMission());
+			
+			///////
+			/*RepportId ri = new RepportId();
+			ri.setIdMisssionPK(r.getMission().getIdMission());
+			ri.setIdUserPK(r.getUser().getIdUser());
+			Repport rr = proxy2.findRepportById(ri);
+			System.out.println("hhhhhhhhhhhhhhh");
+			System.out.println(rr.getText());
+			proxy2.treatReport(rr);*/
 			
 		} catch (NamingException e)
 		{
@@ -151,7 +173,15 @@ public class RepportManagementController implements Initializable {
     }
 
     @FXML
-    void decline(ActionEvent event) {
+    void decline(ActionEvent event) throws NamingException {
+    	
+		
+    	 /*InitialContext	ic = new InitialContext();
+			
+			AdminserviceEJBRemote proxy = (AdminserviceEJBRemote) ic.lookup("/easyMission-ear/easyMission-ejb/"
+					+ "AdminserviceEJB!services.AdminserviceEJBRemote");
+			Repport r= tableuntraitedreports.getItems().get(tableuntraitedreports.getSelectionModel().getSelectedIndex());
+			proxy.declinereclamation(r);*/
 
     }
 
@@ -164,5 +194,15 @@ public class RepportManagementController implements Initializable {
       	 st.close();
    	 st.show();
     }
+    
+    @FXML
+    void retour(ActionEvent event) throws IOException {
+    	Parent root2 = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+   	 Scene scene3 = new Scene(root2);
+   	 Stage st1 = (Stage) labelreports.getScene().getWindow();
+   	 st1.setScene(scene3);
+	        st1.show();
+    }
+
 
 }

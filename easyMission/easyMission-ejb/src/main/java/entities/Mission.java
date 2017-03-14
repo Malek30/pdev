@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import javafx.scene.control.TableColumn;
+
 /**
  * Entity implementation class for Entity: Mission
  *
@@ -94,8 +96,27 @@ public class Mission implements Serializable {
 	
 	
 	
+	public Mission(int idMission, String title, float price, String state, String field, Employer employer, Date startDate ) {
+		super();
+		this.idMission = idMission;
+		this.title = title;
+		this.price = price;
+		this.state = state;
+		this.field = field;
+		this.employer = employer;
+		this.startDate=startDate;
+	}
 
 
+
+
+
+	public Mission(Employer employer, String title, String description) {
+		super();
+		this.employer = employer;
+		this.title = title;
+		this.description = description;
+	}
 
 	public Mission(int idMission, String title, String description, String skills, String field,Date startDate ,Date endDate, float price,
 			String state, String missionType , Employer employer) {
@@ -111,6 +132,23 @@ public class Mission implements Serializable {
 		this.state = state;
 		this.missionType = missionType;
 		this.employer=employer;
+	
+	}
+
+	
+
+	public int getNbrrepports()
+	{
+		int x=0;
+		List <Repport> lr = this.getRepports();
+		for (Repport r : lr )
+		{
+				if (r.getIdRepport().getIdMisssionPK()==this.idMission)
+				{
+					x=x+1;
+				}
+		}
+		return x;
 	}
 
 public String getSdmission()

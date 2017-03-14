@@ -55,19 +55,29 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <TableView fx:id="tableuntraitedreports" layoutX="21.0" layoutY="396.0" prefHeight="270.0" prefWidth="566.0">
+      <TableView fx:id="tableuntraitedreports" layoutX="21.0" layoutY="396.0" prefHeight="270.0" prefWidth="672.0">
         <columns>
           <TableColumn fx:id="tobject" prefWidth="109.0" text="Object" />
           <TableColumn fx:id="ttest" prefWidth="238.0000762939453" text="Text" />
             <TableColumn fx:id="tstate" prefWidth="86.00006103515625" text="State" />
             <TableColumn fx:id="treporter" prefWidth="134.0" text="Reporter Full Name" />
+            <TableColumn fx:id="colmissionid" prefWidth="102.00006103515625" text="id mission" />
         </columns>
       </TableView>
-      <Button fx:id="btnrefresh" layoutX="-28.0" layoutY="-47.0" mnemonicParsing="false" onAction="#refresh" prefHeight="123.0" prefWidth="127.0" scaleX="0.08" scaleY="0.08" text="Button">
+      <Button fx:id="btnrefresh" layoutX="1.0" layoutY="-43.0" mnemonicParsing="false" onAction="#refresh" prefHeight="123.0" prefWidth="127.0" scaleX="0.08" scaleY="0.08" text="Button">
          <effect>
             <ImageInput>
                <source>
                   <Image url="file:/C:/Users/user/git/pdev/clientEM/src/main/java/img/refresh.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="btnretour" layoutX="-285.0" layoutY="-262.0" mnemonicParsing="false" onAction="#retour" prefHeight="567.0" prefWidth="614.0" scaleX="0.06" scaleY="0.06" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/user/git/pdev/clientEM/src/main/java/img/retour.jpg" />
                </source>
             </ImageInput>
          </effect>

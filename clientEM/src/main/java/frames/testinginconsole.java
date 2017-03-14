@@ -5,6 +5,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import embadableIDs.RepportId;
 import entities.Employer;
 import entities.Mission;
 import entities.Repport;
@@ -81,29 +82,35 @@ public class testinginconsole {
 		System.out.println(m.getEmployer().getFirstName());
 	}*/
 		
-		//User u = proxy.finduserbyid(2);
+		User u = proxy.finduserbyid(5);
 		//Worker w = (Worker)u;
 		
 		
-		//Employer e = (Employer)u;
-		//Mission m =proxy.findmissionbyId(5);
+		Employer e = (Employer)u;
+		//Mission m =proxy.findmissionbyId(6);
 		
 		
-		/*//proxy.repport(u, m);
-		List<Repport> listreports = proxy.displayholdingReclmations();
-		for (Repport r: listreports)
+		//proxy.repport(u, m);
+		//List<Repport> listreports = proxy.displayholdingReclmations();
+		//List<Repport> r = proxy.findRepportidmission(6);
+		//System.out.println(r.size()+" -----"+r.get(0).getText());
+		
+	
+		
+		/*for (Repport r: listreports)
 		{
 			System.out.println("object of reclamation : "+r.getObject());
-			System.out.println("reporteur"+r.getUser().getFirstName());
-		}
-		*/
+			System.out.println("reporteur "+r.getUser().getFirstName()+" "+r.getUser().getLastName());
+			System.out.println("id mission to be reported"+r.getIdRepport().getIdMisssionPK());
+		}*/
+		
 		/*List<Repport> listreports = proxy.displayinprogresstraitmentReclmations();
 		for (Repport r: listreports)
 		{
 			System.out.println("object of reclamation : "+r.getObject());
 		}*/
-int x = 0 ;int y=0; int z=0 ; int t=0;
-		List<Worker> lw = proxy.displayallworkers();
+//int x = 0 ;int y=0; int z=0 ; int t=0;
+		/*List<Worker> lw = proxy.displayallworkers();
 		for (Worker w : lw )
 		{
 			List<Skill> ls = w.getSkills();
@@ -127,7 +134,29 @@ int x = 0 ;int y=0; int z=0 ; int t=0;
 		System.out.println("x "+x);
 		System.out.println("y "+y);
 		System.out.println("z "+z);
-		System.out.println("t "+t);
+		System.out.println("t "+t);*/
+		//List <Repport> lr = proxy.displayholdingReclmations();
+		//RepportId ri = new RepportId(5, 6);
+		/*List<Repport> lr = proxy.displayallpReclmations();
+		for (Repport r : lr )
+		{
+			System.out.println("here"+r.getIdmissionreport());
+		}*/
+		//RepportId asba = new RepportId(5,6);
+		//Repport zab = proxy.findRepportById(asba);
+		//System.out.println(zab.getObject());
+		/*List<Mission> lm = proxy.displayallmissions();
+		for (Mission m : lm )
+		{
+			System.out.println(m.getDescription());
+		}*/
+		//Mission m = new Mission(e,"here","here");
+		//proxy.addnewmission(m);
+		Mission m = proxy.findmissionbyId(7);
+		Repport r = new Repport("hello", "hello",0, u , m);
+		proxy.addReclamation(r);
+		
+		
 	}
 }
 
