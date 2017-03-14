@@ -404,7 +404,7 @@ public class EditWorkerController implements Initializable{
 
     }
     @FXML
-    void delrcd(ActionEvent event) throws NamingException {
+    void delrcd(ActionEvent event) throws NamingException, IOException {
     	InitialContext ctx1=new InitialContext();
 		InitialContext ctx2=new InitialContext();
 		Object objet2=ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
@@ -417,8 +417,14 @@ public class EditWorkerController implements Initializable{
     	Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
     	System.out.println(r.getRecommanderName());
     	System.out.println(r.getIdRecommendation().getIdRecommendedPK());
-    	proxy.deleteRecommandation(r);
-    
+    	r.setState(0);
+    	proxy.changeState(r);
+    	Stage stage = (Stage) desc.getScene().getWindow();
+	    stage.close();
+	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
     	
 
     }

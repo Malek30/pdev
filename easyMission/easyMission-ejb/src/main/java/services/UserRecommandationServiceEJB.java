@@ -42,6 +42,7 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 		r.setIdRecommendation(rr);
 		r.setRecommender(u1);
 		r.setRecommended(u2);
+		r.setState(1);
 		r.setText(text);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -54,7 +55,7 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 	@Override
 	public List<Recommendation> findAllRecommandation() {
 		// TODO Auto-generated method stub
-		return  em.createQuery("select c from  Recommendation c ",Recommendation.class).getResultList();
+		return  em.createQuery("select c from  Recommendation c where c.State=:ptext ",Recommendation.class).setParameter("ptext",1).getResultList();
 	}
 	@Override
 	public Recommendation FindRecommandationBTextAndRecommander(String text) {
@@ -73,6 +74,11 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 		
 		em.remove(em.merge(r));
 
+		
+	}
+	@Override
+	public void changeState(Recommendation r) {
+		em.merge(r);
 		
 	}
 

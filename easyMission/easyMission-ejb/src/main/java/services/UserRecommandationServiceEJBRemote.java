@@ -14,4 +14,5 @@ public interface UserRecommandationServiceEJBRemote {
 	public List<Recommendation>findAllRecommandation();
 	public Recommendation FindRecommandationBTextAndRecommander(String text);
 	public void deleteRecommandation(Recommendation r);
+	public void changeState(Recommendation r);
 }

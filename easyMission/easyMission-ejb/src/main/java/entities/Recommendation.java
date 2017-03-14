@@ -24,6 +24,7 @@ public class Recommendation implements Serializable {
 	@Id
 	private RecommendationId idRecommendation ;
 	private String text ;
+	private int State;
 	private Date date ;
 	@ManyToOne(cascade = { CascadeType.PERSIST ,CascadeType.MERGE},fetch=FetchType.EAGER)
 	@JoinColumn(name="idRecommendedPK",insertable=false,updatable=false)
@@ -37,6 +38,14 @@ public class Recommendation implements Serializable {
 		super();
 	}
 	
+	public int getState() {
+		return State;
+	}
+
+	public void setState(int state) {
+		State = state;
+	}
+
 	public Recommendation(RecommendationId idRecommendation, String text, User recommended,
 			User recommender) {
 		super();
