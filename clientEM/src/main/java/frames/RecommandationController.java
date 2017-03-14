@@ -21,6 +21,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import delegate.RecommadationServiceDelegate;
 import delegate.UserServiceDelegate;
 import entities.Employer;
+import entities.Rating;
 import entities.Recommendation;
 import entities.Skill;
 import entities.Worker;
@@ -141,7 +142,7 @@ public class RecommandationController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			VBox box =FXMLLoader.load(getClass().getResource("DrawerContent2.fxml"));
+			VBox box =FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
 			drawer.setSidePane(box);
 			
 		
@@ -289,8 +290,18 @@ public class RecommandationController implements Initializable{
 			bdate.setText("BirthDate  :"+emp.getBirthDate());
 			bank.setText("Bank Account : "+emp.getRib());
 	        number.setText("Phone Number : "+emp.getPhoneNumber());
-	        
-	        rrr.setText("Rate :");
+
+	    	List<Rating>lrre=proxy22.findAllRate();
+	    	int rate=0;
+	    	int num=0;
+	    	for( Rating r : lrre){
+	    		if(r.getRated().getIdUser()==1){
+	    			System.out.println(r.getMark());
+	    			rate+=r.getMark();
+	    			num++;
+	    		}}
+	    	float v=rate/num;
+	        rrr.setText("Rate :"+v);
 	        picture=new File(emp.getPicture());
 	        BufferedImage bufferedImage = null;
 		      

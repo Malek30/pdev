@@ -41,6 +41,8 @@ public class DrawerContentController implements Initializable{
 
 	    @FXML
 	    private JFXButton btn4;
+	    @FXML
+	    private JFXButton btn61;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -117,6 +119,17 @@ public class DrawerContentController implements Initializable{
     void mission(ActionEvent event) throws IOException {
     	Stage stage4=new Stage();
         Parent root4 = FXMLLoader.load(getClass().getResource("ManageMission.fxml"));
+        Scene scene4 = new Scene(root4);
+        stage4.initStyle(StageStyle.UNDECORATED);
+        stage4.setScene(scene4);
+        stage4.show();
+        Stage stage41 = (Stage) btn1.getScene().getWindow();
+	    stage41.close();
+    }
+    @FXML
+    void SendMail(ActionEvent event) throws IOException {
+    	Stage stage4=new Stage();
+        Parent root4 = FXMLLoader.load(getClass().getResource("mail.fxml"));
         Scene scene4 = new Scene(root4);
         stage4.initStyle(StageStyle.UNDECORATED);
         stage4.setScene(scene4);

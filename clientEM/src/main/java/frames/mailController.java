@@ -1,6 +1,9 @@
 package frames;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -8,14 +11,21 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
-public class mailController {
+public class mailController implements Initializable{
 
     @FXML
     private JFXTextField to;
@@ -28,6 +38,11 @@ public class mailController {
 
     @FXML
     private JFXButton sendmail;
+    @FXML
+    private JFXHamburger ham;
+
+    @FXML
+    private JFXDrawer drawer;
 
 	// Event Listener on Button[#sendmail].onAction
 	@FXML
@@ -70,5 +85,35 @@ public class mailController {
 					System.out.println(e);
 				}
 		    }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			VBox box =FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
+			drawer.setSidePane(box);
+			
+		
+    	
+    	HamburgerBackArrowBasicTransition burgertask = new HamburgerBackArrowBasicTransition(ham);
+    	burgertask.setRate(-1);
+    	ham.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) ->{
+    		burgertask.setRate(burgertask.getRate() * -1);
+    		burgertask.play();
+    		if(drawer.isShown())
+            {
+                drawer.close();
+            }else
+                drawer.open();
+    		
+    		
+    	
+    	}
+    	);
+    }catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+		
+	}
 	}
 

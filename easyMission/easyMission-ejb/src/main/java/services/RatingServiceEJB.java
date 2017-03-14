@@ -72,7 +72,7 @@ public class RatingServiceEJB implements RatingServiceEJBRemote, RatingServiceEJ
 	@Override
 	public List<Rating> findAllRate() {
 		// TODO Auto-generated method stub
-		return  em.createQuery("select c from  Recommendation c ",Rating.class).getResultList();
+		return  em.createQuery("select c from  Rating c ",Rating.class).getResultList();
 	}
 
 	/*@Override
