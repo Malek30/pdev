@@ -32,5 +32,13 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/core-8.0b8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/datafx-8.0b8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/flow-8.0b8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/fontawesomefx-8.0.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/javassist.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/javax.inject.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/jfxrt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/git/pdev/retrolambda-2.0.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
