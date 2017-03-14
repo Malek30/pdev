@@ -8,6 +8,12 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import entities.Skill;
+import entities.User;
+import entities.Worker;
+import services.UserRecommandationServiceEJBRemote;
+import services.UserServicesEJBRemote;
+
 
 
 
@@ -26,7 +32,7 @@ public class MainRec {
     }
 public static void main(String[] args) throws NamingException {
 
-	/*
+	
 	
 		InitialContext ctx1=new InitialContext();
 		InitialContext ctx2=new InitialContext();
@@ -37,7 +43,7 @@ public static void main(String[] args) throws NamingException {
 		
 		
 		
-		User u1=proxy1.findUserById(4);
+		/*User u1=proxy1.findUserById(4);
 		User u2=proxy1.findUserById(3);
 		//proxy.addUserRecommandation(u1, u2, "nhhh");
 		
@@ -54,15 +60,25 @@ public static void main(String[] args) throws NamingException {
 			}}
 		
 	*/
-String mail="malek.bejaoui@esprit.tn";
- boolean x=isEmail(mail);
- if (x==true) {
-	 System.out.println("ok");
-	
-}else{
-	System.out.println("no ok");
-}
-	
+Worker emp=(Worker) proxy1.findUserById(2);
+		ArrayList<Skill>skill=(ArrayList<Skill>)proxy1.findAllSkills();
+		ArrayList<Skill>skk=new ArrayList<>();
+		List<Skill>userSkill=emp.getSkills();
+		ArrayList<Skill>nsk=new ArrayList<>();
+		for(Skill s: skill){
+			skk.add(s);
+			for( Skill s1 : userSkill){
+				if(s.getName().equals(s1.getName())){
+					skk.remove(s);
+				}
+			}
+			
+		}
+		
+		for(Skill s1 : skk){
+			System.out.println(s1.getName());
+		}
+		
 		
 	}
 }

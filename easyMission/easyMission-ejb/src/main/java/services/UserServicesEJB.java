@@ -133,6 +133,20 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 		return em.createQuery("select DISTINCT c from  Worker c ",Worker.class).getResultList();
 	}
 
+	@Override
+	public Skill findSkillByName(String name) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select c from Skill c where c.name=:pname",Skill.class)
+				.setParameter("pname", name).getSingleResult();
+	}
+
+	@Override
+	public User findUserByLogin(String Login) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select c from User c where c.Login=:pname",User.class)
+				.setParameter("pname", Login).getSingleResult();
+	}
+
 	
 
 }

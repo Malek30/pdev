@@ -98,7 +98,7 @@
       </Text>
       <ComboBox fx:id="sk" layoutX="785.0" layoutY="100.0" opacity="0.6" prefHeight="41.0" prefWidth="297.0" promptText="Workers List" />
       <Button fx:id="show" layoutX="1121.0" layoutY="105.0" mnemonicParsing="false" onAction="#show" style="-fx-background-color: white;" text="Show Profile" />
-      <TextField layoutX="785.0" layoutY="167.0" prefHeight="41.0" prefWidth="297.0" promptText="Type A Recommandation" />
+      <TextField fx:id="txtrcd" layoutX="785.0" layoutY="167.0" prefHeight="41.0" prefWidth="297.0" promptText="Type A Recommandation" />
       <Button fx:id="add" layoutX="1121.0" layoutY="172.0" mnemonicParsing="false" onAction="#add" style="-fx-background-color: white;" text="Add Recommandation" />
    </children>
 </AnchorPane>

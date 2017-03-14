@@ -12,7 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,6 +41,9 @@ public class frame1Controller implements Initializable{
 	private Button l2;
 	@FXML
 	private Button exit;
+	@FXML
+	private Button forgot;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -122,5 +127,20 @@ else{
     	Stage stage = (Stage) l1.getScene().getWindow();
 	    stage.close();
     }
-	
+    @FXML
+    void forgot(ActionEvent event) throws IOException {
+    	Stage stage = (Stage) l1.getScene().getWindow();
+	    stage.close();
+	    Parent root = FXMLLoader.load(getClass().getResource("pwdSMS.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
+    	/*String nexmocmd =  "https://rest.nexmo.com/sms/json?api_key=542596a0&api_secret=84e0847c33281792&from=NEXMO&to="+216+num+"&text="+code;
+        String response = executeGet(nexmocmd);
+        if (response != null) {
+            System.out.println("sent");
+        } else {
+           System.out.println("not sent");
+        }*/
+    }
 }

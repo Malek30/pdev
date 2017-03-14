@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import entities.Employer;
 import entities.Recommendation;
 import entities.Skill;
 import entities.Worker;
@@ -26,11 +27,15 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +44,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
@@ -108,6 +114,8 @@ public class RecommandationController implements Initializable{
 
     @FXML
     private Button show;
+    @FXML
+    private TextField txtrcd;
 
     @FXML
     private Button add;
@@ -169,7 +177,46 @@ public class RecommandationController implements Initializable{
 		
 	}
 	 @FXML
-	    void add(ActionEvent event) {
+	    void add(ActionEvent event) throws NamingException, IOException {
+
+			InitialContext ctx1=new InitialContext();
+			InitialContext ctx2=new InitialContext();
+			Object objet2=ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
+			Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
+			UserRecommandationServiceEJBRemote proxy=(UserRecommandationServiceEJBRemote)objet2;
+			UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
+			Employer emp=proxy1.findEmploerById(frame1Controller.id);
+			Worker w=null;
+			try{
+			w=proxy1.findWorkerByName(sk.getValue().toString());
+			}catch(Exception e) {
+				Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+				alert2.setTitle("Warning ");
+				alert2.setHeaderText(null);
+				alert2.setContentText("select User to recommand" );
+
+				alert2.showAndWait();
+			}
+			
+			if(txtrcd.getText().equals(null)){}else{
+				try{
+			proxy.addUserRecommandation(emp,w,txtrcd.getText() );}
+			catch (Exception e) {
+				Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+				alert2.setTitle("Warning ");
+				alert2.setHeaderText(null);
+				alert2.setContentText("User Already Recommanded" );
+
+				alert2.showAndWait();
+			}}
+			Stage stage14 = (Stage) desc.getScene().getWindow();
+		    stage14.close();
+			Stage stage3=new Stage();
+            Parent root3 = FXMLLoader.load(getClass().getResource("RecommandationFRame.fxml"));
+            Scene scene13 = new Scene(root3);
+            stage3.initStyle(StageStyle.UNDECORATED);
+            stage3.setScene(scene13);
+            stage3.show();
 
 	    }
 

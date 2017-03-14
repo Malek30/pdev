@@ -112,6 +112,8 @@ public class EditWorkerController implements Initializable{
     private TableColumn<Recommendation, String> txt;
     @FXML
     private Button delrcd;
+    @FXML
+    private Button delsk;
 
     @FXML
     private TableColumn<Recommendation, String> user;
@@ -184,6 +186,7 @@ public class EditWorkerController implements Initializable{
 		int userid=emp.getIdUser();
 		List<Skill> sklist=proxy.findAllSkills();
 		List<Worker>lw=proxy.findAllWorkers();
+		List<Skill>userSkill=emp.getSkills();
 		
 		List<Worker>lworkers=null;
 		data=FXCollections.observableArrayList();
@@ -193,12 +196,33 @@ public class EditWorkerController implements Initializable{
 				if(w.getIdUser()==userid){
 					lskl.add(s);}}}
 		
-		for( Skill s : lskl){
+		for( Skill s : userSkill){
 			System.out.println(s.getName());
 			data.add(new Skill(s.getName()));
 		}
 		tabskill.setItems(data);
 		skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
+		
+		
+		ArrayList<Skill>skill=(ArrayList<Skill>)proxy.findAllSkills();
+		ArrayList<Skill>skk=new ArrayList<>();
+		
+		ArrayList<Skill>nsk=new ArrayList<>();
+		for(Skill s: skill){
+			skk.add(s);
+			for( Skill s1 : userSkill){
+				if(s.getName().equals(s1.getName())){
+					skk.remove(s);
+				}
+			}
+			
+		}
+		
+		
+			
+		
+		data2 =FXCollections.observableArrayList(skk);
+		sk.getItems().addAll(data2);
 		//-------------------------- list recommandation-----------
 		InitialContext ctx2 = null;
 		try {
@@ -249,10 +273,8 @@ public class EditWorkerController implements Initializable{
 		 image = SwingFXUtils.toFXImage(bufferedImage, null);
 		
 			ppic.setImage(image);
-			ArrayList<Skill>skill=(ArrayList<Skill>)proxy.findAllSkills();
 			
-			data2 =FXCollections.observableArrayList(skill);
-			sk.getItems().addAll(data2);
+			
 	}
     @FXML
     void exit(ActionEvent event) {
@@ -279,14 +301,62 @@ public class EditWorkerController implements Initializable{
     			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
     			//-------update-------
     			Worker emp=proxy.findWorkerById(frame1Controller.id);
-    			emp.setFirstName(firstname.getText());
-    			emp.setLastName(lastname.getText());
-    			emp.setEmail(email.getText());
-    	    	emp.setField(field.getValue().toString());
-    	    	emp.setBirthDate(bdate.getValue().toString());
-    	    	emp.setPhoneNumber(cnumber.getText());
-    	    	emp.setDescription(desc.getText());
-    	    	emp.setPicture(picture1.toString());
+    			
+    			if(firstname.getText().equals("")){
+    				String fn=emp.getFirstName();
+    				emp.setFirstName(fn);
+    			}else{
+    				emp.setFirstName(firstname.getText());	
+    			}
+    			
+    			if(lastname.getText().equals("")){
+    				String ln=emp.getLastName();
+    				emp.setLastName(ln);
+    			}else{
+    				emp.setLastName(lastname.getText());
+    			}
+    			
+    			if(email.getText().equals("")){
+    				String em=emp.getEmail();
+    				emp.setEmail(em);
+    			}else{
+    				emp.setEmail(email.getText());
+    			}
+    			
+    			if(field.getValue()==null){
+    				String f=emp.getField();
+    				emp.setField(f);
+    			}else{
+    				emp.setField(field.getValue().toString());
+    			}
+    			
+    			if(bdate.getValue()==null){
+    				String BD=emp.getBirthDate();
+    				emp.setBirthDate(BD);
+    			}else{
+    				emp.setBirthDate(bdate.getValue().toString());
+    			}
+    	    	
+    	    	
+    	    	if(cnumber.getText().equals("")){
+    				String ad=emp.getPhoneNumber();
+    				emp.setPhoneNumber(ad);
+    			}else{
+    				emp.setPhoneNumber(cnumber.getText());
+    			}
+    	    	if(desc.getText().equals("")){
+    				String ad=emp.getDescription();
+    				emp.setDescription(ad);
+    			}else{
+    				emp.setDescription(desc.getText());
+    			}
+    	    	if(picture1==null){
+    				String ad=emp.getPicture();
+    				emp.setPicture(ad);
+    			}else{
+    				emp.setPicture(picture1.toString());
+    			}
+    	    	
     	    	emp.setSkills(lskl);
     	    	proxy.updateWorker(emp);
     	    	Stage stage = (Stage) desc.getScene().getWindow();
@@ -351,6 +421,33 @@ public class EditWorkerController implements Initializable{
     
     	
 
+    }
+    @FXML
+    void delskill(ActionEvent event) throws NamingException, IOException {
+    	InitialContext ctx1=new InitialContext();
+    	Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
+    	UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
+    	Worker emp=proxy1.findWorkerById(frame1Controller.id);
+    	List<Skill>ls=emp.getSkills();
+    	Skill s11=tabskill.getSelectionModel().getSelectedItem();
+    	Skill s=proxy1.findSkillByName(s11.getName());
+    	List<Skill>l=new ArrayList<>();
+    	for(Skill s1 : ls){
+    		l.add(s1);
+    		if(s1.getName().equals(s.getName())){
+    			l.remove(s1);
+    		}
+    	}
+    	emp.setSkills(l);
+    	proxy1.updateWorker(emp);
+    	Stage stage = (Stage) desc.getScene().getWindow();
+	    stage.close();
+	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
+    	
+    	
     }
 
 }

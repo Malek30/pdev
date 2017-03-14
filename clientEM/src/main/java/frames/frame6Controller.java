@@ -1,9 +1,10 @@
 package frames;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
@@ -91,7 +92,7 @@ public class frame6Controller implements Initializable{
 	}
 	// Event Listener on Button[#fill].onAction
 	@FXML
-	public void handleButtonAction(ActionEvent event) throws NamingException {
+	public void handleButtonAction(ActionEvent event) throws NamingException, IOException {
 		InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
@@ -136,10 +137,11 @@ public class frame6Controller implements Initializable{
 		alert.showAndWait();
 		Stage stage = (Stage) c.getScene().getWindow();
 	    stage.close();
-//	    Parent root = FXMLLoader.load(getClass().getResource("frame5.fxml"));
-//        Scene scene1 = new Scene(root);
-//        stage.setScene(scene1);
-//        stage.show();
+	    
+	    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
 		
 	}
 	@Override

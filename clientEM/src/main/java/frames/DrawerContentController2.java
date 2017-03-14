@@ -49,7 +49,14 @@ public class DrawerContentController2 implements Initializable{
         switch(btn.getText())
         {
             case "Home":
-            	
+            	Stage stage2=new Stage();
+                Parent root2 = FXMLLoader.load(getClass().getResource("User2.fxml"));
+                Scene scene11 = new Scene(root2);
+                stage2.initStyle(StageStyle.UNDECORATED);
+                stage2.setScene(scene11);
+                stage2.show();
+                Stage stage22 = (Stage) btn1.getScene().getWindow();
+    		    stage22.close();
 
             
                 break;

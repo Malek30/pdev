@@ -1,9 +1,10 @@
 package frames;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -162,6 +163,10 @@ public class frame7Controller implements Initializable{
 		alert.showAndWait();
 		Stage stage = (Stage) d.getScene().getWindow();
 	    stage.close();
+	    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        stage.show();
 		
 	}
 	@FXML

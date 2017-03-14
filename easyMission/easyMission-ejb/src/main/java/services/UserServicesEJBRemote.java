@@ -23,6 +23,7 @@ public interface UserServicesEJBRemote {
 	public void deleteEmploer(Employer E);
 	public void deleteWorker(Worker w);
 	public User findUserById(int idUser);
+	public User findUserByLogin(String Login);
 	public Employer findEmploerById(int idEmploer);
 	public Worker findWorkerById(int idWorker);
 	public User findUserByName(String name);
@@ -31,5 +32,6 @@ public interface UserServicesEJBRemote {
 	public User findUserBYLoginAndPassword(String login ,String pwd);
 	public List<Skill> findAllSkills();
 	public List<Worker> findAllWorkers();
+	public Skill findSkillByName(String name);
 
 }

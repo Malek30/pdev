@@ -249,19 +249,80 @@ public class EditEmployerController implements Initializable{
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
 		//-------update-------
 		Employer emp=proxy.findEmploerById(frame1Controller.id);
-		String fname=null;
+		//String fname=null;
 		
-		emp.setFirstName(firstname.getText());
-		emp.setLastName(lastname.getText());
-		emp.setEmail(email.getText());
-    	emp.setField(field.getValue().toString());
-    	emp.setBirthDate(bdate.getValue().toString());
-    	emp.setAdress(address.getText());
-    	emp.setCompany(cname.getText());
-    	emp.setCompanyNumber(cnumber.getText());
-    	emp.setCompanyLogo(picture.toString());
-    	emp.setPicture(picture1.toString());
-    	proxy.updateEmployer(emp);
+		if(firstname.getText().equals("")){
+			String fn=emp.getFirstName();
+			emp.setFirstName(fn);
+		}else{
+			emp.setFirstName(firstname.getText());	
+		}
+		
+		if(lastname.getText().equals("")){
+			String ln=emp.getLastName();
+			emp.setLastName(ln);
+		}else{
+			emp.setLastName(lastname.getText());
+		}
+		
+		if(email.getText().equals("")){
+			String em=emp.getEmail();
+			emp.setEmail(em);
+		}else{
+			emp.setEmail(email.getText());
+		}
+		
+		if(field.getValue()==null){
+			String f=emp.getField();
+			emp.setField(f);
+		}else{
+			emp.setField(field.getValue().toString());
+		}
+		
+		if(bdate.getValue()==null){
+			String BD=emp.getBirthDate();
+			emp.setBirthDate(BD);
+		}else{
+			emp.setBirthDate(bdate.getValue().toString());
+		}
+		
+		if(address.getText().equals("")){
+			String ad=emp.getAdress();
+			emp.setAdress(ad);
+		}else{
+			emp.setAdress(address.getText());
+		}
+		
+		if(cname.getText().equals("")){
+			String ad=emp.getCompany();
+			emp.setCompany(ad);
+		}else{
+			emp.setCompany(cname.getText());
+		}
+		
+		if(cnumber.getText().equals("")){
+			String ad=emp.getCompanyNumber();
+			emp.setCompanyNumber(ad);
+		}else{
+			emp.setCompanyNumber(cnumber.getText());
+		}
+		
+		if(picture.toString().equals("")){
+			String ad=emp.getCompanyLogo();
+			emp.setCompanyLogo(ad);
+		}else{
+			emp.setCompanyLogo(picture.toString());
+		}
+		
+		if(picture1.toString().equals("")){
+			String ad=emp.getPicture();
+			emp.setPicture(ad);
+		}else{
+			emp.setPicture(picture1.toString());
+		}
+		//System.out.println("1"+field.getValue().toString());
+		//System.out.println("2"+bdate.getValue().toString());
+		proxy.updateEmployer(emp);
     	Stage stage = (Stage) cname.getScene().getWindow();
 	    stage.close();
 	    Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
