@@ -21,12 +21,14 @@ import java.util.ResourceBundle;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.User;
 import entities.Worker;
 import javafx.event.ActionEvent;
 
 public class frame1Controller implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static Employer e=null;
 	public static Worker w=null;
 	public static String x="";
@@ -52,13 +54,14 @@ public class frame1Controller implements Initializable{
 	}
   @FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
-    	InitialContext ctx=new InitialContext();
+    	/*InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		User u1=null;
 		
 		try {
-			u1=proxy.findUserBYLoginAndPassword(login.getText(),pwd.getText());
+			//u1=proxy.findUserBYLoginAndPassword(login.getText(),pwd.getText());
+			u1=delegate.doFindUserByLoginAndPassword(login.getText(), pwd.getText());
 			
 		} catch (Exception e) {
 			Alert alert2 = new Alert(Alert.AlertType.INFORMATION);

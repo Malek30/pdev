@@ -27,6 +27,7 @@ import javax.naming.NamingException;
 
 import org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.Work;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Skill;
 import entities.Worker;
@@ -45,6 +46,8 @@ import services.UserServicesEJBRemote;
 import javafx.scene.control.TextArea;
 
 public class frame7Controller implements Initializable{
+	
+	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static ArrayList<Skill>skill=new ArrayList<>();
 	public static Image image,image2;
 	private  static ObservableList<Skill>data;
@@ -119,13 +122,17 @@ public class frame7Controller implements Initializable{
 	@FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
 		//------cnx serveur---------
-		InitialContext ctx=new InitialContext();
+		/*InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
-		Worker y=(Worker) proxy.findUserByName(frameE4Controller.nn);
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
+		
+		//Worker y=(Worker) proxy.findUserByName(frameE4Controller.nn);
+		Worker y=(Worker) delegate.doFindUserByName(frameE4Controller.nn);
 		System.out.println("test"+frameW3Controller2.nn);
-		Worker x=(Worker) proxy.findUserById(y.getIdUser());
-		System.out.println("that work "+x.getFirstName());
+		
+		//Worker x=(Worker) proxy.findUserById(y.getIdUser());
+		Worker x=(Worker)delegate.doFindUserById(y.getIdUser());
+		//System.out.println("that work "+x.getFirstName());
 		//----------------------------
 		if((pn.getText().equals(""))||(rib.getText().equals(""))||(d.getText().equals(""))||(picture.toString().equals(""))
 				||(picture2.toString().equals(""))){
@@ -144,7 +151,8 @@ public class frame7Controller implements Initializable{
 		x.setSkills(skill);
 		
 		try {
-			proxy.updateWorker(x);
+			//proxy.updateWorker(x);
+			delegate.doUpdateWorker(x);
 			
 		} catch (Exception E) {
 			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);

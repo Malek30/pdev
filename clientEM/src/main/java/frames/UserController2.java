@@ -15,6 +15,9 @@ import javax.naming.NamingException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+
+import delegate.UserServiceDelegate;
+
 import java.awt.image.BufferedImage;
 import entities.Employer;
 import entities.Recommendation;
@@ -45,6 +48,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class UserController2 implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
+
 	private  static ObservableList<Skill>data;
 	private  static ObservableList<Recommendation>data1;
     public static Image image;
@@ -116,7 +121,7 @@ public class UserController2 implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//-------------- server cnx------------
-		InitialContext ctx = null;
+		/*InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
 		} catch (NamingException e2) {
@@ -130,7 +135,7 @@ public class UserController2 implements Initializable{
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		
 		
 		
@@ -154,7 +159,8 @@ public class UserController2 implements Initializable{
 		e1.printStackTrace();
 	}
 		//a-----------------affichage
-			Worker emp=proxy.findWorkerById(frame1Controller.id);
+			//Worker emp=proxy.findWorkerById(frame1Controller.id);
+			Worker emp=delegate.doFindWorkerById(frame1Controller.id);
 			System.out.println(emp.getFirstName());
 			fn.setText("First Name : "+emp.getFirstName());
 			ln.setText("Last Name : "+emp.getLastName());
@@ -181,8 +187,10 @@ public class UserController2 implements Initializable{
 				desc.setText(emp.getDescription());
 				//----------------list skills
 				int userid=emp.getIdUser();
-				List<Skill> sklist=proxy.findAllSkills();
-				List<Worker>lw=proxy.findAllWorkers();
+			//	List<Skill> sklist=proxy.findAllSkills();
+				List<Skill> sklist=delegate.dofindAllSkills();
+				//List<Worker>lw=proxy.findAllWorkers();
+				List<Worker>lw=delegate.doFindAllWorker();
 				List<Skill>lskl=new ArrayList<>();
 				List<Worker>lworkers=null;
 				data=FXCollections.observableArrayList();

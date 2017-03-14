@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +25,14 @@ public class Mission implements Serializable {
 	private String title;
 
 	private String description;
-	private String skills;
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<Skill> skills=new ArrayList<Skill>();
 	private String field;
 	private float price;
 	private String state;
 	private Date startDate;
 	private Date endDate;
+	@ManyToOne
 	private Worker worker;
 	private String missionType;
 	private Boolean local;
@@ -46,6 +49,89 @@ public class Mission implements Serializable {
 	public Mission() {
 		super();
 	}
+	
+
+	public Mission(String title, String description, String field, float price, String state, Date startDate,
+			Date endDate, String missionType, Boolean local) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionType = missionType;
+		this.local = local;
+	}
+
+
+	public Mission(String title, String description, List<Skill> skills, String field, float price, String state,
+			Date startDate, Date endDate, String missionType, Boolean local) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.skills = skills;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionType = missionType;
+		this.local = local;
+	}
+	public Mission( int idMission,  String title,  float price,String state,String field,Employer employer,  
+			Date startDate, Date endDate, String missionType, List<Skill> skills,String description) {
+		super();
+		this.idMission = idMission;
+		this.title = title;
+		this.description = description;
+		this.skills = skills;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionType = missionType;
+		this.employer = employer;
+		
+	}
+	
+	
+
+
+	public Mission(int idMission, Employer employer, String title, String description, List<Skill> skills, String field,
+			float price, String state, Date startDate, Date endDate, String missionType) {
+		super();
+		this.idMission = idMission;
+		this.employer = employer;
+		this.title = title;
+		this.description = description;
+		this.skills = skills;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionType = missionType;
+	}
+
+
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
+
+	public Mission(String title) {
+		super();
+		this.title = title;
+	}
+
 
 	public int getIdMission() {
 		return this.idMission;
@@ -73,13 +159,41 @@ public class Mission implements Serializable {
 		this.description = description;
 	}
 
-	public String getSkills() {
-		return skills;
+
+
+	public Employer getEmployer() {
+		return employer;
 	}
 
-	public void setSkills(String skills) {
-		this.skills = skills;
+	public void setEmployer(Employer employer) {
+		this.employer = employer;
 	}
+
+	public List<Suggestion> getSuggestions() {
+		return suggestions;
+	}
+
+	public void setSuggestions(List<Suggestion> suggestions) {
+		this.suggestions = suggestions;
+	}
+
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	public List<Repport> getRepports() {
+		return repports;
+	}
+
+	public void setRepports(List<Repport> repports) {
+		this.repports = repports;
+	}
+
+	
 
 	public String getField() {
 		return field;
@@ -145,4 +259,34 @@ public class Mission implements Serializable {
 		this.local = local;
 	}
 
+
+	public Mission(List<Skill> skills) {
+		super();
+		this.skills = skills;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Mission [idMission=" + idMission + ", employer=" + employer + ", title=" + title + ", description="
+				+ description + ", skills=" + skills + ", field=" + field + ", price=" + price + ", state=" + state
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", worker=" + worker + ", missionType="
+				+ missionType + ", local=" + local + ", suggestions=" + suggestions + ", applications=" + applications
+				+ ", repports=" + repports + "]";
+	}
+	public Mission(String title, String description, String field, float price, String state, Date startDate,
+			Date endDate,  String missionType, Boolean local, List<Skill> skills) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionType = missionType;
+		this.local = local;
+		this.skills = skills;
+	}
+	
 }

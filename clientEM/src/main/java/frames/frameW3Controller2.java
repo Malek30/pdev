@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import javafx.event.ActionEvent;
 
@@ -31,6 +32,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 
 public class frameW3Controller2 implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static String nn;
 	@FXML
 	private TextField fn;
@@ -72,11 +74,12 @@ public class frameW3Controller2 implements Initializable{
 		coutry.getItems().addAll(
 	            "Usa",
 	            "Canada",
-	            "Tunusia",
+	            "Tunisia",
 	            "Italie",
 	            "Germany");
 	    
 	field.getItems().addAll(
+			"IT",
             "Mecanique",
             "Informatique",
             "Design",
@@ -92,9 +95,9 @@ public class frameW3Controller2 implements Initializable{
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
     	
     	//------serveur cnx---------
-    	InitialContext ctx=new InitialContext();
+    	/*InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		//------------
 		Employer e=new Employer();
 		Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
@@ -152,7 +155,8 @@ public class frameW3Controller2 implements Initializable{
 		e.setState("active");
 		//e.setType("employer");
 		try {
-			proxy.addEmployer(e);
+			//proxy.addEmployer(e);
+			delegate.doAddEmployer(e);
 			
 		} catch (Exception E) {
 			Alert alert21 = new Alert(Alert.AlertType.INFORMATION);

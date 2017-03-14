@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,6 +22,8 @@ public class Skill implements Serializable {
 	private String name;	
 	@ManyToMany(mappedBy="skills",fetch=FetchType.EAGER)
 	private List<Worker> workers;
+	@ManyToMany(mappedBy="skills",cascade={CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
+	private List<Mission> missions= new ArrayList<Mission>();
 	private static final long serialVersionUID = 1L;
 
 	public Skill() {
@@ -55,6 +58,14 @@ public class Skill implements Serializable {
 	@Override
 	public String toString() {
 		return "" + name ;
+	}
+
+	public List<Mission> getMissions() {
+		return missions;
+	}
+
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
 	}
    
 }

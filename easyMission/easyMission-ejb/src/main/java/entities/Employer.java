@@ -3,6 +3,7 @@ package entities;
 import entities.User;
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Employer extends User implements Serializable {
 	private String company;
 	private String companyNumber;
 	private String CompanyLogo;
-	@OneToMany(mappedBy="employer")
+	@OneToMany(mappedBy="employer",fetch=FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Mission> missions;
 	
 	@OneToMany(mappedBy="employer")
@@ -63,6 +64,30 @@ public class Employer extends User implements Serializable {
 		return "Employer [adress=" + adress + ", company=" + company + ", companyNumber=" + companyNumber
 				+ ", CompanyLogo=" + CompanyLogo + ", missions=" + missions + ", suggestions=" + suggestions + "]";
 	}
+	public List<Mission> getMissions() {
+		return missions;
+	}
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+	public List<Suggestion> getSuggestions() {
+		return suggestions;
+	}
+	public void setSuggestions(List<Suggestion> suggestions) {
+		this.suggestions = suggestions;
+	}
 	
+	public Employer(int idUser, String login, String firstName, String lastName, String email, String password,
+			String country, String state,String adress,String company) {
+		super(idUser, login, firstName, lastName, email, password, country, state);
+		this.adress=adress;
+		this.company=company;
+	}
+	public void addMission(Mission m)
+	{
+		if (this.missions == null)
+			this.missions= new ArrayList<Mission>();
+		this.missions.add(m);
+	}
    
 }

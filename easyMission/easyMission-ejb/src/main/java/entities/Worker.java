@@ -26,6 +26,8 @@ public class Worker extends User implements Serializable {
 	private List<Suggestion> suggestions ;
 	@OneToMany(mappedBy="worker")
 	private List<Application> applications ;
+	@OneToMany(mappedBy="worker")
+	private List<Mission> missions ;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -76,6 +78,13 @@ public class Worker extends User implements Serializable {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public Worker(int idUser, String login, String firstName, String lastName, String email, String password,
+			String country, String state,String cv,String description,List<Skill> skills) {
+		super(idUser, login, firstName, lastName, email, password, country, state);
+		this.cv=cv;
+		this.description=description;
+		this.skills=skills;
 	}
 
    

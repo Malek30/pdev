@@ -35,20 +35,34 @@ public class User implements Serializable {
 	@OneToMany
 	private List<Notification> notifications;
 	// fetch=FetchType.LAZY 
-	@OneToMany(mappedBy="user")	
+	@OneToMany(mappedBy="user",cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)	
 	private List<Contact> contacts =new ArrayList<Contact>() ;
+	public List<Contact> getReflexiveContacts() {
+		return reflexiveContacts;
+	}
+	public void setReflexiveContacts(List<Contact> reflexiveContacts) {
+		this.reflexiveContacts = reflexiveContacts;
+	}
 	@OneToMany(mappedBy="recommender",cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private List<Recommendation> recommendations;
 	@OneToMany(mappedBy="recommended", cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private List<Recommendation> recievedRecomendations;
 	@OneToMany(mappedBy="reciever")
 	private List<Discussion> discussions ;
-	@OneToMany(mappedBy="rater")
+	
+	@OneToMany(mappedBy="rater",cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Rating> ratings ;
-	@OneToMany(mappedBy="rated")
+	
+	@OneToMany(mappedBy="rated",cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Rating> recievedRatings;
+
+
+	
+	
 	@OneToMany(mappedBy="user")
 	private List<Repport> repports;
+	@OneToMany(mappedBy = "contact", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	private List<Contact> reflexiveContacts ;
 	
  
 	private static final long serialVersionUID = 1L;
@@ -171,7 +185,18 @@ public class User implements Serializable {
 	public void setLogin(String login) {
 		Login = login;
 	}
-
+	public User(int idUser, String login, String firstName, String lastName, String email, String password,
+			String country, String state) {
+		super();
+		this.idUser = idUser;
+		Login = login;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.country = country;
+		this.state = state;
+	}
 	
 	
 	

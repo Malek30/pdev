@@ -19,6 +19,14 @@ public class RepportId implements Serializable {
 	public RepportId() {
 		super();
 	}
+	
+
+	public RepportId(int idUserPK, int idMisssionPK) {
+		super();
+		this.idUserPK = idUserPK;
+		this.idMisssionPK = idMisssionPK;
+	}
+
 
 	@Override
 	public int hashCode() {

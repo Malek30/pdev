@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Worker;
 import javafx.embed.swing.SwingFXUtils;
@@ -34,6 +35,8 @@ import javafx.scene.layout.VBox;
 
 
 public class UserController implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
+
 
     @FXML
     public static AnchorPane ap;
@@ -90,7 +93,7 @@ public class UserController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		InitialContext ctx = null;
+		/*InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
 		} catch (NamingException e2) {
@@ -104,7 +107,7 @@ public class UserController implements Initializable{
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		try {
 			VBox box =FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
 			drawer.setSidePane(box);
@@ -142,7 +145,8 @@ public class UserController implements Initializable{
 		}
 		
 			//System.out.println("user is employer");
-			Employer emp=proxy.findEmploerById(frame1Controller.id);
+		//	Employer emp=proxy.findEmploerById(frame1Controller.id);
+		Employer emp=delegate.doFindEmployerById(frame1Controller.id);
 			
 			System.out.println(emp.getFirstName());
 			fn.setText("First Name : "+emp.getFirstName());

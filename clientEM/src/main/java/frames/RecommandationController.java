@@ -15,9 +15,11 @@ import javax.naming.NamingException;
 import javafx.fxml.Initializable;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import delegate.RecommadationServiceDelegate;
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Recommendation;
 import entities.Skill;
@@ -46,11 +48,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import services.RatingServiceEJBRemote;
 import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
 public class RecommandationController implements Initializable{
 	private RecommadationServiceDelegate delegate=new RecommadationServiceDelegate();
+	UserServiceDelegate delegate1= new UserServiceDelegate();
 	@FXML
     private AnchorPane ap;
 
@@ -118,6 +122,13 @@ public class RecommandationController implements Initializable{
     private Button show;
     @FXML
     private TextField txtrcd;
+    @FXML
+    private JFXSlider rvalue;
+
+    @FXML
+    private Button rate;
+    @FXML
+    private Text rrr;
 
     @FXML
     private Button add;
@@ -169,6 +180,22 @@ public class RecommandationController implements Initializable{
 			e2.printStackTrace();
 		}
 		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		InitialContext ctx2 = null;
+		try {
+			ctx2 = new InitialContext();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	try {
+			RatingServiceEJBRemote proxy2 = (RatingServiceEJBRemote)ctx2.lookup("/easyMission-ear/easyMission-ejb/RatingServiceEJB!services.RatingServiceEJBRemote");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		
+		
 		ArrayList<Worker>workers=(ArrayList<Worker>)proxy.findAllWorkers();
 		List<String>workername=new ArrayList<>();
 		for(Worker w : workers){
@@ -232,7 +259,10 @@ public class RecommandationController implements Initializable{
 	    }
 
 	    @FXML
-	    void show(ActionEvent event) {
+	    void show(ActionEvent event) throws NamingException {
+	    	InitialContext ctx22 = new InitialContext();
+	    	RatingServiceEJBRemote proxy22 = (RatingServiceEJBRemote)ctx22.lookup("/easyMission-ear/easyMission-ejb/RatingServiceEJB!services.RatingServiceEJBRemote");
+	    	
 	    	String name=sk.getValue().toString();
 	    	InitialContext ctx = null;
 			try {
@@ -259,6 +289,8 @@ public class RecommandationController implements Initializable{
 			bdate.setText("BirthDate  :"+emp.getBirthDate());
 			bank.setText("Bank Account : "+emp.getRib());
 	        number.setText("Phone Number : "+emp.getPhoneNumber());
+	        
+	        rrr.setText("Rate :");
 	        picture=new File(emp.getPicture());
 	        BufferedImage bufferedImage = null;
 		      
@@ -331,6 +363,41 @@ public class RecommandationController implements Initializable{
 	    	
 	    	
 	    }
+	    
+	    @FXML
+	    void rate(ActionEvent event) throws NamingException, IOException {
+	    	InitialContext ctx2 = new InitialContext();
+	    	RatingServiceEJBRemote proxy2 = (RatingServiceEJBRemote)ctx2.lookup("/easyMission-ear/easyMission-ejb/RatingServiceEJB!services.RatingServiceEJBRemote");
+	    	Worker w=null;
+			w=(Worker) delegate1.doFindUserByName(sk.getValue().toString());
+			Employer emp=null;
+			emp=delegate1.doFindEmployerById(frame1Controller.id);
+			int x=(int) rvalue.getValue();
+			float y=Float.parseFloat(x+"");
+			System.out.println("test"+emp.getFirstName());
+			System.out.println(y);
+			try{
+			proxy2.AddRate(emp, w,y);
+			}catch(Exception e){
+				Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+				alert2.setTitle("Warning ");
+				alert2.setHeaderText(null);
+				alert2.setContentText("User Already Rated" );
+
+				alert2.showAndWait();
+			}
+			Stage stage14 = (Stage) desc.getScene().getWindow();
+		    stage14.close();
+			Stage stage3=new Stage();
+            Parent root3 = FXMLLoader.load(getClass().getResource("RecommandationFRame.fxml"));
+            Scene scene13 = new Scene(root3);
+            stage3.initStyle(StageStyle.UNDECORATED);
+            stage3.setScene(scene13);
+            stage3.show();
+
+			
+	    }
+
 
 
 }

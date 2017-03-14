@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Worker;
 import javafx.event.ActionEvent;
@@ -32,6 +33,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 
 public class frameE4Controller implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
+
 	public static String nn;
 	@FXML
 	private TextField fn;
@@ -78,6 +81,7 @@ public class frameE4Controller implements Initializable{
 	            "Germany");
 	    
 	field.getItems().addAll(
+			"IT",
             "Mecanique",
             "Informatique",
             "Design",
@@ -91,9 +95,9 @@ public class frameE4Controller implements Initializable{
        
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
-    	InitialContext ctx=new InitialContext();
+    	/*InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		Worker e=new Worker();
 		Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
 		alert2.setTitle("missing fiels");
@@ -148,7 +152,8 @@ public class frameE4Controller implements Initializable{
 		//e.setType("worker");
 		
 		try {
-			proxy.addWorker(e);
+			//proxy.addWorker(e);
+			delegate.doAddWorker(e);
 			
 		} catch (Exception E) {
 			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);

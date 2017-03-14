@@ -1,5 +1,7 @@
 package delegate;
 
+import java.util.List;
+
 import javax.naming.NamingException;
 
 import entities.Recommendation;
@@ -15,6 +17,16 @@ public class RecommadationServiceDelegate {
 	}
 	public static void doAddRecommandation( User u1,User u2,String text)throws NamingException {
 		getProxy().addUserRecommandation(u1, u2, text);
+	}
+	public static Recommendation doFindRecommandationByText(String text) {
+		return getProxy().FindRecommandationBTextAndRecommander(text);
+		
+	}
+	public static List<Recommendation> doFindAllRecommandation() {
+		return getProxy().findAllRecommandation();
+	}
+	public static void dochangeState(Recommendation r){
+		getProxy().changeState(r);
 	}
 
 

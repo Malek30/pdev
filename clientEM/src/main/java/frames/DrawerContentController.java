@@ -18,23 +18,29 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class DrawerContentController implements Initializable{
-	@FXML
-	private VBox box;
+	  @FXML
+	    private VBox box;
 
-    @FXML
-    private ImageView iv1;
+	    @FXML
+	    private ImageView iv1;
 
-    @FXML
-    private JFXButton btn1;
+	    @FXML
+	    private JFXButton btn1;
 
-    @FXML
-    private JFXButton btn2;
+	    @FXML
+	    private JFXButton btn2;
 
-    @FXML
-    private JFXButton btn3;
+	    @FXML
+	    private JFXButton btn3;
 
-    @FXML
-    private JFXButton btn4;
+	    @FXML
+	    private JFXButton btn5;
+
+	    @FXML
+	    private JFXButton btn6;
+
+	    @FXML
+	    private JFXButton btn4;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +86,7 @@ public class DrawerContentController implements Initializable{
                 Stage stage14 = (Stage) btn1.getScene().getWindow();
     		    stage14.close();
                 break;
+          
         }
     }
 
@@ -88,6 +95,34 @@ public class DrawerContentController implements Initializable{
     	System.exit(0);
     	
 
+    }
+    @FXML
+    void addMission(ActionEvent event) throws IOException {
+    	
+    	Stage stage5=new Stage();
+        Parent root5 = FXMLLoader.load(getClass().getResource("AddMSN.fxml"));
+        Scene scene5 = new Scene(root5);
+        stage5.initStyle(StageStyle.UNDECORATED);
+        stage5.setScene(scene5);
+        stage5.show();
+        Stage stage51 = (Stage) btn1.getScene().getWindow();
+	    stage51.close();
+    }
+
+ 
+
+   
+
+    @FXML
+    void mission(ActionEvent event) throws IOException {
+    	Stage stage4=new Stage();
+        Parent root4 = FXMLLoader.load(getClass().getResource("ManageMission.fxml"));
+        Scene scene4 = new Scene(root4);
+        stage4.initStyle(StageStyle.UNDECORATED);
+        stage4.setScene(scene4);
+        stage4.show();
+        Stage stage41 = (Stage) btn1.getScene().getWindow();
+	    stage41.close();
     }
 
 

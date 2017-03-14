@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 
 public class frame6Controller implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static Image image,image1;
 	File picture,picture1;
 	@FXML
@@ -93,12 +95,15 @@ public class frame6Controller implements Initializable{
 	// Event Listener on Button[#fill].onAction
 	@FXML
 	public void handleButtonAction(ActionEvent event) throws NamingException, IOException {
-		InitialContext ctx=new InitialContext();
+		/*InitialContext ctx=new InitialContext();
 		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
-		Employer y=(Employer) proxy.findUserByName(frameW3Controller2.nn);
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
+		Employer y=null;
+		y=(Employer) delegate.doFindUserByName(frameW3Controller2.nn);
+		//Employer y=(Employer) proxy.findUserByName(frameW3Controller2.nn);
 		System.out.println("test"+frameW3Controller2.nn);
-		Employer x=(Employer) proxy.findUserById(y.getIdUser());
+		//Employer x=(Employer) proxy.findUserById(y.getIdUser());
+		Employer x=(Employer) delegate.doFindUserById(y.getIdUser());
 		System.out.println("that work "+x.getFirstName());
 		if((ad.getText().equals(""))||(c.getText().equals(""))||(cn.getText().equals(""))||(picture.toString().equals(""))
 				||(picture1.toString().equals("")))
@@ -116,7 +121,8 @@ public class frame6Controller implements Initializable{
 		x.setCompanyLogo(picture.toString());
 		x.setPicture(picture1.toString());
 		try {
-			proxy.updateEmployer(x);
+		//	proxy.updateEmployer(x);
+			delegate.doUpdateEmployer(x);
 			
 		} catch (Exception E) {
 			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);
