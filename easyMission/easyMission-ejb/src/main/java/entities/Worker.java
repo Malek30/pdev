@@ -29,6 +29,12 @@ public class Worker extends User implements Serializable {
 	@OneToMany(mappedBy="worker")
 	private List<Mission> missions ;
 	
+	public List<Mission> getMissions() {
+		return missions;
+	}
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
 	private static final long serialVersionUID = 1L;
 
 	public Worker() {
@@ -86,6 +92,8 @@ public class Worker extends User implements Serializable {
 		this.description=description;
 		this.skills=skills;
 	}
-
+	public Worker(String firstName, String lastName, String email, String birthDate, String country, String field,
+			String picture, String password) {
+		super(firstName, lastName, email, birthDate, country, field, picture, password);}
    
 }

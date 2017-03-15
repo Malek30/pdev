@@ -20,7 +20,7 @@ public class Skill implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSkill;
 	private String name;	
-	@ManyToMany(mappedBy="skills",fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="skills",fetch=FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Worker> workers;
 	@ManyToMany(mappedBy="skills",cascade={CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private List<Mission> missions= new ArrayList<Mission>();

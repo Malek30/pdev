@@ -39,7 +39,7 @@ public class Mission implements Serializable {
 
 	@OneToMany(mappedBy = "mission")
 	private List<Suggestion> suggestions;
-	@OneToMany(mappedBy="mission")
+	@OneToMany(mappedBy="mission",fetch=FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Application> applications;
 	@OneToMany(mappedBy="mission")
 	private List<Repport> repports;
@@ -287,6 +287,21 @@ public class Mission implements Serializable {
 		this.missionType = missionType;
 		this.local = local;
 		this.skills = skills;
+	}
+	public Mission(String title, String description, String field,
+			float price, String state, Date startDate, Date endDate, Worker worker, String missionType, Boolean local) {
+		
+		
+		this.title = title;
+		this.description = description;		
+		this.field = field;
+		this.price = price;
+		this.state = state;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.worker = worker;
+		this.missionType = missionType;
+		this.local = local;
 	}
 	
 }

@@ -19,6 +19,7 @@ import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Mission;
 import entities.Skill;
+import gui.treatApplicationsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,6 +84,8 @@ public class ManageMissionController implements Initializable {
 
     @FXML
     private TableColumn<Mission, String> skillsC;
+    @FXML
+    private JFXButton btassign;
 
 	    @FXML
 	    private Button Updatemission;
@@ -93,6 +96,7 @@ public class ManageMissionController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		btassign.setDisable(true);
 		
 		
 		try {
@@ -204,12 +208,28 @@ catch(Exception e)
 		        final Stage stage=(Stage) source.getScene().getWindow();
 		        stage.close();
 		        
-	    	
-	    	
-	    	
+	 }
+	    @FXML
+	    void assign(ActionEvent event) throws IOException {
+	    	Mission m = tablemission.getSelectionModel().getSelectedItem();
+	    	treatApplicationsController.id=m.getIdMission();
+	    	Parent root=FXMLLoader.load(getClass().getResource("../gui/treatApplications.fxml"));
+	        Scene scene=new Scene(root);
+	        Stage Sc=new Stage();
+	        Sc.setScene(scene);
+	        Sc.show();
+	        final Node source =(Node) event.getSource();
+	        final Stage stage=(Stage) source.getScene().getWindow();
+	        stage.close();
 
-	    	
-
+	    }
+	    @FXML
+	    void tabclick(MouseEvent event) {
+	    	 Mission m = tablemission.getSelectionModel().getSelectedItem();
+	    	 if((m!=null) &&( m.getState().equals("on hold"))&& (m.getApplications().size()>0)){
+	    		 btassign.setDisable(false);
+	    		 
+	    	 }
 	    }
 
 		

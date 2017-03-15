@@ -31,9 +31,9 @@ public class User implements Serializable {
 	private String field ;
 	private String picture;
 	private String password ;
-	//private String type;
-	@OneToMany
-	private List<Notification> notifications;
+	
+	@OneToMany(mappedBy="notified")
+	private List<Notification> notifications=new ArrayList<Notification>();
 	// fetch=FetchType.LAZY 
 	@OneToMany(mappedBy="user",cascade = { CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)	
 	private List<Contact> contacts =new ArrayList<Contact>() ;
@@ -196,6 +196,19 @@ public class User implements Serializable {
 		this.password = password;
 		this.country = country;
 		this.state = state;
+	}
+	public User(String firstName, String lastName, String email, String birthDate, String country,
+			String field, String picture, String password) {
+		super();
+		this.state = "active";
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.country = country;
+		this.field = field;
+		this.picture = picture;
+		this.password = password;
 	}
 	
 	

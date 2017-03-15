@@ -32,6 +32,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 
 public class UserController implements Initializable{
@@ -175,6 +176,7 @@ public class UserController implements Initializable{
 			}
 			 image = SwingFXUtils.toFXImage(bufferedImage, null);
 			 image1 = SwingFXUtils.toFXImage(bufferedImage1, null);
+			 ppic.setClip(new Circle(50,50,50));
 				cpic.setImage(image);
 				ppic.setImage(image1);
 				cname.setText("Company Name : "+emp.getCompany());

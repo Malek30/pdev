@@ -18,8 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class DrawerContentController2 implements Initializable{
-	@FXML
-	private VBox box;
+
+    @FXML
+    private VBox box;
 
     @FXML
     private ImageView iv1;
@@ -32,6 +33,9 @@ public class DrawerContentController2 implements Initializable{
 
     @FXML
     private JFXButton btn3;
+
+    @FXML
+    private JFXButton btn31;
 
     @FXML
     private JFXButton btn4;
@@ -70,8 +74,7 @@ public class DrawerContentController2 implements Initializable{
             Stage stage1 = (Stage) btn1.getScene().getWindow();
 		    stage1.close();
                 break;
-            case "Mission":
-                break;
+           
         }
     }
 
@@ -80,6 +83,30 @@ public class DrawerContentController2 implements Initializable{
     	System.exit(0);
     	
 
+    }
+    @FXML
+    void msearch(ActionEvent event) throws IOException {
+    	Stage stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("../gui/lookForMission.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene1);
+        stage.show();
+        Stage stage1 = (Stage) btn1.getScene().getWindow();
+	    stage1.close();
+
+    }
+
+    @FXML
+    void myMission(ActionEvent event) throws IOException {
+    	Stage stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("../gui/workerMissions.fxml"));
+        Scene scene1 = new Scene(root);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene1);
+        stage.show();
+        Stage stage1 = (Stage) btn1.getScene().getWindow();
+	    stage1.close();
     }
 
 

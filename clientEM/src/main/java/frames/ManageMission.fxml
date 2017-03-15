@@ -19,7 +19,7 @@
             <Image url="@../img/b1.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="tablemission" blendMode="DARKEN" layoutX="321.0" layoutY="115.0" prefHeight="578.0" prefWidth="936.0">
+      <TableView fx:id="tablemission" blendMode="DARKEN" layoutX="321.0" layoutY="115.0" onMouseClicked="#tabclick" prefHeight="578.0" prefWidth="936.0">
         <columns>
           <TableColumn fx:id="titleC" prefWidth="97.0" text="Title" />
           <TableColumn fx:id="descriptionC" prefWidth="107.0" text="Description" />
@@ -45,5 +45,10 @@
          </effect>
       </JFXHamburger>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="190.0" layoutX="10.0" layoutY="4.0" prefHeight="774.0" prefWidth="284.0" />
+      <JFXButton fx:id="btassign" layoutX="1061.0" layoutY="701.0" onAction="#assign" prefHeight="40.0" prefWidth="94.0" text="Assign" textFill="WHITE">
+         <font>
+            <Font name="Malayalam MN Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

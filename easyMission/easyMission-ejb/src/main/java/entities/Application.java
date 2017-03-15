@@ -15,19 +15,33 @@ import embadableIDs.ApplicationId;
 
 public class Application implements Serializable {
 
-	@Id
-	private ApplicationId idApplication;
+	@EmbeddedId
+	private ApplicationId idApplication=new ApplicationId();
 	private Date date;
 	private String text ;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private Mission mission;
-	@ManyToOne
-	private Worker worker ;
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+	private Worker worker ;	
 	private static final long serialVersionUID = 1L;
 
 	public Application() {
 		super();
 	}
+	
+	
+
+	public Application(String text, Mission mission, Worker worker) {
+		super();
+		this.text = text;
+		this.mission = mission;
+		this.worker = worker;
+		this.date=new Date();
+		this.idApplication.setIdApplicantPK(worker.getIdUser());
+		this.idApplication.setIdMissionPK(mission.getIdMission());
+	}
+
+
 
 	public ApplicationId getIdApplication() {
 		return idApplication;
@@ -67,6 +81,11 @@ public class Application implements Serializable {
 
 	public void setWorker(Worker worker) {
 		this.worker = worker;
+	}
+	
+	public String getNom()
+	{
+		return this.getWorker().getFirstName()+" "+this.getWorker().getLastName();
 	}
    
 }
