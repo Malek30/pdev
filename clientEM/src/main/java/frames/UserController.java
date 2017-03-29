@@ -176,7 +176,7 @@ public class UserController implements Initializable{
 			}
 			 image = SwingFXUtils.toFXImage(bufferedImage, null);
 			 image1 = SwingFXUtils.toFXImage(bufferedImage1, null);
-			 ppic.setClip(new Circle(50,50,50));
+			// ppic.setClip(new Circle(50,50,50));
 				cpic.setImage(image);
 				ppic.setImage(image1);
 				cname.setText("Company Name : "+emp.getCompany());

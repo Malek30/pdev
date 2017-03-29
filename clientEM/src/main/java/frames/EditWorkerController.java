@@ -3,6 +3,7 @@ package frames;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.naming.NamingException;
 
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import delegate.RecommadationServiceDelegate;
+import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Recommendation;
 import entities.Skill;
@@ -27,8 +30,12 @@ import javafx.stage.Stage;
 import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +44,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -50,6 +58,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class EditWorkerController implements Initializable{
+	UserServiceDelegate delegate= new UserServiceDelegate();
+	RecommadationServiceDelegate delegate1=new RecommadationServiceDelegate();
 	private  static ObservableList<Skill>data;
 	private  static ObservableList<Recommendation>data1;
 	@FXML
@@ -68,19 +78,22 @@ public class EditWorkerController implements Initializable{
     private ImageView ppic;
 
     @FXML
-    private TextField firstname;
+    private JFXTextField firstname;
 
     @FXML
-    private TextField lastname;
+    private JFXTextField lastname;
 
     @FXML
-    private TextField email;
+    private JFXTextField email;
 
     @FXML
-    private ComboBox field;
+    private JFXTextField cnumber;
 
     @FXML
-    private DatePicker bdate;
+    private JFXComboBox field;
+
+    @FXML
+    private JFXDatePicker bdate;
 
     @FXML
     private Button btpic;
@@ -88,8 +101,7 @@ public class EditWorkerController implements Initializable{
     @FXML
     private Button update;
 
-    @FXML
-    private TextField cnumber;
+
 
     @FXML
     private TableView<Skill> tabskill;
@@ -98,12 +110,13 @@ public class EditWorkerController implements Initializable{
     private TableColumn<Skill,String> skil;
 
     @FXML
-    private TextArea desc;
+    private JFXTextArea desc;
 
     @FXML
     private TableView<Recommendation>rcd;
+
     @FXML
-    private ComboBox<Skill> sk;
+    private JFXComboBox<Skill> sk;
 
     @FXML
     private Button adsk;
@@ -122,6 +135,7 @@ public class EditWorkerController implements Initializable{
     public static ArrayList<Skill>skill=new ArrayList<>();
     private  static ObservableList<Skill>data2;
     public static List<Skill>lskl=new ArrayList<>();
+    public static List<Skill>userSkill;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		field.getItems().addAll(
@@ -156,7 +170,7 @@ public class EditWorkerController implements Initializable{
 		e1.printStackTrace();
 	}
 		//-------------- server cnx------------
-		InitialContext ctx = null;
+		/*InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
 		} catch (NamingException e2) {
@@ -170,9 +184,10 @@ public class EditWorkerController implements Initializable{
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		//-------affichage-------
-		Worker emp=proxy.findWorkerById(frame1Controller.id);
+		//Worker emp=proxy.findWorkerById(frame1Controller.id);
+		Worker emp=delegate.doFindWorkerById(frame1Controller.id);
 		firstname.setPromptText(emp.getFirstName());
 		lastname.setPromptText(emp.getLastName());
 		email.setPromptText(emp.getEmail());
@@ -184,9 +199,12 @@ public class EditWorkerController implements Initializable{
 		
 		//----------------list skills
 		int userid=emp.getIdUser();
-		List<Skill> sklist=proxy.findAllSkills();
-		List<Worker>lw=proxy.findAllWorkers();
-		List<Skill>userSkill=emp.getSkills();
+		
+		//List<Skill> sklist=proxy.findAllSkills();
+		List<Skill> sklist=delegate.dofindAllSkills();
+		//List<Worker>lw=proxy.findAllWorkers();
+		List<Worker>lw=delegate.doFindAllWorker();
+		userSkill=emp.getSkills();
 		
 		List<Worker>lworkers=null;
 		data=FXCollections.observableArrayList();
@@ -204,7 +222,7 @@ public class EditWorkerController implements Initializable{
 		skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
 		
 		
-		ArrayList<Skill>skill=(ArrayList<Skill>)proxy.findAllSkills();
+		ArrayList<Skill>skill=(ArrayList<Skill>)delegate.dofindAllSkills();
 		ArrayList<Skill>skk=new ArrayList<>();
 		
 		ArrayList<Skill>nsk=new ArrayList<>();
@@ -224,7 +242,7 @@ public class EditWorkerController implements Initializable{
 		data2 =FXCollections.observableArrayList(skk);
 		sk.getItems().addAll(data2);
 		//-------------------------- list recommandation-----------
-		InitialContext ctx2 = null;
+		/*InitialContext ctx2 = null;
 		try {
 			ctx2 = new InitialContext();
 		} catch (NamingException e) {
@@ -238,10 +256,11 @@ public class EditWorkerController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;
+		UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;*/
 		
 		List<Recommendation>lrr=new ArrayList<>();
-		List<Recommendation>lr=proxy2.findAllRecommandation();
+		//List<Recommendation>lr=proxy2.findAllRecommandation();
+		List<Recommendation>lr=delegate1.doFindAllRecommandation();
 		for(Recommendation r : lr){
 			if(r.getRecommended().getIdUser()==1){
 				//System.out.println("test");
@@ -282,9 +301,9 @@ public class EditWorkerController implements Initializable{
 	    stage.close();
     }
     @FXML
-    void update(ActionEvent event) throws IOException {
+    void update(ActionEvent event) throws IOException, NamingException {
     	//-------------- server cnx------------
-    			InitialContext ctx = null;
+    			/*InitialContext ctx = null;
     			try {
     				ctx = new InitialContext();
     			} catch (NamingException e2) {
@@ -298,10 +317,10 @@ public class EditWorkerController implements Initializable{
     				// TODO Auto-generated catch block
     				e2.printStackTrace();
     			}
-    			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+    			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
     			//-------update-------
-    			Worker emp=proxy.findWorkerById(frame1Controller.id);
-    			
+    			//Worker emp=proxy.findWorkerById(frame1Controller.id);
+    			Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     			if(firstname.getText().equals("")){
     				String fn=emp.getFirstName();
     				emp.setFirstName(fn);
@@ -358,7 +377,8 @@ public class EditWorkerController implements Initializable{
     			}
     	    	
     	    	emp.setSkills(lskl);
-    	    	proxy.updateWorker(emp);
+    	    	//proxy.updateWorker(emp);
+    	    	delegate.doUpdateWorker(emp);
     	    	Stage stage = (Stage) desc.getScene().getWindow();
     		    stage.close();
     		    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
@@ -395,6 +415,21 @@ public class EditWorkerController implements Initializable{
     void adskill(ActionEvent event) {
     	data=FXCollections.observableArrayList();
     	lskl.add(sk.getValue());
+    	/*for(Skill s : userSkill){
+			if(sk.getValue().toString().equals(s.toString())){
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Warning ");
+				alert.setHeaderText(null);
+				alert.setContentText(" Skill already added");
+
+				alert.showAndWait();
+				
+			}else{
+			//	lskl.add(sk.getValue());
+			}*/
+				
+		//}
+    	
     	for( Skill s : lskl){
 			System.out.println(s.getName());
 			data.add(new Skill(s.getName()));
@@ -405,20 +440,22 @@ public class EditWorkerController implements Initializable{
     }
     @FXML
     void delrcd(ActionEvent event) throws NamingException, IOException {
-    	InitialContext ctx1=new InitialContext();
+    	/*InitialContext ctx1=new InitialContext();
 		InitialContext ctx2=new InitialContext();
 		Object objet2=ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
 		Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
 		UserRecommandationServiceEJBRemote proxy=(UserRecommandationServiceEJBRemote)objet2;
-		UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
+		UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;*/
 		
     	Recommendation m = rcd.getSelectionModel().getSelectedItem();
     	//System.out.println(m.getIdRecommendation());
-    	Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
+    	//Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
+    	Recommendation r=delegate1.doFindRecommandationByText(m.getText());
     	System.out.println(r.getRecommanderName());
     	System.out.println(r.getIdRecommendation().getIdRecommendedPK());
     	r.setState(0);
-    	proxy.changeState(r);
+    	//proxy.changeState(r);
+    	delegate1.dochangeState(r);
     	Stage stage = (Stage) desc.getScene().getWindow();
 	    stage.close();
 	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
@@ -430,13 +467,15 @@ public class EditWorkerController implements Initializable{
     }
     @FXML
     void delskill(ActionEvent event) throws NamingException, IOException {
-    	InitialContext ctx1=new InitialContext();
+    	/*InitialContext ctx1=new InitialContext();
     	Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-    	UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
-    	Worker emp=proxy1.findWorkerById(frame1Controller.id);
+    	UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;*/
+    	//Worker emp=proxy1.findWorkerById(frame1Controller.id);
+    	Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     	List<Skill>ls=emp.getSkills();
     	Skill s11=tabskill.getSelectionModel().getSelectedItem();
-    	Skill s=proxy1.findSkillByName(s11.getName());
+    	//Skill s=proxy1.findSkillByName(s11.getName());
+    	Skill s=delegate.doFindSkillByName(s11.getName());
     	List<Skill>l=new ArrayList<>();
     	for(Skill s1 : ls){
     		l.add(s1);
@@ -445,7 +484,8 @@ public class EditWorkerController implements Initializable{
     		}
     	}
     	emp.setSkills(l);
-    	proxy1.updateWorker(emp);
+    	//proxy1.updateWorker(emp);
+    	delegate.doUpdateWorker(emp);
     	Stage stage = (Stage) desc.getScene().getWindow();
 	    stage.close();
 	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));

@@ -72,6 +72,18 @@ public class frame6Controller implements Initializable{
 		}
                 System.out.println(picture);
 	}
+	
+	public static boolean isNum(String strNum) {
+	    boolean ret = true;
+	    try {
+
+	        Double.parseDouble(strNum);
+
+	    }catch (NumberFormatException e) {
+	        ret = false;
+	    }
+	    return ret;
+	}
 	@FXML
 	public void handleButton3Action(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
@@ -108,6 +120,7 @@ public class frame6Controller implements Initializable{
 		if((ad.getText().equals(""))||(c.getText().equals(""))||(cn.getText().equals(""))||(picture.toString().equals(""))
 				||(picture1.toString().equals("")))
 		{
+			//||(isNum(cn.getText())==true)
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Warning ");
 			alert.setHeaderText(null);
@@ -117,7 +130,16 @@ public class frame6Controller implements Initializable{
 		}else{
 		x.setAdress(ad.getText());
 		x.setCompany(c.getText());
-		x.setCompanyNumber(cn.getText());
+		if(isNum(cn.getText())==true){
+		x.setCompanyNumber(cn.getText());}
+		else{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Warning ");
+			alert.setHeaderText(null);
+			alert.setContentText(" fill a phone Number");
+
+			alert.showAndWait();
+		}
 		x.setCompanyLogo(picture.toString());
 		x.setPicture(picture1.toString());
 		try {

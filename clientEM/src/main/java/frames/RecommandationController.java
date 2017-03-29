@@ -13,9 +13,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import javafx.fxml.Initializable;
+
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import delegate.RecommadationServiceDelegate;
@@ -102,7 +106,7 @@ public class RecommandationController implements Initializable{
     private Text number;
 
     @FXML
-    private TextArea desc;
+    private JFXTextArea desc;
 
     @FXML
     private TableView<Recommendation> rcd;
@@ -117,12 +121,12 @@ public class RecommandationController implements Initializable{
     private Text number1;
 
     @FXML
-    private ComboBox<String> sk;
+    private JFXComboBox<String> sk;
 
     @FXML
     private Button show;
     @FXML
-    private TextField txtrcd;
+    private JFXTextField txtrcd;
     @FXML
     private JFXSlider rvalue;
 

@@ -15,26 +15,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
 
 public class RecapPwdController implements Initializable{
-	 @FXML
-	    private PasswordField pwd;
+	@FXML
+    private Button exit;
 
-	    @FXML
-	    private PasswordField rpwd;
+    @FXML
+    private JFXTextField code;
 
-	    @FXML
-	    private Button l1;
+    @FXML
+    private JFXButton l1;
 
-	    @FXML
-	    private Button exit;
+    @FXML
+    private JFXPasswordField pwd;
 
-	    @FXML
-	    private TextField code;
+    @FXML
+    private JFXPasswordField rpwd;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

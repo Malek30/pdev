@@ -119,6 +119,18 @@ public class frame7Controller implements Initializable{
 		
 		
 	}
+	public static boolean isNum(String strNum) {
+	    boolean ret = true;
+	    try {
+
+	        Double.parseDouble(strNum);
+
+	    }catch (NumberFormatException e) {
+	        ret = false;
+	    }
+	    return ret;
+	}
+	
 	@FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
 		//------cnx serveur---------
@@ -136,6 +148,7 @@ public class frame7Controller implements Initializable{
 		//----------------------------
 		if((pn.getText().equals(""))||(rib.getText().equals(""))||(d.getText().equals(""))||(picture.toString().equals(""))
 				||(picture2.toString().equals(""))){
+			//||(isNum(pn.getText())==true)
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Warning ");
 			alert.setHeaderText(null);
@@ -143,7 +156,16 @@ public class frame7Controller implements Initializable{
 
 			alert.showAndWait();	
 		}else{
-		x.setPhoneNumber(pn.getText());
+			if(isNum(pn.getText())==true){
+		x.setPhoneNumber(pn.getText());}
+			else{
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Warning ");
+				alert.setHeaderText(null);
+				alert.setContentText(" fill a phone Number");
+
+				alert.showAndWait();	
+			}
 		x.setRib(rib.getText());
 		x.setDescription(d.getText());
 		x.setCv(picture2.toString());
@@ -216,8 +238,21 @@ public class frame7Controller implements Initializable{
 	@FXML
     private void handleButton4Action(ActionEvent event) throws IOException, NamingException {
 		data=FXCollections.observableArrayList();
-		
-		skill.add(sk.getValue());
+		/*for(Skill s:skill){
+			if(sk.getValue().toString().equals(s.toString())){
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Warning ");
+				alert.setHeaderText(null);
+				alert.setContentText(" Skill already added");
+
+				alert.showAndWait();
+				
+			}else{
+				skill.add(sk.getValue());
+			}
+				
+		}*/
+		//skill.add(sk.getValue());
 		data =FXCollections.observableArrayList(skill);
 //		for (Skill s : skill)
 //		{

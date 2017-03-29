@@ -13,13 +13,18 @@ import javax.naming.NamingException;
 
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import delegate.UserServiceDelegate;
 import entities.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -41,59 +46,60 @@ import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 
 public class EditEmployerController implements Initializable{
-	@FXML
-    private AnchorPane ap;
+	UserServiceDelegate delegate= new UserServiceDelegate();
+	  @FXML
+	    private AnchorPane ap;
 
-    @FXML
-    private ImageView iv;
+	    @FXML
+	    private ImageView iv;
 
-    @FXML
-    private JFXHamburger ham;
+	    @FXML
+	    private JFXHamburger ham;
 
-    @FXML
-    private JFXDrawer drawer;
+	    @FXML
+	    private JFXDrawer drawer;
 
-    @FXML
-    private ImageView ppic;
+	    @FXML
+	    private ImageView ppic;
 
-    @FXML
-    private WebView map;
+	    @FXML
+	    private WebView map;
 
-    @FXML
-    private ImageView cpic;
+	    @FXML
+	    private ImageView cpic;
 
-    @FXML
-    private TextField firstname;
+	    @FXML
+	    private Button btpic;
 
-    @FXML
-    private TextField lastname;
+	    @FXML
+	    private Button btlogo;
 
-    @FXML
-    private TextField email;
+	    @FXML
+	    private Button update;
 
-    @FXML
-    private ComboBox field;
+	    @FXML
+	    private JFXTextField firstname;
 
-    @FXML
-    private DatePicker bdate;
+	    @FXML
+	    private JFXTextField lastname;
 
-    @FXML
-    private TextField address;
+	    @FXML
+	    private JFXTextField email;
 
-    @FXML
-    private Button btpic;
+	    @FXML
+	    private JFXTextField address;
 
-    @FXML
-    private Button btlogo;
+	    @FXML
+	    private JFXTextField cname;
 
-    @FXML
-    private Button update;
+	    @FXML
+	    private JFXTextField cnumber;
 
-    @FXML
-    private TextField cname;
+	    @FXML
+	    private JFXComboBox field;
 
-    @FXML
-    private TextField cnumber;
+	    @FXML
+	    private JFXDatePicker bdate;
     public static Image image,image1;
     File picture,picture1;
 
@@ -133,7 +139,7 @@ public class EditEmployerController implements Initializable{
 		e1.printStackTrace();
 	}
 		//-------------- server cnx------------
-				InitialContext ctx = null;
+				/*InitialContext ctx = null;
 				try {
 					ctx = new InitialContext();
 				} catch (NamingException e2) {
@@ -147,9 +153,11 @@ public class EditEmployerController implements Initializable{
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-				UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+				UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
+		
 				//-------affichage-------
-				Employer emp=proxy.findEmploerById(frame1Controller.id);
+				Employer emp=delegate.doFindEmployerById(frame1Controller.id);
+				//Employer emp=proxy.findEmploerById(frame1Controller.id);
 				firstname.setPromptText(emp.getFirstName());
 				lastname.setPromptText(emp.getLastName());
 				email.setPromptText(emp.getEmail());
@@ -230,9 +238,9 @@ public class EditEmployerController implements Initializable{
     }
 
     @FXML
-    void update(ActionEvent event) throws IOException {
+    void update(ActionEvent event) throws IOException, NamingException {
     	//-------------- server cnx------------
-		InitialContext ctx = null;
+		/*InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
 		} catch (NamingException e2) {
@@ -246,11 +254,11 @@ public class EditEmployerController implements Initializable{
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		//-------update-------
-		Employer emp=proxy.findEmploerById(frame1Controller.id);
+		//Employer emp=proxy.findEmploerById(frame1Controller.id);
 		//String fname=null;
-		
+    	Employer emp=delegate.doFindEmployerById(frame1Controller.id);
 		if(firstname.getText().equals("")){
 			String fn=emp.getFirstName();
 			emp.setFirstName(fn);
@@ -322,7 +330,10 @@ public class EditEmployerController implements Initializable{
 		}
 		//System.out.println("1"+field.getValue().toString());
 		//System.out.println("2"+bdate.getValue().toString());
-		proxy.updateEmployer(emp);
+		//proxy.updateEmployer(emp);
+		
+		delegate.doUpdateEmployer(emp);
+		
     	Stage stage = (Stage) cname.getScene().getWindow();
 	    stage.close();
 	    Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));

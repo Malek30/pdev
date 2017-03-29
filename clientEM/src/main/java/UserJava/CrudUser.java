@@ -17,6 +17,17 @@ import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 
 public class CrudUser {
+	public static boolean isNum(String strNum) {
+	    boolean ret = true;
+	    try {
+
+	        Double.parseDouble(strNum);
+
+	    }catch (NumberFormatException e) {
+	        ret = false;
+	    }
+	    return ret;
+	}
 
 	public static void main(String[] args) throws NamingException {
 		
@@ -110,9 +121,13 @@ public class CrudUser {
 //			System.out.println(s.getName());
 //		}
 		
+		String x="123456";
+		if(isNum(x)==true){
+		System.out.println("true");
 		
-		
-		
+	}else{
+		System.out.println("false");
+	}
 		
 	}
 

@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,12 +36,13 @@ public class frame1Controller implements Initializable{
 	public static Worker w=null;
 	public static String x="";
 	public static int id;
-	@FXML
-	private TextField login;
-	@FXML
-	private PasswordField pwd;
-	@FXML
-	private Button l1;
+	 @FXML
+	    private JFXTextField login;
+	    @FXML
+	    private JFXPasswordField pwd;
+
+	    @FXML
+	    private JFXButton l1;
 	@FXML
 	private Button l2;
 	@FXML

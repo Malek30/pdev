@@ -22,6 +22,11 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
 import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Worker;
@@ -37,29 +42,40 @@ public class frameE4Controller implements Initializable{
 
 	public static String nn;
 	@FXML
-	private TextField fn;
-	@FXML
-	private TextField ln;
-	@FXML
-	private TextField email;
-	@FXML
-	private DatePicker date;
-	@FXML
-	private PasswordField rpwd;
-	@FXML
-	private PasswordField pwd;
-	@FXML
-	private ComboBox coutry;
-	@FXML
-	private Button add;
-	@FXML
-	private ComboBox gender;
-	@FXML
-	private ComboBox field;
-	@FXML
-	private Button back;
+    private JFXTextField fn;
+
     @FXML
-    private TextField login;
+    private JFXComboBox coutry;
+
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button back;
+
+    @FXML
+    private JFXTextField ln;
+
+    @FXML
+    private JFXTextField email;
+
+    @FXML
+    private JFXComboBox field;
+
+    @FXML
+    private JFXTextField login;
+
+    @FXML
+    private JFXComboBox gender;
+
+    @FXML
+    private JFXDatePicker date;
+
+    @FXML
+    private JFXPasswordField pwd;
+
+    @FXML
+    private JFXPasswordField rpwd;
     public static boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;

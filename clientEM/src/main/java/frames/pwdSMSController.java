@@ -9,7 +9,8 @@ import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import entities.Employer;
 import entities.User;
 import entities.Worker;
@@ -20,7 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 import javafx.fxml.Initializable;
@@ -28,11 +29,11 @@ import javafx.fxml.Initializable;
 public class pwdSMSController implements Initializable{
 	public static int id;
 	public static String recapcode;
-	@FXML
-    private TextField login;
+    @FXML
+    private JFXTextField login;
 
     @FXML
-    private Button l1;
+    private JFXButton l1;
 
     @FXML
     private Button exit;
@@ -102,7 +103,7 @@ public class pwdSMSController implements Initializable{
 			num=w.getPhoneNumber();
 		}
 		
-    	String nexmocmd =  "https://rest.nexmo.com/sms/json?api_key=4a7932d7&api_secret=f83a94935210801d&from=NEXMO&to="+26+num+"&text="+recapcode;
+    	String nexmocmd =  "https://rest.nexmo.com/sms/json?api_key=4a7932d7&api_secret=f83a94935210801d&from=NEXMO&to="+216+num+"&text="+recapcode;
         String response = executeUrl(nexmocmd);
         if (response != null) {
         	Alert alert2 = new Alert(Alert.AlertType.INFORMATION);

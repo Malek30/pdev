@@ -7,8 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
 
@@ -22,6 +29,8 @@ import java.util.regex.Pattern;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.omg.CosNaming.IstringHelper;
+
 import delegate.UserServiceDelegate;
 import entities.Employer;
 import javafx.event.ActionEvent;
@@ -34,30 +43,41 @@ import javafx.scene.control.PasswordField;
 public class frameW3Controller2 implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static String nn;
-	@FXML
-	private TextField fn;
-	@FXML
-	private TextField ln;
-	@FXML
-	private TextField email;
-	@FXML
-	private DatePicker date;
-	@FXML
-	private PasswordField rpwd;
-	@FXML
-	private PasswordField pwd;
-	@FXML
-	private ComboBox coutry;
-	@FXML
-	private Button add;
-	@FXML
-	private ComboBox gender;
-	@FXML
-	private ComboBox field;
-	@FXML
-	private Button back;
     @FXML
-    private TextField login;
+    private JFXTextField fn;
+
+    @FXML
+    private JFXComboBox coutry;
+
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button back;
+
+    @FXML
+    private JFXTextField ln;
+
+    @FXML
+    private JFXTextField email;
+
+    @FXML
+    private JFXComboBox field;
+
+    @FXML
+    private JFXTextField login;
+
+    @FXML
+    private JFXComboBox gender;
+
+    @FXML
+    private JFXDatePicker date;
+
+    @FXML
+    private JFXPasswordField pwd;
+
+    @FXML
+    private JFXPasswordField rpwd;
     public static boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;
@@ -193,4 +213,5 @@ public class frameW3Controller2 implements Initializable{
         stage.setScene(scene1);
         stage.show();
     }
+   
 }
