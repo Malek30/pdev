@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
@@ -48,6 +50,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -60,6 +63,8 @@ import javafx.scene.layout.AnchorPane;
 public class EditWorkerController implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
 	RecommadationServiceDelegate delegate1=new RecommadationServiceDelegate();
+	public static Skill s11=null;
+	public static Recommendation m=null;
 	private  static ObservableList<Skill>data;
 	private  static ObservableList<Recommendation>data1;
 	@FXML
@@ -127,11 +132,42 @@ public class EditWorkerController implements Initializable{
     private Button delrcd;
     @FXML
     private Button delsk;
+    @FXML
+    private Label fnamelabel;
+
+    @FXML
+    private Label lnamelabel;
+
+    @FXML
+    private Label emailabel;
+
+    @FXML
+    private Label fieldlabel;
+
+    @FXML
+    private Label datelabel;
+
+    @FXML
+    private Label numberlabel;
+
+    @FXML
+    private Label updatelabel;
+
+    @FXML
+    private Label dsklabel;
+
+    @FXML
+    private Label rcdlabel;
+
+    @FXML
+    private Label asklabel;
 
     @FXML
     private TableColumn<Recommendation, String> user;
     public static Image image,image1;
+    public static Worker emp;
     File picture,picture1;
+    public static ArrayList<Skill>skk=new ArrayList<>();
     public static ArrayList<Skill>skill=new ArrayList<>();
     private  static ObservableList<Skill>data2;
     public static List<Skill>lskl=new ArrayList<>();
@@ -160,34 +196,13 @@ public class EditWorkerController implements Initializable{
                 drawer.close();
             }else
                 drawer.open();
-    		
-    		
-    	
     	}
     	);
     }catch (IOException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-		//-------------- server cnx------------
-		/*InitialContext ctx = null;
-		try {
-			ctx = new InitialContext();
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		Object objet = null;
-		try {
-			objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
-		//-------affichage-------
-		//Worker emp=proxy.findWorkerById(frame1Controller.id);
-		Worker emp=delegate.doFindWorkerById(frame1Controller.id);
+		emp=delegate.doFindWorkerById(frame1Controller.id);
 		firstname.setPromptText(emp.getFirstName());
 		lastname.setPromptText(emp.getLastName());
 		email.setPromptText(emp.getEmail());
@@ -197,12 +212,10 @@ public class EditWorkerController implements Initializable{
 		field.setPromptText(emp.getField());
 		
 		
-		//----------------list skills
+		//----------------list skills-----------
 		int userid=emp.getIdUser();
-		
-		//List<Skill> sklist=proxy.findAllSkills();
+
 		List<Skill> sklist=delegate.dofindAllSkills();
-		//List<Worker>lw=proxy.findAllWorkers();
 		List<Worker>lw=delegate.doFindAllWorker();
 		userSkill=emp.getSkills();
 		
@@ -223,7 +236,7 @@ public class EditWorkerController implements Initializable{
 		
 		
 		ArrayList<Skill>skill=(ArrayList<Skill>)delegate.dofindAllSkills();
-		ArrayList<Skill>skk=new ArrayList<>();
+		
 		
 		ArrayList<Skill>nsk=new ArrayList<>();
 		for(Skill s: skill){
@@ -235,53 +248,25 @@ public class EditWorkerController implements Initializable{
 			}
 			
 		}
-		
-		
-			
-		
 		data2 =FXCollections.observableArrayList(skk);
 		sk.getItems().addAll(data2);
 		//-------------------------- list recommandation-----------
-		/*InitialContext ctx2 = null;
-		try {
-			ctx2 = new InitialContext();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Object objet2 = null;
-		try {
-			objet2 = ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;*/
-		
 		List<Recommendation>lrr=new ArrayList<>();
-		//List<Recommendation>lr=proxy2.findAllRecommandation();
 		List<Recommendation>lr=delegate1.doFindAllRecommandation();
 		for(Recommendation r : lr){
 			if(r.getRecommended().getIdUser()==1){
-				//System.out.println("test");
 				lrr.add(r);
 			}}
 		data1=FXCollections.observableArrayList();
-		
-		
 		for(Recommendation r: lrr){
 			System.out.println(r.getText()+" "+r.getRecommender().getFirstName());
 			data1.add(new Recommendation(r.getText(),r.getRecommender()));
-			
 		}
 		rcd.setItems(data1);
 		txt.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("text"));
 		user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));
-		
 		picture=new File(emp.getPicture());
-	       
         BufferedImage bufferedImage = null;
-      
 		try {
 			bufferedImage = ImageIO.read(picture);
 			
@@ -292,8 +277,6 @@ public class EditWorkerController implements Initializable{
 		 image = SwingFXUtils.toFXImage(bufferedImage, null);
 		
 			ppic.setImage(image);
-			
-			
 	}
     @FXML
     void exit(ActionEvent event) {
@@ -302,24 +285,7 @@ public class EditWorkerController implements Initializable{
     }
     @FXML
     void update(ActionEvent event) throws IOException, NamingException {
-    	//-------------- server cnx------------
-    			/*InitialContext ctx = null;
-    			try {
-    				ctx = new InitialContext();
-    			} catch (NamingException e2) {
-    				// TODO Auto-generated catch block
-    				e2.printStackTrace();
-    			}
-    			Object objet = null;
-    			try {
-    				objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-    			} catch (NamingException e2) {
-    				// TODO Auto-generated catch block
-    				e2.printStackTrace();
-    			}
-    			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
-    			//-------update-------
-    			//Worker emp=proxy.findWorkerById(frame1Controller.id);
+    	
     			Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     			if(firstname.getText().equals("")){
     				String fn=emp.getFirstName();
@@ -377,7 +343,6 @@ public class EditWorkerController implements Initializable{
     			}
     	    	
     	    	emp.setSkills(lskl);
-    	    	//proxy.updateWorker(emp);
     	    	delegate.doUpdateWorker(emp);
     	    	Stage stage = (Stage) desc.getScene().getWindow();
     		    stage.close();
@@ -413,50 +378,32 @@ public class EditWorkerController implements Initializable{
     }
     @FXML
     void adskill(ActionEvent event) {
+    	if(sk.getPromptText().equals("Skills list")){
+    		asklabel.setText("please make sure you select a skill");
+    	}else{
     	data=FXCollections.observableArrayList();
     	lskl.add(sk.getValue());
-    	/*for(Skill s : userSkill){
-			if(sk.getValue().toString().equals(s.toString())){
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setTitle("Warning ");
-				alert.setHeaderText(null);
-				alert.setContentText(" Skill already added");
-
-				alert.showAndWait();
-				
-			}else{
-			//	lskl.add(sk.getValue());
-			}*/
-				
-		//}
-    	
     	for( Skill s : lskl){
 			System.out.println(s.getName());
 			data.add(new Skill(s.getName()));
 		}
 		tabskill.setItems(data);
 		skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
-
+		data2.clear();
+		sk.getItems().clear();
+		skk.removeAll(lskl);
+		data2 =FXCollections.observableArrayList(skk);
+		sk.getItems().addAll(data2);}
     }
     @FXML
     void delrcd(ActionEvent event) throws NamingException, IOException {
-    	/*InitialContext ctx1=new InitialContext();
-		InitialContext ctx2=new InitialContext();
-		Object objet2=ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
-		Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserRecommandationServiceEJBRemote proxy=(UserRecommandationServiceEJBRemote)objet2;
-		UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;*/
-		
-    	Recommendation m = rcd.getSelectionModel().getSelectedItem();
+    	 m = rcd.getSelectionModel().getSelectedItem();
     	System.out.println("id :"+m.getRecommender().getFirstName());
-    	
-    	//System.out.println(m.getIdRecommendation());
-    	//Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
     	Recommendation r=delegate1.doFindRecommandationByText(m.getText(),m.getRecommender());
     	System.out.println(r.getRecommanderName());
     	System.out.println(r.getIdRecommendation().getIdRecommendedPK());
     	r.setState(0);
-    	//proxy.changeState(r);
+    	
     	delegate1.dochangeState(r);
     	
     	Stage stage = (Stage) desc.getScene().getWindow();
@@ -470,14 +417,10 @@ public class EditWorkerController implements Initializable{
     }
     @FXML
     void delskill(ActionEvent event) throws NamingException, IOException {
-    	/*InitialContext ctx1=new InitialContext();
-    	Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-    	UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;*/
-    	//Worker emp=proxy1.findWorkerById(frame1Controller.id);
+    	
     	Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     	List<Skill>ls=emp.getSkills();
-    	Skill s11=tabskill.getSelectionModel().getSelectedItem();
-    	//Skill s=proxy1.findSkillByName(s11.getName());
+    	 s11=tabskill.getSelectionModel().getSelectedItem();
     	Skill s=delegate.doFindSkillByName(s11.getName());
     	List<Skill>l=new ArrayList<>();
     	for(Skill s1 : ls){
@@ -487,7 +430,6 @@ public class EditWorkerController implements Initializable{
     		}
     	}
     	emp.setSkills(l);
-    	//proxy1.updateWorker(emp);
     	delegate.doUpdateWorker(emp);
     	Stage stage = (Stage) desc.getScene().getWindow();
 	    stage.close();
@@ -495,8 +437,208 @@ public class EditWorkerController implements Initializable{
         Scene scene1 = new Scene(root);
         stage.setScene(scene1);
         stage.show();
-    	
-    	
+    	 }
+    @FXML
+    void Lskillaction(MouseEvent event) {
+    	asklabel.setText("");
+    }
+    @FXML
+    void skillcomboaction(MouseEvent event) {
+    	sk.setPromptText(sk.getValue().toString());
+    	//System.out.println("done");
+
     }
 
+    @FXML
+    void skillaction(MouseEvent event) {
+    	if(sk.getPromptText().equals("Skills list")){
+    		asklabel.setText("please make sure you select a skill");
+    	}
+    }
+    @FXML
+    void Lupdateaction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void dateaction(MouseEvent event) {
+    	if(bdate.getPromptText().equals(emp.getBirthDate())){
+    		datelabel.setText("");
+    	}else{
+    		bdate.setPromptText(bdate.getValue().toString());
+    	}
+    }
+    @FXML
+    void dateaction1(MouseEvent event) {
+    	datelabel.setText("make sure before you chage your birthdate");
+    }
+    @FXML
+    void tabskillaction(MouseEvent event) {
+    	s11=tabskill.getSelectionModel().getSelectedItem();
+    	System.out.println("done");
+    }
+    @FXML
+    void dskillaction(MouseEvent event) {
+    	if(s11==null){
+    	dsklabel.setText("make sure you select a skill");}
+    	else{
+    		dsklabel.setText("make sure before you delete the skill");
+    	}
+    }
+    @FXML
+    void Ldskillaction(MouseEvent event) {
+    	dsklabel.setText("");
+    }
+
+    @FXML
+    void emailaction1(MouseEvent event) {
+    	emailabel.setText("make sure before you change the email");
+    	
+
+    }
+    @FXML
+    void emailaction(MouseEvent event) {
+    	if(email.getText().equals("")){
+    		emailabel.setText("");
+    	}else{
+    	if(isEmail(email.getText())==false){
+    		emailabel.setText("email is invalid");
+    	}else{
+    		emailabel.setText("");
+    		email.setPromptText(email.getText());
+    	}}
+    }
+
+    @FXML
+    void fieldaction(MouseEvent event) {
+    	if(field.getPromptText().equals(emp.getField())){
+    	fieldlabel.setText("");}
+
+    }
+    @FXML
+    void fieldaction1(MouseEvent event) {
+    	fieldlabel.setText("make sure before you change your field");
+    }
+
+    @FXML
+    void fnameaction(MouseEvent event) {
+    	if(firstname.getText().equals("")){
+    		fnamelabel.setText("");
+    	}else{
+    		if(isAlpha(firstname.getText())==false){
+    			fnamelabel.setText("make sure you write text");
+    		}else{
+    			fnamelabel.setText("");
+    			firstname.setPromptText(firstname.getText());
+    		}}
+    	
+
+    }
+    @FXML
+    void fnameaction1(MouseEvent event) {
+    	fnamelabel.setText("make sure before you change your first name");
+    }
+
+    @FXML
+    void lnameaction(MouseEvent event) {
+    	if(lastname.getText().equals("")){
+    		lnamelabel.setText("");
+    	}else{
+    		if(isAlpha(firstname.getText())==false){
+    			lnamelabel.setText("make sure you write text");
+    		}else{
+    			lnamelabel.setText("");
+    			lastname.setPromptText(lastname.getText());
+    		}}
+    	
+    }
+    @FXML
+    void lnameaction1(MouseEvent event) {
+    	lnamelabel.setText("make sure before you change your last name");
+    }
+
+    @FXML
+    void numberaction(MouseEvent event) {
+    	if(cnumber.getText().equals("")){
+    		numberlabel.setText("");
+    	}else{
+    		
+    		if(isNum(cnumber.getText())==false){
+    			numberlabel.setText("make sure you write numeric");
+    		}else{
+    			numberlabel.setText("");
+    			cnumber.setPromptText(cnumber.getText());
+    		}
+    	}
+    }
+    @FXML
+    void numberaction1(MouseEvent event) {
+    	numberlabel.setText("make sure before you change your phone number");
+
+    }
+
+    @FXML
+    void rcdaction(MouseEvent event) {
+if(m==null){
+	rcdlabel.setText("make sure you select a recommandation");
+}else{
+	rcdlabel.setText("are you sure you want to delete it");
+}
+    }
+    @FXML
+    void rcdactionexit(MouseEvent event) {
+    	rcdlabel.setText("");
+    }
+    @FXML
+    void tabrcdaction(MouseEvent event) {
+    	m = rcd.getSelectionModel().getSelectedItem();
+    	System.out.println("done");
+
+    }
+
+
+    @FXML
+    void updateaction(MouseEvent event) {
+
+    }
+    public static boolean isNum(String strNum) {
+	    boolean ret = true;
+	    try {
+
+	        Double.parseDouble(strNum);
+
+	    }catch (NumberFormatException e) {
+	        ret = false;
+	    }
+	    return ret;
+	}
+    public static boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+
+
+
+    
+
+ 
 }

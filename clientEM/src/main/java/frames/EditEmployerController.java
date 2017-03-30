@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
@@ -34,6 +36,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -100,6 +103,30 @@ public class EditEmployerController implements Initializable{
 
 	    @FXML
 	    private JFXDatePicker bdate;
+	    @FXML
+	    private Label fnamelabel;
+
+	    @FXML
+	    private Label lnamelabel;
+
+	    @FXML
+	    private Label emailabel;
+
+	    @FXML
+	    private Label fieldlabel;
+
+	    @FXML
+	    private Label datelabel;
+
+	    @FXML
+	    private Label addresslabel;
+
+	    @FXML
+	    private Label cnamelabel;
+
+	    @FXML
+	    private Label cnumlabel;
+	    public static Employer emp;
     public static Image image,image1;
     File picture,picture1;
 
@@ -138,25 +165,8 @@ public class EditEmployerController implements Initializable{
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-		//-------------- server cnx------------
-				/*InitialContext ctx = null;
-				try {
-					ctx = new InitialContext();
-				} catch (NamingException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				Object objet = null;
-				try {
-					objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-				} catch (NamingException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		
-				//-------affichage-------
-				Employer emp=delegate.doFindEmployerById(frame1Controller.id);
+				 emp=delegate.doFindEmployerById(frame1Controller.id);
 				//Employer emp=proxy.findEmploerById(frame1Controller.id);
 				firstname.setPromptText(emp.getFirstName());
 				lastname.setPromptText(emp.getLastName());
@@ -239,25 +249,7 @@ public class EditEmployerController implements Initializable{
 
     @FXML
     void update(ActionEvent event) throws IOException, NamingException {
-    	//-------------- server cnx------------
-		/*InitialContext ctx = null;
-		try {
-			ctx = new InitialContext();
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		Object objet = null;
-		try {
-			objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
-		//-------update-------
-		//Employer emp=proxy.findEmploerById(frame1Controller.id);
-		//String fname=null;
+    	
     	Employer emp=delegate.doFindEmployerById(frame1Controller.id);
 		if(firstname.getText().equals("")){
 			String fn=emp.getFirstName();
@@ -341,5 +333,168 @@ public class EditEmployerController implements Initializable{
         stage.setScene(scene1);
         stage.show();
     }
+    public static boolean isNum(String strNum) {
+	    boolean ret = true;
+	    try {
+
+	        Double.parseDouble(strNum);
+
+	    }catch (NumberFormatException e) {
+	        ret = false;
+	    }
+	    return ret;
+	}
+    public static boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\\\\\+]+(\\.[\\w\\\\]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    @FXML
+    void emailaction1(MouseEvent event) {
+    	emailabel.setText("make sure before you change the email");
+    	
+
+    }
+    @FXML
+    void emailaction(MouseEvent event) {
+    	if(email.getText().equals("")){
+    		emailabel.setText("");
+    	}else{
+    	if(isEmail(email.getText())==false){
+    		emailabel.setText("email is invalid");
+    	}else{
+    		emailabel.setText("");
+    		email.setPromptText(email.getText());
+    	}}
+    }
+    @FXML
+    void fieldaction(MouseEvent event) {
+    	if(field.getPromptText().equals(emp.getField())){
+    	fieldlabel.setText("");}
+
+    }
+    @FXML
+    void fieldaction1(MouseEvent event) {
+    	fieldlabel.setText("make sure before you change your field");
+    }
+
+    @FXML
+    void fnameaction(MouseEvent event) {
+    	if(firstname.getText().equals("")){
+    		fnamelabel.setText("");
+    	}else{
+    		if(isAlpha(firstname.getText())==false){
+    			fnamelabel.setText("make sure you write text");
+    		}else{
+    			fnamelabel.setText("");
+    			firstname.setPromptText(firstname.getText());
+    		}}
+    	
+
+    }
+    @FXML
+    void fnameaction1(MouseEvent event) {
+    	fnamelabel.setText("make sure before you change your first name");
+    }
+
+    @FXML
+    void lnameaction(MouseEvent event) {
+    	if(lastname.getText().equals("")){
+    		lnamelabel.setText("");
+    	}else{
+    		if(isAlpha(firstname.getText())==false){
+    			lnamelabel.setText("make sure you write text");
+    		}else{
+    			lnamelabel.setText("");
+    			lastname.setPromptText(lastname.getText());
+    		}}
+    	
+    }
+    @FXML
+    void lnameaction1(MouseEvent event) {
+    	lnamelabel.setText("make sure before you change your last name");
+    }
+    @FXML
+    void dateaction(MouseEvent event) {
+    	if(bdate.getPromptText().equals(emp.getBirthDate())){
+    		datelabel.setText("");
+    	}else{
+    		bdate.setPromptText(bdate.getValue().toString());
+    	}
+    }
+    @FXML
+    void dateaction1(MouseEvent event) {
+    	datelabel.setText("make sure before you chage your birthdate");
+    }
+    @FXML
+    void addressaction(MouseEvent event) {
+    	if(address.getText().equals("")){
+    		addresslabel.setText("");
+    	}else{
+    		address.setPromptText(address.getText());
+    	}
+
+    }
+
+    @FXML
+    void addressaction1(MouseEvent event) {
+    	addresslabel.setText("make sure before you change you company address");
+    }
+
+
+    @FXML
+    void cnameaction(MouseEvent event) {
+    	if(cname.getText().equals("")){
+    		cnamelabel.setText("");
+    	}else{
+    		cname.setPromptText(cname.getText());
+    	}
+    	
+
+    }
+
+    @FXML
+    void cnameaction1(MouseEvent event) {
+    	cnamelabel.setText("make sure before you change you company name");
+
+    }
+
+    @FXML
+    void cnumaction(MouseEvent event) {
+    	if(cnumber.getText().equals("")){
+    		cnumlabel.setText("");
+    	}else{
+    		
+    		if(isNum(cnumber.getText())==false){
+    			cnumlabel.setText("make sure you write numeric");
+    		}else{
+    			cnumlabel.setText("");
+    			cnumber.setPromptText(cnumber.getText());
+    		}
+    	}
+    }
+
+    @FXML
+    void cnumaction1(MouseEvent event) {
+    	cnumlabel.setText("make sure before you change your company number");
+    }
+
 
 }
