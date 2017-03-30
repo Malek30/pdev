@@ -58,9 +58,9 @@ public class UserRecommandationServiceEJB implements UserRecommandationServiceEJ
 		return  em.createQuery("select c from  Recommendation c where c.State=:ptext ",Recommendation.class).setParameter("ptext",1).getResultList();
 	}
 	@Override
-	public Recommendation FindRecommandationBTextAndRecommander(String text) {
+	public Recommendation FindRecommandationBTextAndRecommander(String text,User recommender) {
 		// TODO Auto-generated method stub
-		return em.createQuery("select c from  Recommendation c where c.text=:ptext ",Recommendation.class).setParameter("ptext", text).getSingleResult();
+		return em.createQuery("select c from  Recommendation c where c.text=:ptext and c.recommender=:recommender",Recommendation.class).setParameter("ptext", text).setParameter("recommender", recommender).getSingleResult();
 	}
 	@Override
 	public void deleteRecommandation(Recommendation r) {

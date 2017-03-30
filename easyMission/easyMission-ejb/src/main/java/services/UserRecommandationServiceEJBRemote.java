@@ -12,7 +12,7 @@ import entities.User;
 public interface UserRecommandationServiceEJBRemote {
 	public void addUserRecommandation(User u1, User u2, String text);
 	public List<Recommendation>findAllRecommandation();
-	public Recommendation FindRecommandationBTextAndRecommander(String text);
+	public Recommendation FindRecommandationBTextAndRecommander(String text,User recommender);
 	public void deleteRecommandation(Recommendation r);
 	public void changeState(Recommendation r);
 }

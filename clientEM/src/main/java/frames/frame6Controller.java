@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.awt.image.BufferedImage;
@@ -20,12 +20,15 @@ import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.jfoenix.controls.JFXTextField;
+
 import delegate.UserServiceDelegate;
 import entities.Employer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.UserServicesEJBRemote;
@@ -33,13 +36,15 @@ import services.UserServicesEJBRemote;
 public class frame6Controller implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static Image image,image1;
-	File picture,picture1;
-	@FXML
-	private TextField c;
-	@FXML
-	private TextField cn;
-	@FXML
-	private TextField ad;
+	File picture=null;File picture1=null;
+	  @FXML
+	    private JFXTextField c;
+
+	    @FXML
+	    private JFXTextField cn;
+
+	    @FXML
+	    private JFXTextField ad;
 	@FXML
 	private Button pick;
 	@FXML
@@ -50,6 +55,24 @@ public class frame6Controller implements Initializable{
 	private ImageView img;
 	@FXML
 	private ImageView img1;
+	@FXML
+    private Label companylabel;
+
+    @FXML
+    private Label numberlabel;
+
+    @FXML
+    private Label addresslabel;
+
+    @FXML
+    private Label logolabel;
+
+    @FXML
+    private Label imglabel;
+
+    @FXML
+    private Label fillLabel;
+    public static boolean ok=false;
 
 	// Event Listener on Button[#pick].onAction
 	@FXML
@@ -107,44 +130,52 @@ public class frame6Controller implements Initializable{
 	// Event Listener on Button[#fill].onAction
 	@FXML
 	public void handleButtonAction(ActionEvent event) throws NamingException, IOException {
-		/*InitialContext ctx=new InitialContext();
-		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		Employer y=null;
 		y=(Employer) delegate.doFindUserByName(frameW3Controller2.nn);
-		//Employer y=(Employer) proxy.findUserByName(frameW3Controller2.nn);
-		System.out.println("test"+frameW3Controller2.nn);
-		//Employer x=(Employer) proxy.findUserById(y.getIdUser());
 		Employer x=(Employer) delegate.doFindUserById(y.getIdUser());
-		System.out.println("that work "+x.getFirstName());
-		if((ad.getText().equals(""))||(c.getText().equals(""))||(cn.getText().equals(""))||(picture.toString().equals(""))
-				||(picture1.toString().equals("")))
-		{
-			//||(isNum(cn.getText())==true)
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Warning ");
-			alert.setHeaderText(null);
-			alert.setContentText(" fill All the Information");
 
-			alert.showAndWait();	
-		}else{
+//		if((ad.getText().equals(""))||(c.getText().equals(""))||(cn.getText().equals(""))||(picture.toString().equals(""))
+//				||(picture1.toString().equals("")))
+//		{
+//			//||(isNum(cn.getText())==true)
+//			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//			alert.setTitle("Warning ");
+//			alert.setHeaderText(null);
+//			alert.setContentText(" fill All the Information");
+//
+//			alert.showAndWait();	
+//		}else{
 		x.setAdress(ad.getText());
 		x.setCompany(c.getText());
-		if(isNum(cn.getText())==true){
-		x.setCompanyNumber(cn.getText());}
-		else{
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Warning ");
-			alert.setHeaderText(null);
-			alert.setContentText(" fill a phone Number");
-
-			alert.showAndWait();
-		}
+		//if(isNum(cn.getText())==true){
+		x.setCompanyNumber(cn.getText());
+		//}
+		//else{
+//			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//			alert.setTitle("Warning ");
+//			alert.setHeaderText(null);
+//			alert.setContentText(" fill a phone Number");
+//
+//			alert.showAndWait();
+//		}
 		x.setCompanyLogo(picture.toString());
 		x.setPicture(picture1.toString());
 		try {
 		//	proxy.updateEmployer(x);
 			delegate.doUpdateEmployer(x);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Welcome ");
+			alert.setHeaderText(null);
+			alert.setContentText(" your Profile is now ready");
+
+			alert.showAndWait();
+			Stage stage = (Stage) c.getScene().getWindow();
+		    stage.close();
+		    
+		    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
+	        Scene scene1 = new Scene(root);
+	        stage.setScene(scene1);
+	        stage.show();
 			
 		} catch (Exception E) {
 			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);
@@ -155,21 +186,9 @@ public class frame6Controller implements Initializable{
 			alert22.showAndWait();
 		}
 		
-		}
 		
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Welcome ");
-		alert.setHeaderText(null);
-		alert.setContentText(" your Profile is now ready");
-
-		alert.showAndWait();
-		Stage stage = (Stage) c.getScene().getWindow();
-	    stage.close();
-	    
-	    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
-        Scene scene1 = new Scene(root);
-        stage.setScene(scene1);
-        stage.show();
+		
+		
 		
 	}
 	@Override
@@ -177,4 +196,64 @@ public class frame6Controller implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
+	  @FXML
+	    void addressaction(MouseEvent event) {
+		  if(ad.getText().equals("")){
+	    		addresslabel.setText("please make sure you write your company address : it not obligatory");
+	    	}else{
+	    		addresslabel.setText("");
+	    	}
+	    }
+
+	    @FXML
+	    void fillaction(MouseEvent event) {
+	    	if((cn.getText().equals(""))&&(picture1==null)){
+	    		fillLabel.setText("make sure you fill the missing fields");
+	    	}else{
+	    		fillLabel.setText("");
+	    		ok=true;
+	    	}
+	    	
+	    }
+	    @FXML
+	    void imgaction(MouseEvent event) {
+	    	if(picture1==null){
+	    		imglabel.setText("make sure you pick your profile picture");
+	    	}else{
+	    		imglabel.setText("");
+	    		
+	    	}
+	    }
+
+	    @FXML
+	    void logoaction(MouseEvent event) {
+	    	if(picture==null){
+	    		logolabel.setText("make sure you pick your company logo : it not obligatory");
+	    	}else{
+	    		logolabel.setText("");
+	    		
+	    	}
+
+	    }
+
+	    @FXML
+	    void nameaction(MouseEvent event) {
+	    	if(c.getText().equals("")){
+	    		companylabel.setText("please make sure you write your company name : it not obligatory");
+	    	}else{
+	    		companylabel.setText("");
+	    	}
+
+	    }
+
+	    @FXML
+	    void numberaction(MouseEvent event) {
+	    	if(isNum(cn.getText())==false){
+	    		numberlabel.setText("make sure you write numbers");
+	    	}else{
+	    		numberlabel.setText("");
+	    	}
+
+	    }
+
 }

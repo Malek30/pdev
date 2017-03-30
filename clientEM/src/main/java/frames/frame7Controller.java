@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,6 +28,10 @@ import javax.naming.NamingException;
 
 import org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.Work;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+
 import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.Skill;
@@ -38,6 +43,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -49,13 +55,22 @@ public class frame7Controller implements Initializable{
 	
 	UserServiceDelegate delegate= new UserServiceDelegate();
 	public static ArrayList<Skill>skill=new ArrayList<>();
+	public static ArrayList<Skill>skills=new ArrayList<>();
 	public static Image image,image2;
 	private  static ObservableList<Skill>data;
-	File picture,picture2;
-	@FXML
-	private TextField pn;
-	@FXML
-	private TextField rib;
+	private  static ObservableList<Skill>data1;
+	File picture=null,picture2;
+	  @FXML
+	    private JFXTextField pn;
+
+	    @FXML
+	    private JFXTextField rib;
+
+	    @FXML
+	    private JFXTextArea d;
+
+	    @FXML
+	    private JFXComboBox<Skill> sk;
 	@FXML
 	private Button cv;
 	@FXML
@@ -64,61 +79,43 @@ public class frame7Controller implements Initializable{
 	private Button fill;
 	@FXML
 	private Button pic;
-	@FXML
-	private TextArea d;
+
 	@FXML
 	private ImageView img;
 	@FXML
     private WebView web;
 	@FXML
     private TableView<Skill> table;
-	@FXML
-    private ComboBox<Skill>sk;
+
     @FXML
     private TableColumn<Skill, String> skillname;
+    @FXML
+    private Label numberlabel;
+
+    @FXML
+    private Label desclabel;
+
+    @FXML
+    private Label bcnklabel;
+
+    @FXML
+    private Label imglabel;
+
+    @FXML
+    private Label skillslabel;
+
+    @FXML
+    private Label fillLabel;
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		skills=(ArrayList<Skill>)delegate.dofindAllSkills();
 		
-//		String url ="file:///C:/Users/louka/Downloads/S%C3%A9rie%201%20PL%20(1).pdf";
-//        web.setZoom(0.83);
-//        WebEngine we = web.getEngine();
-//        we.load(url);
-		
-		
-		
-		
-		
-		InitialContext ctx = null;
-		try {
-			ctx = new InitialContext();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Object objet = null;
-		try {
-			objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
-		//List<Skill> lisSkills=proxy.findAllSkills();
-		ArrayList<Skill>skill=(ArrayList<Skill>)proxy.findAllSkills();
-		
-		data =FXCollections.observableArrayList(skill);
+		data =FXCollections.observableArrayList(skills);
 		sk.getItems().addAll(data);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	}
+}
 	public static boolean isNum(String strNum) {
 	    boolean ret = true;
 	    try {
@@ -133,72 +130,43 @@ public class frame7Controller implements Initializable{
 	
 	@FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
-		//------cnx serveur---------
-		/*InitialContext ctx=new InitialContext();
-		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
 		
-		//Worker y=(Worker) proxy.findUserByName(frameE4Controller.nn);
 		Worker y=(Worker) delegate.doFindUserByName(frameE4Controller.nn);
-		System.out.println("test"+frameW3Controller2.nn);
-		
-		//Worker x=(Worker) proxy.findUserById(y.getIdUser());
 		Worker x=(Worker)delegate.doFindUserById(y.getIdUser());
-		//System.out.println("that work "+x.getFirstName());
-		//----------------------------
-		if((pn.getText().equals(""))||(rib.getText().equals(""))||(d.getText().equals(""))||(picture.toString().equals(""))
-				||(picture2.toString().equals(""))){
-			//||(isNum(pn.getText())==true)
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Warning ");
-			alert.setHeaderText(null);
-			alert.setContentText(" fill All the Information");
-
-			alert.showAndWait();	
-		}else{
-			if(isNum(pn.getText())==true){
-		x.setPhoneNumber(pn.getText());}
-			else{
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setTitle("Warning ");
-				alert.setHeaderText(null);
-				alert.setContentText(" fill a phone Number");
-
-				alert.showAndWait();	
-			}
+		x.setPhoneNumber(pn.getText());
 		x.setRib(rib.getText());
 		x.setDescription(d.getText());
 		x.setCv(picture2.toString());
 		x.setPicture(picture.toString());
 		x.setSkills(skill);
 		
-		try {
-			//proxy.updateWorker(x);
-			delegate.doUpdateWorker(x);
-			
-		} catch (Exception E) {
-			Alert alert22 = new Alert(Alert.AlertType.INFORMATION);
-			alert22.setTitle("warning ");
-			alert22.setHeaderText(null);
-			alert22.setContentText("Please Fill all the fields" );
+		if(pn.getText().equals("")){
+    		fillLabel.setText("make sure you fill the empty fields");
+    		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    		alert.setTitle("Warning ");
+    		alert.setHeaderText(null);
+    		alert.setContentText(" please fill all the fields");
 
-			alert22.showAndWait();
-		}
-		}
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Welcome ");
-		alert.setHeaderText(null);
-		alert.setContentText(" your Profile is now ready");
-
-		alert.showAndWait();
-		Stage stage = (Stage) d.getScene().getWindow();
-	    stage.close();
-	    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
-        Scene scene1 = new Scene(root);
-        stage.setScene(scene1);
-        stage.show();
+    		alert.showAndWait();
+    	}else{
+    		fillLabel.setText("");
 		
-	}
+		try {			
+	    		delegate.doUpdateWorker(x);
+	    		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	    		alert.setTitle("Welcome ");
+	    		alert.setHeaderText(null);
+	    		alert.setContentText(" your Profile is now ready");
+	    		alert.showAndWait();
+	    		Stage stage = (Stage) d.getScene().getWindow();
+	    	    stage.close();
+	    	    Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
+	            Scene scene1 = new Scene(root);
+	            stage.setScene(scene1);
+	            stage.show();
+			} catch (Exception E) {}
+    	}
+}
 	@FXML
     private void handleButton2Action(ActionEvent event) throws IOException, NamingException {
 		FileChooser fileChooser = new FileChooser();
@@ -237,27 +205,30 @@ public class frame7Controller implements Initializable{
 	}
 	@FXML
     private void handleButton4Action(ActionEvent event) throws IOException, NamingException {
-		data=FXCollections.observableArrayList();
-		/*for(Skill s:skill){
-			if(sk.getValue().toString().equals(s.toString())){
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setTitle("Warning ");
-				alert.setHeaderText(null);
-				alert.setContentText(" Skill already added");
-
-				alert.showAndWait();
-				
-			}else{
-				skill.add(sk.getValue());
-			}
-				
-		}*/
-		//skill.add(sk.getValue());
-		data =FXCollections.observableArrayList(skill);
-//		for (Skill s : skill)
+		data1=FXCollections.observableArrayList();
+		skill.add(sk.getValue());
+		ArrayList<Skill>lsk=skills;
+		//Skill s1=delegate.doFindSkillByName(sk.getValue().toString());
+		//System.out.println(s1.getName());
+		lsk.removeAll(skill);
+		
+		
+		data.clear();
+		sk.getItems().clear();
+		data =FXCollections.observableArrayList(lsk);
+		sk.getItems().addAll(data);
+		
+//		for (Skill s : skills)
 //		{
-//		data.add(new Skill(s.getName()));
+//		if(s.getName().equals(sk.getValue().toString())){
+//			skills.remove(s);
 //		}
+//		}
+		
+		for (Skill s : skill)
+		{
+		data1.add(new Skill(s.getName()));
+		}
 		
 		
 //		table.setItems(data);
@@ -265,9 +236,63 @@ public class frame7Controller implements Initializable{
 //	skillname.setCellValueFactory((TableColumn.CellDataFeatures<Skill, String> t)
 //            -> new SimpleStringProperty(sk.getValue().toString()));
 		
-table.setItems(data);
+table.setItems(data1);
 	skillname.setCellValueFactory( new PropertyValueFactory<Skill,String> ("name"));
 }
+	 @FXML
+	    void bankaction(MouseEvent event) {
+		 if(rib.getText().equals("")){
+			 bcnklabel.setText("make sure you feel your bank information");
+		 }else{
+			 bcnklabel.setText("");
+		 }
+	    }
+
+	    @FXML
+	    void descaction(MouseEvent event) {
+	    	if(d.getText().equals("")){
+				 desclabel.setText("make sure you feel description input");
+			 }else{
+				 desclabel.setText("");
+			 }
+		    
+	    }
+	    @FXML
+	    void imgaction(MouseEvent event) {
+	    	if(picture==null){
+				 imglabel.setText("make sure you import a profile picture");
+			 }else{
+				 imglabel.setText("");
+			 }
+	    }
+
+	    @FXML
+	    void phoneaction(MouseEvent event) {
+	    	if(isNum(pn.getText())==false){
+	    		numberlabel.setText("make sure you write your phone number");
+	    		
+	    	}else{
+	    		numberlabel.setText("");
+	    		
+	    	}
+
+	    }
+
+	    @FXML
+	    void skillaction(MouseEvent event) {
+
+	    }
+	    @FXML
+	    void fillaction(MouseEvent event) {
+	    	if((pn.getText().equals(""))&&(rib.getText().equals(""))&&(d.getText().equals(""))&&(picture==null)){
+	    		fillLabel.setText("make sure you fill the empty fields");
+	    	}else{
+	    		fillLabel.setText("");
+	    	}
+
+	    }
+
+
 		
 		
 	

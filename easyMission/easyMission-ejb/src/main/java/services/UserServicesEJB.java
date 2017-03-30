@@ -146,6 +146,11 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 		return em.createQuery("select c from User c where c.Login=:pname",User.class)
 				.setParameter("pname", Login).getSingleResult();
 	}
+	@Override
+	public User findUserByMail(String Mail){
+		return em.createQuery("select c from User c where c.email=:pname",User.class)
+				.setParameter("pname", Mail).getSingleResult();
+	}
 
 	
 

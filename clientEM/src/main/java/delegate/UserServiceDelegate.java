@@ -53,6 +53,10 @@ public class UserServiceDelegate {
 		return getProxy().findUserByLogin(Login);
 		
 	}
+	public static User doFindUserByMail(String Mail){
+		return getProxy().findUserByMail(Mail);
+		
+	}
 	public static User doFindUserByLoginAndPassword(String login, String pwd){
 		return getProxy().findUserBYLoginAndPassword(login, pwd);
 		

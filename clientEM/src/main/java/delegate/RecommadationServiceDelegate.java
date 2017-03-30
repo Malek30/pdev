@@ -18,8 +18,8 @@ public class RecommadationServiceDelegate {
 	public static void doAddRecommandation( User u1,User u2,String text)throws NamingException {
 		getProxy().addUserRecommandation(u1, u2, text);
 	}
-	public static Recommendation doFindRecommandationByText(String text) {
-		return getProxy().FindRecommandationBTextAndRecommander(text);
+	public static Recommendation doFindRecommandationByText(String text,User recommender) {
+		return getProxy().FindRecommandationBTextAndRecommander(text,recommender);
 		
 	}
 	public static List<Recommendation> doFindAllRecommandation() {

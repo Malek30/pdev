@@ -448,14 +448,17 @@ public class EditWorkerController implements Initializable{
 		UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;*/
 		
     	Recommendation m = rcd.getSelectionModel().getSelectedItem();
+    	System.out.println("id :"+m.getRecommender().getFirstName());
+    	
     	//System.out.println(m.getIdRecommendation());
     	//Recommendation r=proxy.FindRecommandationBTextAndRecommander(m.getText());
-    	Recommendation r=delegate1.doFindRecommandationByText(m.getText());
+    	Recommendation r=delegate1.doFindRecommandationByText(m.getText(),m.getRecommender());
     	System.out.println(r.getRecommanderName());
     	System.out.println(r.getIdRecommendation().getIdRecommendedPK());
     	r.setState(0);
     	//proxy.changeState(r);
     	delegate1.dochangeState(r);
+    	
     	Stage stage = (Stage) desc.getScene().getWindow();
 	    stage.close();
 	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
