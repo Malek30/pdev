@@ -150,13 +150,13 @@
             <ColorAdjust brightness="1.0" />
          </effect>
       </JFXDatePicker>
-      <Label fx:id="fnamelabel" layoutX="407.0" layoutY="340.0" text="Label" textFill="RED" />
-      <Label fx:id="lnamelabel" layoutX="411.0" layoutY="400.0" text="Label" textFill="RED" />
-      <Label fx:id="emailabel" layoutX="410.0" layoutY="464.0" text="Label" textFill="RED" />
-      <Label fx:id="fieldlabel" layoutX="402.0" layoutY="542.0" text="Label" textFill="RED" />
-      <Label fx:id="datelabel" layoutX="411.0" layoutY="590.0" text="Label" textFill="RED" />
-      <Label fx:id="addresslabel" layoutX="412.0" layoutY="658.0" text="Label" textFill="RED" />
-      <Label fx:id="cnamelabel" layoutX="1023.0" layoutY="124.0" text="Label" textFill="RED" />
-      <Label fx:id="cnumlabel" layoutX="1021.0" layoutY="182.0" text="Label" textFill="RED" />
+      <Label fx:id="fnamelabel" layoutX="407.0" layoutY="340.0" textFill="RED" />
+      <Label fx:id="lnamelabel" layoutX="411.0" layoutY="400.0" textFill="RED" />
+      <Label fx:id="emailabel" layoutX="410.0" layoutY="464.0" textFill="RED" />
+      <Label fx:id="fieldlabel" layoutX="402.0" layoutY="542.0" textFill="RED" />
+      <Label fx:id="datelabel" layoutX="411.0" layoutY="590.0" textFill="RED" />
+      <Label fx:id="addresslabel" layoutX="412.0" layoutY="658.0" textFill="RED" />
+      <Label fx:id="cnamelabel" layoutX="1023.0" layoutY="124.0" textFill="RED" />
+      <Label fx:id="cnumlabel" layoutX="1021.0" layoutY="182.0" textFill="RED" />
    </children>
 </AnchorPane>

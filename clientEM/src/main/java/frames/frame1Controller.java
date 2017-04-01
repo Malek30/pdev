@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.Scene;
@@ -13,16 +14,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import security.Driver;
+import security.callbackHandler;
+import security.loginModule;
 import services.UserServicesEJBRemote;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
 
 import delegate.UserServiceDelegate;
 import entities.Employer;
@@ -35,11 +42,13 @@ public class frame1Controller implements Initializable{
 	public static Employer e=null;
 	public static Worker w=null;
 	public static String x="";
+	public static String log="";
+	public static String pass="";
 	public static int id;
 	 @FXML
-	    private JFXTextField login;
+	    public  JFXTextField login;
 	    @FXML
-	    private JFXPasswordField pwd;
+	    public  JFXPasswordField pwd;
 
 	    @FXML
 	    private JFXButton l1;
@@ -49,6 +58,7 @@ public class frame1Controller implements Initializable{
 	private Button exit;
 	@FXML
 	private Button forgot;
+	public static User u=null;
 	
 
 	@Override
@@ -58,68 +68,82 @@ public class frame1Controller implements Initializable{
 	}
   @FXML
     private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
-    	/*InitialContext ctx=new InitialContext();
-		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;*/
-		User u1=null;
-		
+//	  try{
+//	  u1=delegate.doFindUserByLogin(login.getText());
+//	  
+//	  }catch(Exception e){
+//		  
+//	  }
+	  
+	  log=login.getText();
+	  pass=pwd.getText();
+	  
+	  System.setProperty("java.security.auth.login.config", "jaas.config");
+		LoginContext loginContext=null;
+		callbackHandler x=new callbackHandler();
+		x.setLogin(login.getText());
+		x.setPwd(pwd.getText());
 		try {
-			//u1=proxy.findUserBYLoginAndPassword(login.getText(),pwd.getText());
-			u1=delegate.doFindUserByLoginAndPassword(login.getText(), pwd.getText());
+			 loginContext=new LoginContext("EM",x);
+			 System.out.println("ok1");
 			
-		} catch (Exception e) {
-			Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+		} catch (LoginException e) {
+			
+			
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println("1");
+			System.exit(0);
+		}
+		try {
+			loginContext.login();
+			System.out.println("ok2");
+			 u=loginModule.u1;
+			 Alert alert = new Alert(Alert.AlertType.NONE);
+			 alert.setTitle("Welcome ");
+			 alert.setHeaderText(null);
+			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
+
+			 alert.showAndWait();
+			 id=u.getIdUser();
+
+
+			 Stage stage = (Stage) l1.getScene().getWindow();
+			 stage.close();
+
+			 if(u instanceof Worker){
+			 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+			 	Scene scene1 = new Scene(root);
+			 	stage.setScene(scene1);
+			 	stage.show();
+			 }else{
+			 	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+			 	Scene scene1 = new Scene(root);
+			 	stage.setScene(scene1);
+			 	stage.show();
+			 	}
+		} catch (LoginException e) {
+			if(u.getPassword()!=pwd.getText()){
+				Alert alert2 = new Alert(Alert.AlertType.WARNING);
+				alert2.setTitle("Wrong Informations ");
+				alert2.setHeaderText(null);
+				alert2.setContentText("wrong Password" );
+				alert2.showAndWait();
+			}else{
+			Alert alert2 = new Alert(Alert.AlertType.WARNING);
 			alert2.setTitle("Wrong Informations ");
 			alert2.setHeaderText(null);
-			alert2.setContentText("check your Login or your Password" );
-
+			alert2.setContentText("wrong Login and your Password" );
 			alert2.showAndWait();
+			}
+			System.out.println(e.getMessage());
+			System.out.println("2");
 		}
-		 
-		System.out.println(u1.getFirstName());
-	
-		if(u1.getPassword()!=pwd.getText()){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-alert.setTitle("Welcome ");
-alert.setHeaderText(null);
-alert.setContentText("welcome "+u1.getFirstName()+" "+u1.getLastName()+" :)" );
+		
+    	
+		
+  }
 
-alert.showAndWait();
-id=u1.getIdUser();
-
-
-Stage stage = (Stage) l1.getScene().getWindow();
-stage.close();
-
-if(u1 instanceof Worker){
-	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
-	Scene scene1 = new Scene(root);
-	stage.setScene(scene1);
-	stage.show();
-	x="worker";
-	System.out.println("worker");
-}
-
-
-else{
-	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
-	Scene scene1 = new Scene(root);
-	stage.setScene(scene1);
-	stage.show();
-//	x="employer";
-	System.out.println("employer");
-}
-}else{
-	Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-	alert2.setTitle("Wrong Informations ");
-	alert2.setHeaderText(null);
-	alert2.setContentText("check your Login or your Password" );
-
-	alert2.showAndWait();
-    }
-		//Stage stage = (Stage) l1.getScene().getWindow();
-	    //stage.close();
-    }
     @FXML
     private void handleButton2Action(ActionEvent event) throws IOException, NamingException {
     	Stage stage = (Stage) l1.getScene().getWindow();
@@ -131,8 +155,23 @@ else{
     }
     @FXML
     private void handleButton3Action(ActionEvent event) throws IOException, NamingException {
-    	Stage stage = (Stage) l1.getScene().getWindow();
-	    stage.close();
+    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		 alert.setTitle("Exit Attempt ");
+		 alert.setHeaderText(null);
+		 alert.setContentText("do you want to exit " );
+
+		 //alert.showAndWait();
+		 Stage stage = (Stage) l1.getScene().getWindow();
+		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+         if (result.get() == javafx.scene.control.ButtonType.OK){
+             stage.close();
+         }
+
+         if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+             alert.close();
+         }
+    	
+	   // stage.close();
     }
     @FXML
     void forgot(ActionEvent event) throws IOException {
@@ -150,4 +189,5 @@ else{
            System.out.println("not sent");
         }*/
     }
+   
 }
