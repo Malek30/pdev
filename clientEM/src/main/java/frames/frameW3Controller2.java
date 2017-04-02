@@ -218,6 +218,8 @@ public class frameW3Controller2 implements Initializable{
     }
     @FXML
     void EmailAction(MouseEvent event) {
+    	if(email.getText().equals("")){}else{
+    		emailabel.setText("");
     	if(isEmail(email.getText())==false){
     		emailabel.setText("email is invalid");
     	}else{
@@ -234,17 +236,20 @@ public class frameW3Controller2 implements Initializable{
     		emailabel.setText("Email already exist");
     	}else{
     		emailabel.setText("");
-    	}}
+    	}}}
     	
     }
 
     @FXML
     void LoginAction(MouseEvent event) {
-    	field.setPromptText(field.getValue().toString());
+    	//field.setPromptText(field.getValue().toString());
     	User e=null;
     	try{
     	e= delegate.doFindUserByLogin(login.getText());}
     	catch(Exception E){}
+    	if(login.getText().equals("")){
+    		loginlabel.setText("");
+    	}else{
     	if(e!=null){
     	if(e.getLogin().equals(login.getText())){
     		loginlabel.setText("Login already exist");	
@@ -253,7 +258,7 @@ public class frameW3Controller2 implements Initializable{
     	}
     	}else{
     		loginlabel.setText("");
-    	}
+    	}}
     	
 
     }
@@ -285,7 +290,7 @@ public class frameW3Controller2 implements Initializable{
 
     @FXML
     void passwordAction(MouseEvent event) {
-    	date.setPromptText(date.getValue().toString());
+    	//date.setPromptText(date.getValue().toString());
 //    	
 //    	if(pwd.getText().length()<=5){
 //    		passwordLabel.setText("password is soo predictable");
@@ -307,8 +312,6 @@ public class frameW3Controller2 implements Initializable{
     void registerBt(MouseEvent event) {
     	
     	
-    	
-    	
     	if((fn.getText().equals(""))&&(ln.getText().equals(""))&&(email.getText().equals(""))&&(login.getText().equals(""))
     			&&(pwd.getText().equals(""))&&(rpwd.getText().equals(""))){
     		registerlabel.setText("Make sure you fill all the inputs");
@@ -318,6 +321,14 @@ public class frameW3Controller2 implements Initializable{
     		registerlabel.setText("");
     		ok=true;
     	}
+    	
+    	
+    }
+
+    @FXML
+    void registerBt1(MouseEvent event) {
+    	
+    	registerlabel.setText("");
 
     }
     @FXML
@@ -336,10 +347,23 @@ public class frameW3Controller2 implements Initializable{
     	
     	//System.out.println("test"+coutry.getPromptText());
     }
+    @FXML
+    void countryaction1(MouseEvent event) {
+    	if(coutry.getPromptText().equals("Country")){
+    		countrylabel.setText("please select your country");
+    		
+    	}else{
+    	
+    		coutry.setPromptText(coutry.getValue().toString());
+    		countrylabel.setText("");
+    	}
+    	
+
+    }
 
     @FXML
     void dateaction(MouseEvent event) {
-    	gender.setPromptText(gender.getValue().toString());
+    	//gender.setPromptText(gender.getValue().toString());
     	if(date.getPromptText().equals("Date of birth")){
     		datelabel.setText("please make sure you select your date of birth");
     		
@@ -350,10 +374,22 @@ public class frameW3Controller2 implements Initializable{
     		datelabel.setText("");
     	}
     }
+    @FXML
+    void dateaction1(MouseEvent event) {
+    	if(date.getPromptText().equals("Date of birth")){
+    		datelabel.setText("please select your birthdate");
+    		
+    	}else{
+    		
+        	date.setPromptText(date.getValue().toString());
+        	
+    		datelabel.setText("");
+    	}
+    }
 
     @FXML
     void fieldaction(MouseEvent event) {
-    	coutry.setPromptText(coutry.getValue().toString());
+    	//coutry.setPromptText(coutry.getValue().toString());
     	if(field.getPromptText().equals("Field")){
     		fieldlabel.setText("please make sure you select your field");
     		
@@ -366,6 +402,19 @@ public class frameW3Controller2 implements Initializable{
 
     }
     @FXML
+    void fieldaction1(MouseEvent event) {
+    	//coutry.setPromptText(coutry.getValue().toString());
+    	if(field.getPromptText().equals("Field")){
+    		fieldlabel.setText("please select your working field");
+    		
+    	}else{
+    		
+        	field.setPromptText(field.getValue().toString());
+    		fieldlabel.setText("");
+    	}
+
+    }
+    @FXML
     void genderaction(MouseEvent event) {
     	if(gender.getPromptText().equals("Gender")){
     		genderlabel.setText("please make sure you select your gender");
@@ -375,6 +424,18 @@ public class frameW3Controller2 implements Initializable{
         	
     		genderlabel.setText("");
     	}
+    }
+    @FXML
+    void genderaction1(MouseEvent event) {
+    	if(gender.getPromptText().equals("Gender")){
+    		genderlabel.setText("please select your gender");
+    		
+    	}else{
+   		gender.setPromptText(gender.getValue().toString());
+        	
+    		genderlabel.setText("");
+    	}
+
     }
 
    

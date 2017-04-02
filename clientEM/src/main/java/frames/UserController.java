@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +32,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import security.loginModule;
 import services.UserServicesEJBRemote;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -147,7 +150,7 @@ public class UserController implements Initializable{
 		
 			//System.out.println("user is employer");
 		//	Employer emp=proxy.findEmploerById(frame1Controller.id);
-		Employer emp=delegate.doFindEmployerById(frame1Controller.id);
+		Employer emp=(Employer) loginModule.u1;
 			
 			System.out.println(emp.getFirstName());
 			fn.setText("First Name : "+emp.getFirstName());
@@ -189,7 +192,21 @@ public class UserController implements Initializable{
 	  @FXML
 	    private void exit(ActionEvent event) {
 	    	Stage stage = (Stage) cname.getScene().getWindow();
-		    stage.close();
+	    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			 alert.setTitle("Exit Attempt ");
+			 alert.setHeaderText(null);
+			 alert.setContentText("do you want to exit " );
+
+			 //alert.showAndWait();
+			 
+			 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+	         if (result.get() == javafx.scene.control.ButtonType.OK){
+	             stage.close();
+	         }
+
+	         if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+	             alert.close();
+	         }
 	    }
 		
 	}

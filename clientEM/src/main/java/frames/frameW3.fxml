@@ -35,12 +35,12 @@
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect></JFXTextField>
-      <JFXComboBox fx:id="coutry" layoutX="292.0" layoutY="509.0" onMouseExited="#countryaction" prefHeight="44.0" prefWidth="313.0" promptText="Country">
+      <JFXComboBox fx:id="coutry" layoutX="292.0" layoutY="509.0" onMouseEntered="#countryaction1" onMouseExited="#countryaction" prefHeight="44.0" prefWidth="313.0" promptText="Country">
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect>
       </JFXComboBox>
-      <Button fx:id="add" defaultButton="true" layoutX="918.0" layoutY="665.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#registerBt" opacity="0.47" prefHeight="31.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Register" textFill="WHITE" />
+      <Button fx:id="add" defaultButton="true" layoutX="918.0" layoutY="665.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#registerBt" onMouseExited="#registerBt1" opacity="0.47" prefHeight="31.0" prefWidth="159.0" style="-fx-background-color: grey;" text="Register" textFill="WHITE" />
       <Button fx:id="back" layoutX="-159.0" layoutY="-122.0" mnemonicParsing="false" onAction="#handle2ButtonAction" prefHeight="336.0" prefWidth="408.0" rotate="180.0" scaleX="0.15" scaleY="0.15" text="Button">
          <effect>
             <ImageInput>
@@ -58,7 +58,7 @@
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect></JFXTextField>
-      <JFXComboBox fx:id="field" layoutX="292.0" layoutY="588.0" onMouseExited="#fieldaction" prefHeight="44.0" prefWidth="313.0" promptText="Field">
+      <JFXComboBox fx:id="field" layoutX="292.0" layoutY="588.0" onMouseEntered="#fieldaction1" onMouseExited="#fieldaction" prefHeight="44.0" prefWidth="313.0" promptText="Field">
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect>
@@ -68,12 +68,12 @@
             <ColorAdjust brightness="1.0" />
          </effect>
       </JFXTextField>
-      <JFXComboBox fx:id="gender" layoutX="764.0" layoutY="362.0" onMouseExited="#genderaction" prefHeight="44.0" prefWidth="313.0" promptText="Gender">
+      <JFXComboBox fx:id="gender" layoutX="764.0" layoutY="362.0" onMouseEntered="#genderaction1" onMouseExited="#genderaction" prefHeight="44.0" prefWidth="313.0" promptText="Gender">
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect>
       </JFXComboBox>
-      <JFXDatePicker fx:id="date" defaultColor="WHITE" layoutX="764.0" layoutY="437.0" onMouseExited="#dateaction" prefHeight="44.0" prefWidth="313.0" promptText="Date of birth">
+      <JFXDatePicker fx:id="date" defaultColor="WHITE" layoutX="764.0" layoutY="437.0" onMouseEntered="#dateaction1" onMouseExited="#dateaction" prefHeight="44.0" prefWidth="313.0" promptText="Date of birth">
          <effect>
             <ColorAdjust brightness="1.0" />
          </effect>

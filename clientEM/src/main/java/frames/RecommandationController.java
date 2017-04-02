@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -260,7 +261,20 @@ public class RecommandationController implements Initializable{
 	    @FXML
 	    void exit(ActionEvent event) {
 	    	Stage stage = (Stage) ap.getScene().getWindow();
-		    stage.close();
+	    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			 alert.setTitle("Exit Attempt ");
+			 alert.setHeaderText(null);
+			 alert.setContentText("do you want to exit " );
+
+			 
+			 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+	         if (result.get() == javafx.scene.control.ButtonType.OK){
+	             stage.close();
+	         }
+
+	         if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+	             alert.close();
+	         }
 	    }
 
 	    @FXML

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -39,9 +40,11 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import security.loginModule;
 import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -160,7 +163,7 @@ public class UserController2 implements Initializable{
 	}
 		//a-----------------affichage
 			//Worker emp=proxy.findWorkerById(frame1Controller.id);
-			Worker emp=delegate.doFindWorkerById(frame1Controller.id);
+			Worker emp=(Worker) loginModule.u1;
 			System.out.println(emp.getFirstName());
 			fn.setText("First Name : "+emp.getFirstName());
 			ln.setText("Last Name : "+emp.getLastName());
@@ -248,7 +251,21 @@ public class UserController2 implements Initializable{
 	  @FXML
 	    private void exit(ActionEvent event) {
 	    	Stage stage = (Stage) mail.getScene().getWindow();
-		    stage.close();
+	    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			 alert.setTitle("Exit Attempt ");
+			 alert.setHeaderText(null);
+			 alert.setContentText("do you want to exit " );
+
+			 //alert.showAndWait();
+			 
+			 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+	         if (result.get() == javafx.scene.control.ButtonType.OK){
+	             stage.close();
+	         }
+
+	         if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+	             alert.close();
+	         }
 	    }
 		
 	}

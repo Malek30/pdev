@@ -2,6 +2,7 @@ package frames;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -94,7 +96,22 @@ public class DrawerContentController implements Initializable{
 
     @FXML
     void exit(ActionEvent event) {
-    	System.exit(0);
+    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		 alert.setTitle("Exit Attempt ");
+		 alert.setHeaderText(null);
+		 alert.setContentText("do you want to exit " );
+
+		 //alert.showAndWait();
+		 
+		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+        if (result.get() == javafx.scene.control.ButtonType.OK){
+        	System.exit(0);
+        }
+
+        if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+            alert.close();
+        }
+    	
     	
 
     }

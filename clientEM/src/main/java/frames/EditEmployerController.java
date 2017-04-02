@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +34,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -202,7 +204,21 @@ public class EditEmployerController implements Initializable{
     @FXML
     void exit(ActionEvent event) {
     	Stage stage = (Stage) ap.getScene().getWindow();
-	    stage.close();
+    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		 alert.setTitle("Exit Attempt ");
+		 alert.setHeaderText(null);
+		 alert.setContentText("do you want to exit " );
+
+		 //alert.showAndWait();
+		 
+		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+        if (result.get() == javafx.scene.control.ButtonType.OK){
+            stage.close();
+        }
+
+        if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+            alert.close();
+        }
     }
     @FXML
     void changeLogo(ActionEvent event) {

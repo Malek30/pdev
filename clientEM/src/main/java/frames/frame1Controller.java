@@ -99,7 +99,7 @@ public class frame1Controller implements Initializable{
 			loginContext.login();
 			System.out.println("ok2");
 			 u=loginModule.u1;
-			 Alert alert = new Alert(Alert.AlertType.NONE);
+			 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			 alert.setTitle("Welcome ");
 			 alert.setHeaderText(null);
 			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
