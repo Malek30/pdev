@@ -75,7 +75,7 @@
          </font>
       </Text>
       <Line endX="100.0" layoutX="652.0" layoutY="395.0" rotate="90.0" scaleX="2.5" startX="-100.0" stroke="WHITE" translateX="100.0" translateY="90.0" />
-      <TableView fx:id="tabskill" layoutX="1078.0" layoutY="320.0" prefHeight="200.0" prefWidth="250.0">
+      <TableView fx:id="tabskill" blendMode="DARKEN" layoutX="1078.0" layoutY="320.0" prefHeight="200.0" prefWidth="250.0">
         <columns>
           <TableColumn fx:id="skil" prefWidth="249.0" style="-fx-background-color: white;" text="Skill list" />
         </columns>
@@ -85,7 +85,7 @@
             <Font size="22.0" />
          </font>
       </Text>
-      <TableView fx:id="rcd" layoutX="798.0" layoutY="539.0" prefHeight="200.0" prefWidth="514.0">
+      <TableView fx:id="rcd" blendMode="DARKEN" layoutX="798.0" layoutY="539.0" prefHeight="200.0" prefWidth="514.0">
         <columns>
           <TableColumn fx:id="txt" prefWidth="355.0" style="-fx-background-color: white;" text="Recommandation" />
           <TableColumn fx:id="user" prefWidth="158.0" style="-fx-background-color: white;" text="Recommander" />

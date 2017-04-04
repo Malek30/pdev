@@ -172,7 +172,7 @@ public class EditWorkerController implements Initializable{
     public static ArrayList<Skill>skill=new ArrayList<>();
     private  static ObservableList<Skill>data2;
     public static List<Skill>lskl=new ArrayList<>();
-    public static List<Skill>userSkill;
+    public static List<Skill>userSkill=null;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		field.getItems().addAll(
@@ -219,17 +219,23 @@ public class EditWorkerController implements Initializable{
 		List<Skill> sklist=delegate.dofindAllSkills();
 		List<Worker>lw=delegate.doFindAllWorker();
 		userSkill=emp.getSkills();
+		List<Skill>llsk=emp.getSkills();
+		
 		
 		List<Worker>lworkers=null;
-		data=FXCollections.observableArrayList();
+		
 		for(Skill s : sklist){
 			lworkers=s.getWorkers();
 			for(Worker w : lworkers){
 				if(w.getIdUser()==userid){
-					lskl.add(s);}}}
+					lskl.add(s);}
+				}
+			}
+
+		data=FXCollections.observableArrayList();
 		
-		for( Skill s : userSkill){
-			System.out.println(s.getName());
+		for( Skill s : llsk){
+			//System.out.println(s.getName());
 			data.add(new Skill(s.getName()));
 		}
 		tabskill.setItems(data);
@@ -252,10 +258,11 @@ public class EditWorkerController implements Initializable{
 		data2 =FXCollections.observableArrayList(skk);
 		sk.getItems().addAll(data2);
 		//-------------------------- list recommandation-----------
+		try{
 		List<Recommendation>lrr=new ArrayList<>();
 		List<Recommendation>lr=delegate1.doFindAllRecommandation();
 		for(Recommendation r : lr){
-			if(r.getRecommended().getIdUser()==1){
+			if(r.getRecommended().getIdUser()==emp.getIdUser()){
 				lrr.add(r);
 			}}
 		data1=FXCollections.observableArrayList();
@@ -265,7 +272,8 @@ public class EditWorkerController implements Initializable{
 		}
 		rcd.setItems(data1);
 		txt.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("text"));
-		user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));
+		user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));}
+		catch(Exception e){}
 		picture=new File(emp.getPicture());
         BufferedImage bufferedImage = null;
 		try {
@@ -357,7 +365,7 @@ public class EditWorkerController implements Initializable{
     				emp.setPicture(picture1.toString());
     			}
     	    	
-    	    	emp.setSkills(lskl);
+    	    	//emp.setSkills(lskl);
     	    	delegate.doUpdateWorker(emp);
     	    	Stage stage = (Stage) desc.getScene().getWindow();
     		    stage.close();
@@ -392,7 +400,7 @@ public class EditWorkerController implements Initializable{
 
     }
     @FXML
-    void adskill(ActionEvent event) {
+    void adskill(ActionEvent event) throws NamingException {
     	if(sk.getPromptText().equals("Skills list")){
     		asklabel.setText("please make sure you select a skill");
     	}else{
@@ -402,6 +410,9 @@ public class EditWorkerController implements Initializable{
 			System.out.println(s.getName());
 			data.add(new Skill(s.getName()));
 		}
+    	Worker emp=delegate.doFindWorkerById(frame1Controller.id);
+    	emp.setSkills(lskl);
+    	delegate.doUpdateWorker(emp);
 		tabskill.setItems(data);
 		skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
 		data2.clear();
@@ -446,12 +457,20 @@ public class EditWorkerController implements Initializable{
     	}
     	emp.setSkills(l);
     	delegate.doUpdateWorker(emp);
-    	Stage stage = (Stage) desc.getScene().getWindow();
-	    stage.close();
-	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
-        Scene scene1 = new Scene(root);
-        stage.setScene(scene1);
-        stage.show();
+    	data=FXCollections.observableArrayList();
+		data.clear();
+		for( Skill s1 : l){
+			//System.out.println(s.getName());
+			data.add(new Skill(s1.getName()));
+		}
+		tabskill.setItems(data);
+		skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
+//    	Stage stage = (Stage) desc.getScene().getWindow();
+//	    stage.close();
+//	    Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+//        Scene scene1 = new Scene(root);
+//        stage.setScene(scene1);
+//        stage.show();
     	 }
     @FXML
     void Lskillaction(MouseEvent event) {

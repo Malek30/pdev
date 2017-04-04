@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import delegate.RecommadationServiceDelegate;
 import delegate.UserServiceDelegate;
 
 import java.awt.image.BufferedImage;
@@ -52,6 +53,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class UserController2 implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
+	RecommadationServiceDelegate delegate1= new RecommadationServiceDelegate();
 
 	private  static ObservableList<Skill>data;
 	private  static ObservableList<Recommendation>data1;
@@ -209,27 +211,13 @@ public class UserController2 implements Initializable{
 				}
 				tabskill.setItems(data);
 				skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
-				//-------------------------- list recommandation-----------
-				InitialContext ctx2 = null;
-				try {
-					ctx2 = new InitialContext();
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Object objet2 = null;
-				try {
-					objet2 = ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;
+				
 				
 				List<Recommendation>lrr=new ArrayList<>();
-				List<Recommendation>lr=proxy2.findAllRecommandation();
+				try{
+				List<Recommendation>lr=delegate1.doFindAllRecommandation();
 				for(Recommendation r : lr){
-					if(r.getRecommended().getIdUser()==1){
+					if(r.getRecommended().getIdUser()==emp.getIdUser()){
 						//System.out.println("test");
 						lrr.add(r);
 					}}
@@ -239,8 +227,9 @@ public class UserController2 implements Initializable{
 				for(Recommendation r: lrr){
 					System.out.println(r.getText()+" "+r.getRecommender().getFirstName());
 					data1.add(new Recommendation(r.getText(),r.getRecommender()));
+				}}catch(Exception e){}
 					
-				}
+				
 				rcd.setItems(data1);
 				txt.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("text"));
 				user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));

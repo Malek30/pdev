@@ -59,7 +59,7 @@ import services.UserRecommandationServiceEJBRemote;
 import services.UserServicesEJBRemote;
 
 public class RecommandationController implements Initializable{
-	private RecommadationServiceDelegate delegate=new RecommadationServiceDelegate();
+	RecommadationServiceDelegate delegate=new RecommadationServiceDelegate();
 	UserServiceDelegate delegate1= new UserServiceDelegate();
 	@FXML
     private AnchorPane ap;
@@ -171,21 +171,7 @@ public class RecommandationController implements Initializable{
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
-		InitialContext ctx = null;
-		try {
-			ctx = new InitialContext();
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		Object objet = null;
-		try {
-			objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-		} catch (NamingException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
+	
 		InitialContext ctx2 = null;
 		try {
 			ctx2 = new InitialContext();
@@ -202,7 +188,7 @@ public class RecommandationController implements Initializable{
     	
 		
 		
-		ArrayList<Worker>workers=(ArrayList<Worker>)proxy.findAllWorkers();
+		ArrayList<Worker>workers=(ArrayList<Worker>)delegate1.doFindAllWorker();
 		List<String>workername=new ArrayList<>();
 		for(Worker w : workers){
 			workername.add(w.getFirstName());
@@ -214,16 +200,11 @@ public class RecommandationController implements Initializable{
 	 @FXML
 	    void add(ActionEvent event) throws NamingException, IOException {
 
-			InitialContext ctx1=new InitialContext();
-			InitialContext ctx2=new InitialContext();
-			Object objet2=ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
-			Object objet1=ctx1.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-			UserRecommandationServiceEJBRemote proxy=(UserRecommandationServiceEJBRemote)objet2;
-			UserServicesEJBRemote proxy1=(UserServicesEJBRemote)objet1;
-			Employer emp=proxy1.findEmploerById(frame1Controller.id);
+			
+			Employer emp=delegate1.doFindEmployerById(frame1Controller.id);
 			Worker w=null;
 			try{
-			w=proxy1.findWorkerByName(sk.getValue().toString());
+			w=(Worker) delegate1.doFindUserByName(sk.getValue());
 			}catch(Exception e) {
 				Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
 				alert2.setTitle("Warning ");
@@ -236,7 +217,9 @@ public class RecommandationController implements Initializable{
 			if(txtrcd.getText().equals(null)){}else{
 				try{
 			//proxy.addUserRecommandation(emp,w,txtrcd.getText() );
+					
 					delegate.doAddRecommandation(emp, w, txtrcd.getText());
+					
 			
 				}
 			catch (Exception e) {
@@ -247,14 +230,35 @@ public class RecommandationController implements Initializable{
 
 				alert2.showAndWait();
 			}}
-			Stage stage14 = (Stage) desc.getScene().getWindow();
-		    stage14.close();
-			Stage stage3=new Stage();
-            Parent root3 = FXMLLoader.load(getClass().getResource("RecommandationFRame.fxml"));
-            Scene scene13 = new Scene(root3);
-            stage3.initStyle(StageStyle.UNDECORATED);
-            stage3.setScene(scene13);
-            stage3.show();
+//			Stage stage14 = (Stage) desc.getScene().getWindow();
+//		    stage14.close();
+//			Stage stage3=new Stage();
+//            Parent root3 = FXMLLoader.load(getClass().getResource("RecommandationFRame.fxml"));
+//            Scene scene13 = new Scene(root3);
+//            stage3.initStyle(StageStyle.UNDECORATED);
+//            stage3.setScene(scene13);
+//            stage3.show();
+
+			List<Recommendation>lrr=new ArrayList<>();
+			List<Recommendation>lr=delegate.doFindAllRecommandation();
+			for(Recommendation r : lr){
+				if(r.getRecommended().getIdUser()==w.getIdUser()){
+					//System.out.println("test");
+					lrr.add(r);
+				}}
+			data1.clear();
+			data1=FXCollections.observableArrayList();
+			
+			
+			for(Recommendation r: lrr){
+				System.out.println(r.getText()+" "+r.getRecommender().getFirstName());
+				data1.add(new Recommendation(r.getText(),r.getRecommender()));
+				
+			}
+			rcd.setItems(data1);
+			txt.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("text"));
+			user.setCellValueFactory(new PropertyValueFactory<Recommendation,String>("RecommanderName"));
+    	
 
 	    }
 
@@ -283,22 +287,7 @@ public class RecommandationController implements Initializable{
 	    	RatingServiceEJBRemote proxy22 = (RatingServiceEJBRemote)ctx22.lookup("/easyMission-ear/easyMission-ejb/RatingServiceEJB!services.RatingServiceEJBRemote");
 	    	
 	    	String name=sk.getValue().toString();
-	    	InitialContext ctx = null;
-			try {
-				ctx = new InitialContext();
-			} catch (NamingException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			Object objet = null;
-			try {
-				objet = ctx.lookup("/easyMission-ear/easyMission-ejb/UserServicesEJB!services.UserServicesEJBRemote");
-			} catch (NamingException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			UserServicesEJBRemote proxy=(UserServicesEJBRemote)objet;
-			Worker emp=proxy.findWorkerByName(name);
+	    	Worker emp=(Worker) delegate1.doFindUserByName(name);
 			System.out.println(emp.getFirstName());
 			fn.setText("First Name : "+emp.getFirstName());
 			ln.setText("Last Name : "+emp.getLastName());
@@ -318,7 +307,9 @@ public class RecommandationController implements Initializable{
 	    			rate+=r.getMark();
 	    			num++;
 	    		}}
-	    	float v=rate/num;
+	    	float v=0;
+	    	if(rate!=0 && num!=0){
+	    	 v=rate/num;}
 	        rrr.setText("Rate :"+v);
 	        picture=new File(emp.getPicture());
 	        BufferedImage bufferedImage = null;
@@ -336,17 +327,10 @@ public class RecommandationController implements Initializable{
 				desc.setText(emp.getDescription());
 				//----------------list skills
 				int userid=emp.getIdUser();
-				List<Skill> sklist=proxy.findAllSkills();
-				List<Worker>lw=proxy.findAllWorkers();
-				List<Skill>lskl=new ArrayList<>();
-				List<Worker>lworkers=null;
-				data=FXCollections.observableArrayList();
-				for(Skill s : sklist){
-					lworkers=s.getWorkers();
-					for(Worker w : lworkers){
-						if(w.getIdUser()==userid){
-							lskl.add(s);}}}
 				
+				
+				List<Skill>lskl=emp.getSkills();
+				data=FXCollections.observableArrayList();
 				for( Skill s : lskl){
 					System.out.println(s.getName());
 					data.add(new Skill(s.getName()));
@@ -355,26 +339,11 @@ public class RecommandationController implements Initializable{
 				skil.setCellValueFactory(new PropertyValueFactory<Skill,String>("name"));
 				
 				//-------------------------- list recommandation-----------
-				InitialContext ctx2 = null;
-				try {
-					ctx2 = new InitialContext();
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Object objet2 = null;
-				try {
-					objet2 = ctx2.lookup("/easyMission-ear/easyMission-ejb/UserRecommandationServiceEJB!services.UserRecommandationServiceEJBRemote");
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				UserRecommandationServiceEJBRemote proxy2=(UserRecommandationServiceEJBRemote)objet2;
 				
 				List<Recommendation>lrr=new ArrayList<>();
-				List<Recommendation>lr=proxy2.findAllRecommandation();
+				List<Recommendation>lr=delegate.doFindAllRecommandation();
 				for(Recommendation r : lr){
-					if(r.getRecommended().getIdUser()==1){
+					if(r.getRecommended().getIdUser()==userid){
 						//System.out.println("test");
 						lrr.add(r);
 					}}

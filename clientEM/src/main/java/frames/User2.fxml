@@ -72,7 +72,7 @@
          </font>
       </Text>
       <Line endX="100.0" layoutX="652.0" layoutY="395.0" rotate="90.0" scaleX="3.0" startX="-100.0" stroke="WHITE" translateX="100.0" />
-      <TableView fx:id="tabskill" layoutX="1084.0" layoutY="220.0" prefHeight="200.0" prefWidth="250.0">
+      <TableView fx:id="tabskill" blendMode="DARKEN" layoutX="1084.0" layoutY="220.0" prefHeight="200.0" prefWidth="250.0">
         <columns>
           <TableColumn fx:id="skil" prefWidth="249.0" text="Skill list" />
         </columns>
@@ -83,7 +83,7 @@
          </font>
       </Text>
       <TextArea fx:id="desc" layoutX="798.0" layoutY="220.0" prefHeight="200.0" prefWidth="270.0" />
-      <TableView fx:id="rcd" layoutX="798.0" layoutY="485.0" prefHeight="200.0" prefWidth="514.0">
+      <TableView fx:id="rcd" blendMode="DARKEN" layoutX="798.0" layoutY="485.0" prefHeight="200.0" prefWidth="514.0">
         <columns>
           <TableColumn fx:id="txt" prefWidth="355.0" text="Recommandation" />
           <TableColumn fx:id="user" prefWidth="158.0" text="Recommander" />
