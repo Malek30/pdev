@@ -31,6 +31,7 @@ import javax.naming.NamingException;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
+import delegate.SecurityServiceDelegate;
 import delegate.UserServiceDelegate;
 import entities.Employer;
 import entities.User;
@@ -39,6 +40,7 @@ import javafx.event.ActionEvent;
 
 public class frame1Controller implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
+	SecurityServiceDelegate dd= new SecurityServiceDelegate();
 	public static Employer e=null;
 	public static Worker w=null;
 	public static String x="";
@@ -77,8 +79,39 @@ public class frame1Controller implements Initializable{
 	  
 	  log=login.getText();
 	  pass=pwd.getText();
+	  User u=null;
+	  try{
+		  u=dd.doGetCnx(log, pass);
+		  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			 alert.setTitle("Welcome ");
+			 alert.setHeaderText(null);
+			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
+
+			 alert.showAndWait();
+			 id=u.getIdUser();
+
+		  Stage stage = (Stage) l1.getScene().getWindow();
+			 stage.close();
+		  if(u instanceof Worker){
+			 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+			 	Scene scene1 = new Scene(root);
+			 	stage.setScene(scene1);
+			 	stage.show();
+			 }else{
+			 	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+			 	Scene scene1 = new Scene(root);
+			 	stage.setScene(scene1);
+			 	stage.show();
+			 	}
+	  }catch(Exception e){
+		  Alert alert2 = new Alert(Alert.AlertType.WARNING);
+			alert2.setTitle("Wrong Informations ");
+			alert2.setHeaderText(null);
+			alert2.setContentText("check your Login Or your Password" );
+			alert2.showAndWait();
+	  }
 	  
-	  System.setProperty("java.security.auth.login.config", "jaas.config");
+	  /*System.setProperty("java.security.auth.login.config", "jaas.config");
 		LoginContext loginContext=null;
 		callbackHandler x=new callbackHandler();
 		x.setLogin(login.getText());
@@ -123,23 +156,24 @@ public class frame1Controller implements Initializable{
 			 	stage.show();
 			 	}
 		} catch (LoginException e) {
-			if(u.getPassword()!=pwd.getText()){
-				Alert alert2 = new Alert(Alert.AlertType.WARNING);
-				alert2.setTitle("Wrong Informations ");
-				alert2.setHeaderText(null);
-				alert2.setContentText("wrong Password" );
-				alert2.showAndWait();
-			}else{
+//			System.out.println(u.getPassword()+"test");
+//			if(u.getPassword()!=pwd.getText()){
+//				Alert alert2 = new Alert(Alert.AlertType.WARNING);
+//				alert2.setTitle("Wrong Informations ");
+//				alert2.setHeaderText(null);
+//				alert2.setContentText("wrong Password" );
+//				alert2.showAndWait();
+//			}else{
 			Alert alert2 = new Alert(Alert.AlertType.WARNING);
 			alert2.setTitle("Wrong Informations ");
 			alert2.setHeaderText(null);
-			alert2.setContentText("wrong Login and your Password" );
+			alert2.setContentText("check your Login Or your Password" );
 			alert2.showAndWait();
-			}
+			//}
 			System.out.println(e.getMessage());
-			System.out.println("2");
-		}
+			System.out.println("2");*/
 		
+	
     	
 		
   }

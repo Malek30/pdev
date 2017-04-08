@@ -1,8 +1,10 @@
 package security;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -15,14 +17,18 @@ import javax.security.auth.spi.LoginModule;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
-import delegate.UserServiceDelegate;
+
 import entities.User;
-import frames.frame1Controller;
+import services.UserServicesEJBLocal;
+
 
 public class loginModule implements LoginModule {
-	UserServiceDelegate delegate= new UserServiceDelegate();
-	public static  String USERNAME="";
-	public static  String PASSWORD="";
+	
+	@EJB
+	private UserServicesEJBLocal userServiceLocal;
+	public User u=null;
+	private  String USERNAME="malek1";
+	private  String PASSWORD="123";
 	private CallbackHandler callbackHandler=null;
 	private boolean authentificationSuccessFlag=false;
 	public static User u1=null;
@@ -36,6 +42,7 @@ public class loginModule implements LoginModule {
 
 	@Override
 	public boolean login() throws LoginException {
+		
 		Callback[] callbackArray=new Callback[2];
 		callbackArray[0]=new NameCallback("User Name");
 		callbackArray[1]=new PasswordCallback("Password", false);
@@ -50,19 +57,14 @@ public class loginModule implements LoginModule {
 		String name=((NameCallback)callbackArray[0]).getName();
 		String password=new String(((PasswordCallback)callbackArray[1]).getPassword());
 		
-		try{
-		u1=delegate.doFindUserByLogin(frame1Controller.log);
-		System.out.println("test log true");}
-		catch(Exception e){
-			System.out.println("authentification Failure ...");
-		}
-		if(u1!=null){
-			USERNAME=u1.getLogin();
-			PASSWORD=u1.getPassword();
+		//u=userServiceLocal.findUserByLogin("malek1");
+//		if(u1!=null){
+//			USERNAME=u1.getLogin();
+//			PASSWORD=u1.getPassword();
 		
 		if(USERNAME.equals(name)&&PASSWORD.equals(password)){
 			System.out.println("authentification success ...");
-			
+
 			authentificationSuccessFlag=true;
 			
 		}else{
@@ -70,19 +72,9 @@ public class loginModule implements LoginModule {
 			throw new FailedLoginException("authentification Failure....");
 		}
 		
-		}
+		//}
 		return authentificationSuccessFlag;
-//		if(USERNAME.equals(name)&&PASSWORD.equals(password)){
-//			System.out.println("authentification success ...");	
-//			authentificationSuccessFlag=true;
-//		}else{
-//			authentificationSuccessFlag=false;
-//			throw new FailedLoginException("authentification Failure....");
-//		}
-//		
-//		
-//		return authentificationSuccessFlag;
-//		
+		
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
 import delegate.RecommadationServiceDelegate;
+import delegate.SecurityServiceDelegate;
 import delegate.UserServiceDelegate;
 import entities.Recommendation;
 import entities.Skill;
@@ -25,17 +26,11 @@ public class CrudSkill {
 	public static void main(String[] args) throws NamingException {
 		UserServiceDelegate delegate=new UserServiceDelegate();
 		RecommadationServiceDelegate delegate1=new RecommadationServiceDelegate();
-		Worker u1=null;
-		u1=delegate.doFindWorkerById(2);
-		List<Skill>ls=u1.getSkills();
-		List<Recommendation>lr=delegate1.doFindAllRecommandation();
-		for (Skill s : ls){
-			System.out.println(s.getName());
-		}
+		SecurityServiceDelegate delegate2=new SecurityServiceDelegate();
 		
-		
+		System.out.println("test");
+		User x=delegate2.doGetCnx("malek1", "123");
+		System.out.println("test : "+x.getFirstName());
 		
 
-	}
-
-}
+}}
