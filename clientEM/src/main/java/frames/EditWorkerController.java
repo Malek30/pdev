@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -307,7 +308,7 @@ public class EditWorkerController implements Initializable{
         }
     }
     @FXML
-    void update(ActionEvent event) throws IOException, NamingException {
+    void update(ActionEvent event) throws IOException, NamingException, NoSuchAlgorithmException {
     	
     			Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     			if(firstname.getText().equals("")){
@@ -400,7 +401,7 @@ public class EditWorkerController implements Initializable{
 
     }
     @FXML
-    void adskill(ActionEvent event) throws NamingException {
+    void adskill(ActionEvent event) throws NamingException, NoSuchAlgorithmException {
     	if(sk.getPromptText().equals("Skills list")){
     		asklabel.setText("please make sure you select a skill");
     	}else{
@@ -442,7 +443,7 @@ public class EditWorkerController implements Initializable{
 
     }
     @FXML
-    void delskill(ActionEvent event) throws NamingException, IOException {
+    void delskill(ActionEvent event) throws NamingException, IOException, NoSuchAlgorithmException {
     	
     	Worker emp=delegate.doFindWorkerById(frame1Controller.id);
     	List<Skill>ls=emp.getSkills();

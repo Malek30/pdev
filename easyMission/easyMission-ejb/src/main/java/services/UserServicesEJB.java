@@ -1,5 +1,7 @@
 package services;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -27,36 +29,48 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
     }
 
 	@Override
-	public void addUser(User u) {
+	public void addUser(User u) throws NoSuchAlgorithmException {
+		String x=Md5(u.getPassword());
+		u.setPassword(x);
 		em.persist(u);
 		
 	}
 
 	@Override
-	public void addWorker(Worker w) {
+	public void addWorker(Worker w) throws NoSuchAlgorithmException {
+		String x=Md5(w.getPassword());
+		w.setPassword(x);
 		em.persist(w);
 		
 	}
 
 	@Override
-	public void addEmployer(Employer E) {
+	public void addEmployer(Employer E) throws NoSuchAlgorithmException {
+		String x=Md5(E.getPassword());
+		E.setPassword(x);
 		em.persist(E);
 		
 	}
 
 	@Override
-	public void updateUser(User u) {
+	public void updateUser(User u) throws NoSuchAlgorithmException {
+		String x=Md5(u.getPassword());
+		u.setPassword(x);
 		em.merge(u);
 		
 	}
 
 	@Override
-	public void updateWorker(Worker w) {
+	public void updateWorker(Worker w) throws NoSuchAlgorithmException {
+		String x=Md5(w.getPassword());
+		w.setPassword(x);
 		em.merge(w);
 		
 	}
 	@Override
-	public void updateEmployer(Employer E) {
+	public void updateEmployer(Employer E) throws NoSuchAlgorithmException {
+		String x=Md5(E.getPassword());
+		E.setPassword(x);
 		em.merge(E);
 		
 	}
@@ -116,9 +130,10 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 	}
 
 	@Override
-	public User findUserBYLoginAndPassword(String login, String pwd) {
+	public User findUserBYLoginAndPassword(String login, String pwd) throws NoSuchAlgorithmException {
+		String x=Md5(pwd);
 		return em.createQuery("select c from User c where c.Login=:login and c.password=:pwd",User.class)
-		.setParameter("login", login).setParameter("pwd", pwd).getSingleResult();
+		.setParameter("login", login).setParameter("pwd", x).getSingleResult();
 	}
 
 	@Override
@@ -151,6 +166,25 @@ public class UserServicesEJB implements UserServicesEJBRemote, UserServicesEJBLo
 		return em.createQuery("select c from User c where c.email=:pname",User.class)
 				.setParameter("pname", Mail).getSingleResult();
 	}
+
+	@Override
+	public String Md5(String pwd) throws NoSuchAlgorithmException {
+	
+	        MessageDigest md = MessageDigest.getInstance("MD5");
+	          md.update(pwd.getBytes());
+	          
+	          byte byteData[] = md.digest();
+	          //convert the byte to hex format method 2
+	          StringBuffer hexString = new StringBuffer();
+	          for (int i=0;i<byteData.length;i++) {
+	              String hex=Integer.toHexString(0xff & byteData[i]);
+	              if(hex.length()==1) hexString.append('0');
+	              hexString.append(hex);
+	              }
+	              String pwd1=hexString.toString();
+	              return pwd1;
+	    }
+	
 
 	
 

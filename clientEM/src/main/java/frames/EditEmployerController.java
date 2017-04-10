@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -264,7 +265,7 @@ public class EditEmployerController implements Initializable{
     }
 
     @FXML
-    void update(ActionEvent event) throws IOException, NamingException {
+    void update(ActionEvent event) throws IOException, NamingException, NoSuchAlgorithmException {
     	
     	Employer emp=delegate.doFindEmployerById(frame1Controller.id);
 		if(firstname.getText().equals("")){

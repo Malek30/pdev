@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,7 +70,7 @@ public class frame1Controller implements Initializable{
 		
 	}
   @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException, NamingException {
+    private void handleButtonAction(ActionEvent event) throws IOException, NamingException, NoSuchAlgorithmException {
 //	  try{
 //	  u1=delegate.doFindUserByLogin(login.getText());
 //	  
@@ -78,44 +79,44 @@ public class frame1Controller implements Initializable{
 //	  }
 	  
 	  log=login.getText();
-	  pass=pwd.getText();
+	  pass=delegate.doCryte(pwd.getText());
 	  User u=null;
-	  try{
-		  u=dd.doGetCnx(log, pass);
-		  Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			 alert.setTitle("Welcome ");
-			 alert.setHeaderText(null);
-			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
-
-			 alert.showAndWait();
-			 id=u.getIdUser();
-
-		  Stage stage = (Stage) l1.getScene().getWindow();
-			 stage.close();
-		  if(u instanceof Worker){
-			 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
-			 	Scene scene1 = new Scene(root);
-			 	stage.setScene(scene1);
-			 	stage.show();
-			 }else{
-			 	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
-			 	Scene scene1 = new Scene(root);
-			 	stage.setScene(scene1);
-			 	stage.show();
-			 	}
-	  }catch(Exception e){
-		  Alert alert2 = new Alert(Alert.AlertType.WARNING);
-			alert2.setTitle("Wrong Informations ");
-			alert2.setHeaderText(null);
-			alert2.setContentText("check your Login Or your Password" );
-			alert2.showAndWait();
-	  }
+//	  try{
+//		  u=dd.doGetCnx(log, pass);
+//		  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//			 alert.setTitle("Welcome ");
+//			 alert.setHeaderText(null);
+//			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
+//
+//			 alert.showAndWait();
+//			 id=u.getIdUser();
+//
+//		  Stage stage = (Stage) l1.getScene().getWindow();
+//			 stage.close();
+//		  if(u instanceof Worker){
+//			 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+//			 	Scene scene1 = new Scene(root);
+//			 	stage.setScene(scene1);
+//			 	stage.show();
+//			 }else{
+//			 	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+//			 	Scene scene1 = new Scene(root);
+//			 	stage.setScene(scene1);
+//			 	stage.show();
+//			 	}
+//	  }catch(Exception e){
+//		  Alert alert2 = new Alert(Alert.AlertType.WARNING);
+//			alert2.setTitle("Wrong Informations ");
+//			alert2.setHeaderText(null);
+//			alert2.setContentText("check your Login Or your Password" );
+//			alert2.showAndWait();
+//	  }
 	  
-	  /*System.setProperty("java.security.auth.login.config", "jaas.config");
+	  System.setProperty("java.security.auth.login.config", "jaas.config");
 		LoginContext loginContext=null;
 		callbackHandler x=new callbackHandler();
-		x.setLogin(login.getText());
-		x.setPwd(pwd.getText());
+		x.setLogin(log);
+		x.setPwd(pass);
 		try {
 			 loginContext=new LoginContext("EM",x);
 			 System.out.println("ok1");
@@ -171,9 +172,9 @@ public class frame1Controller implements Initializable{
 			alert2.showAndWait();
 			//}
 			System.out.println(e.getMessage());
-			System.out.println("2");*/
+			System.out.println("2");
 		
-	
+		}
     	
 		
   }
@@ -198,7 +199,7 @@ public class frame1Controller implements Initializable{
 		 Stage stage = (Stage) l1.getScene().getWindow();
 		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
          if (result.get() == javafx.scene.control.ButtonType.OK){
-             stage.close();
+             System.exit(0);
          }
 
          if(result.get()==javafx.scene.control.ButtonType.CANCEL){

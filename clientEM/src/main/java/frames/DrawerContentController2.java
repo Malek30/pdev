@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -66,15 +67,32 @@ public class DrawerContentController2 implements Initializable{
 
             
                 break;
-            case "Edit":
-            	Stage stage=new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("EditWorker.fxml"));
-            Scene scene1 = new Scene(root);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene1);
-            stage.show();
-            Stage stage1 = (Stage) btn1.getScene().getWindow();
-		    stage1.close();
+            case "Logout":
+            	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+       		 alert.setTitle("Logout Attempt ");
+       		 alert.setHeaderText(null);
+       		 alert.setContentText("do you want to exit " );
+
+       		 //alert.showAndWait();
+       		 
+       		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+             if (result.get() == javafx.scene.control.ButtonType.OK){
+            	 Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
+            	 Stage stage=new Stage();
+     	        Scene scene = new Scene(root);
+     	        stage.setResizable(false);
+     			stage.getIcons().add(new Image("http://icons.iconarchive.com/icons/ariil/alphabet/64/Letter-E-icon.png"));
+     			stage.setTitle("Easy Mission");
+     	        stage.initStyle(StageStyle.UNDECORATED);
+     	        stage.setScene(scene);
+     	        stage.show();
+                
+           	 
+             }
+
+             if(result.get()==javafx.scene.control.ButtonType.CANCEL){
+                 alert.close();
+             }
                 break;
            
         }
@@ -123,6 +141,21 @@ public class DrawerContentController2 implements Initializable{
         stage.show();
         Stage stage1 = (Stage) btn1.getScene().getWindow();
 	    stage1.close();
+    }
+    @FXML
+    void edit(ActionEvent event) throws IOException {
+    	
+      
+      
+      Stage stage=new Stage();
+      Parent root = FXMLLoader.load(getClass().getResource("EditWorker.fxml"));
+      Scene scene1 = new Scene(root);
+      stage.initStyle(StageStyle.UNDECORATED);
+      stage.setScene(scene1);
+      stage.show();
+      Stage stage1 = (Stage) btn1.getScene().getWindow();
+	    stage1.close();
+
     }
 
 

@@ -1,5 +1,6 @@
 package delegate;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -17,22 +18,22 @@ public class UserServiceDelegate {
 	private static UserServicesEJBRemote getProxy(){
 		return (UserServicesEJBRemote) ServiceLocator.getInstance().getProxy(JNDI);
 	}
-	public static void doAddUser( User u1)throws NamingException {
+	public static void doAddUser( User u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().addUser(u1);
 	}
-	public static void doAddEmployer(Employer u1)throws NamingException {
+	public static void doAddEmployer(Employer u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().addEmployer(u1);
 	}
-	public static void doAddWorker(Worker u1)throws NamingException {
+	public static void doAddWorker(Worker u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().addWorker(u1);
 	}
-	public static void doUpdateWorker(Worker u1)throws NamingException {
+	public static void doUpdateWorker(Worker u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().updateWorker(u1);
 	}
-	public static void doUpdateEmployer(Employer u1)throws NamingException {
+	public static void doUpdateEmployer(Employer u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().updateEmployer(u1);
 	}
-	public static void doUpdateUser( User u1)throws NamingException {
+	public static void doUpdateUser( User u1)throws NamingException, NoSuchAlgorithmException {
 		getProxy().updateUser(u1);
 	}
 	public static User doFindUserById(int id){
@@ -57,7 +58,7 @@ public class UserServiceDelegate {
 		return getProxy().findUserByMail(Mail);
 		
 	}
-	public static User doFindUserByLoginAndPassword(String login, String pwd){
+	public static User doFindUserByLoginAndPassword(String login, String pwd) throws NoSuchAlgorithmException{
 		return getProxy().findUserBYLoginAndPassword(login, pwd);
 		
 	}
@@ -69,6 +70,9 @@ public class UserServiceDelegate {
 	}
 	public static Skill doFindSkillByName(String name) {
 		return getProxy().findSkillByName(name);
+	}
+	public static String doCryte(String pwd) throws NoSuchAlgorithmException {
+		return getProxy().Md5(pwd);
 	}
 	
 	

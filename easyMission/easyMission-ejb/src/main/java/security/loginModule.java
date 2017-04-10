@@ -20,12 +20,13 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 
 import entities.User;
 import services.UserServicesEJBLocal;
+import services.UserServicesEJBRemote;
 
 
 public class loginModule implements LoginModule {
 	
 	@EJB
-	private UserServicesEJBLocal userServiceLocal;
+	public UserServicesEJBRemote userServiceLocal;
 	public User u=null;
 	private  String USERNAME="malek1";
 	private  String PASSWORD="123";
@@ -57,7 +58,7 @@ public class loginModule implements LoginModule {
 		String name=((NameCallback)callbackArray[0]).getName();
 		String password=new String(((PasswordCallback)callbackArray[1]).getPassword());
 		
-		//u=userServiceLocal.findUserByLogin("malek1");
+	//u=userServiceLocal.findUserByLogin("malek1");
 //		if(u1!=null){
 //			USERNAME=u1.getLogin();
 //			PASSWORD=u1.getPassword();
