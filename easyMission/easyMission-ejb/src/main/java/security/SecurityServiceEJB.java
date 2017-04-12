@@ -35,7 +35,7 @@ public class SecurityServiceEJB implements SecurityServiceEJBRemote, SecuritySer
 	public User getConnection(String login, String pwd) {
 		User u=null;
 		System.setProperty("java.security.auth.login.config", "jaas.config");
-		loginModule l=new loginModule();
+		
 //		
 		callbackHandler x=new callbackHandler();
 		LoginContext loginContext=null;
@@ -54,8 +54,7 @@ public class SecurityServiceEJB implements SecurityServiceEJBRemote, SecuritySer
 //		
 			try {
 				loginContext.login();
-				u=em.createQuery("select c from User c where c.Login=:pname",User.class)
-						.setParameter("pname", login).getSingleResult();
+				
 				
 				//flag=true;
 			} catch (LoginException e) {

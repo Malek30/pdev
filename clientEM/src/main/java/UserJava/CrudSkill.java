@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.security.auth.login.LoginContext;
@@ -21,6 +22,7 @@ import frames.main;
 import javafx.collections.FXCollections;
 import security.Driver;
 import security.callbackHandler;
+import security.loginRemote;
 import services.UserServicesEJBRemote;
 
 public class CrudSkill {
@@ -29,12 +31,15 @@ public class CrudSkill {
 		UserServiceDelegate delegate=new UserServiceDelegate();
 		RecommadationServiceDelegate delegate1=new RecommadationServiceDelegate();
 		SecurityServiceDelegate delegate2=new SecurityServiceDelegate();
-		
+//		InitialContext ctx=new InitialContext();
+//		Object objet=ctx.lookup("/easyMission-ear/easyMission-ejb/login!security.loginRemote");
+//		loginRemote proxy=(loginRemote)objet;
 //		System.out.println("test");
-//		User x=delegate2.doGetCnx("malek1", "123");
+		User x=delegate2.doGetCnx("malek1", "123");
 //		System.out.println("test : "+x.getFirstName());
-		//String x=delegate.doCryte("123");
+		
 //		User u=delegate.doFindUserByLoginAndPassword("malek1","123");
 //		System.out.println(u.getFirstName());
-		main.main(null);
+		
+		
 }}

@@ -18,6 +18,7 @@
       <JFXButton fx:id="btn5" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#mission" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Mission" />
       <JFXButton fx:id="btn6" buttonType="RAISED" onAction="#addMission" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Add Mission" />
       <JFXButton fx:id="btn61" buttonType="RAISED" onAction="#SendMail" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Send Mail" />
+      <JFXButton fx:id="btn611" buttonType="RAISED" onAction="#logout" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Logout" />
       <JFXButton fx:id="btn4" buttonType="RAISED" onAction="#exit" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="EXIT" />
    </children>
 </VBox>

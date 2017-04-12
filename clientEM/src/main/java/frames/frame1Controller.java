@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import security.Driver;
 import security.callbackHandler;
 import security.loginModule;
 import services.UserServicesEJBRemote;
@@ -34,6 +33,7 @@ import javax.security.auth.login.LoginException;
 
 import delegate.SecurityServiceDelegate;
 import delegate.UserServiceDelegate;
+import delegate.loginServiceDelegate;
 import entities.Employer;
 import entities.User;
 import entities.Worker;
@@ -42,6 +42,7 @@ import javafx.event.ActionEvent;
 public class frame1Controller implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
 	SecurityServiceDelegate dd= new SecurityServiceDelegate();
+	loginServiceDelegate d1= new loginServiceDelegate();
 	public static Employer e=null;
 	public static Worker w=null;
 	public static String x="";
@@ -62,6 +63,8 @@ public class frame1Controller implements Initializable{
 	@FXML
 	private Button forgot;
 	public static User u=null;
+	public static LoginContext loginContext;
+	
 	
 
 	@Override
@@ -78,9 +81,7 @@ public class frame1Controller implements Initializable{
 //		  
 //	  }
 	  
-	  log=login.getText();
-	  pass=delegate.doCryte(pwd.getText());
-	  User u=null;
+	  
 //	  try{
 //		  u=dd.doGetCnx(log, pass);
 //		  Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -111,9 +112,69 @@ public class frame1Controller implements Initializable{
 //			alert2.setContentText("check your Login Or your Password" );
 //			alert2.showAndWait();
 //	  }
-	  
+	  log=login.getText();
+	  pass=delegate.doCryte(pwd.getText());
+	  User u=null;
+	  // server log----
+//	  System.setProperty("java.security.auth.login.config", "D:/pdevMalek/easyMission/easyMission-ejb/jaas.config");
+//		LoginContext loginContext=null;
+//		callbackHandler x=new callbackHandler();
+//		x.setLogin(log);
+//		x.setPwd(pass);
+//		try {
+//			 loginContext=new LoginContext("EM",x);
+//			 System.out.println("ok1");
+//			
+//		} catch (LoginException e) {
+//			
+//			
+//			//e.printStackTrace();
+//			System.out.println(e.getMessage());
+//			System.out.println("1");
+//			System.exit(0);
+//		}
+//		try {
+//			 loginContext.login();
+//			 System.out.println("ok2");
+//			 u=loginModule.u1;
+//			 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//			 alert.setTitle("Welcome ");
+//			 alert.setHeaderText(null);
+//			 alert.setContentText("welcome "+u.getFirstName()+" "+u.getLastName()+" :)" );
+//
+//			 alert.showAndWait();
+//			 id=u.getIdUser();
+//
+//
+//			 Stage stage = (Stage) l1.getScene().getWindow();
+//			 stage.close();
+//
+//			 if(u instanceof Worker){
+//			 	Parent root = FXMLLoader.load(getClass().getResource("User2.fxml"));
+//			 	Scene scene1 = new Scene(root);
+//			 	stage.setScene(scene1);
+//			 	stage.show();
+//			 }else{
+//			 	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+//			 	Scene scene1 = new Scene(root);
+//			 	stage.setScene(scene1);
+//			 	stage.show();
+//			 	}
+//		} catch (LoginException e) {
+//
+//			Alert alert2 = new Alert(Alert.AlertType.WARNING);
+//			alert2.setTitle("Wrong Informations ");
+//			alert2.setHeaderText(null);
+//			alert2.setContentText("check your Login Or your Password" );
+//			alert2.showAndWait();
+//			//}
+//			System.out.println(e.getMessage());
+//			System.out.println("2");
+//		
+//		}
+		//client log---
 	  System.setProperty("java.security.auth.login.config", "jaas.config");
-		LoginContext loginContext=null;
+		 loginContext=null;
 		callbackHandler x=new callbackHandler();
 		x.setLogin(log);
 		x.setPwd(pass);
@@ -130,8 +191,8 @@ public class frame1Controller implements Initializable{
 			System.exit(0);
 		}
 		try {
-			loginContext.login();
-			System.out.println("ok2");
+			 loginContext.login();
+			 System.out.println("ok2");
 			 u=loginModule.u1;
 			 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			 alert.setTitle("Welcome ");
@@ -157,14 +218,7 @@ public class frame1Controller implements Initializable{
 			 	stage.show();
 			 	}
 		} catch (LoginException e) {
-//			System.out.println(u.getPassword()+"test");
-//			if(u.getPassword()!=pwd.getText()){
-//				Alert alert2 = new Alert(Alert.AlertType.WARNING);
-//				alert2.setTitle("Wrong Informations ");
-//				alert2.setHeaderText(null);
-//				alert2.setContentText("wrong Password" );
-//				alert2.showAndWait();
-//			}else{
+
 			Alert alert2 = new Alert(Alert.AlertType.WARNING);
 			alert2.setTitle("Wrong Informations ");
 			alert2.setHeaderText(null);
@@ -175,7 +229,6 @@ public class frame1Controller implements Initializable{
 			System.out.println("2");
 		
 		}
-    	
 		
   }
 

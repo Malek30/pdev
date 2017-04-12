@@ -19,11 +19,13 @@ services\RatingServiceEJBLocal.class
 services\SuggestionCRUDLocal.class
 security\SecurityServiceEJBLocal.class
 entities\Skill.class
+security\loginRemote.class
 entities\Rating.class
 embadableIDs\ApplicationId.class
 services\ApplicationEJBLocal.class
 entities\Worker.class
 entities\Recommendation.class
+security\loginLocal.class
 entities\Employer.class
 security\SecurityServiceEJBRemote.class
 services\ContactServiceEJBRemote.class
@@ -44,6 +46,7 @@ security\loginModule.class
 services\RatingServiceEJBRemote.class
 services\AdminserviceEJB.class
 services\AdminserviceEJBRemote.class
+security\login.class
 embadableIDs\SuggestionId.class
 security\SecurityServiceEJB.class
 services\ApplicationEJB.class

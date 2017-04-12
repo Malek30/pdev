@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.security.auth.login.LoginException;
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
@@ -19,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import security.loginModule;
 
 public class DrawerContentController2 implements Initializable{
 
@@ -69,30 +72,36 @@ public class DrawerContentController2 implements Initializable{
                 break;
             case "Logout":
             	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-       		 alert.setTitle("Logout Attempt ");
-       		 alert.setHeaderText(null);
-       		 alert.setContentText("do you want to exit " );
+         		 alert.setTitle("Logout Attempt ");
+         		 alert.setHeaderText(null);
+         		 alert.setContentText("do you want to logout " );
 
-       		 //alert.showAndWait();
-       		 
-       		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
-             if (result.get() == javafx.scene.control.ButtonType.OK){
-            	 Parent root = FXMLLoader.load(getClass().getResource("frame1.fxml"));
-            	 Stage stage=new Stage();
-     	        Scene scene = new Scene(root);
-     	        stage.setResizable(false);
-     			stage.getIcons().add(new Image("http://icons.iconarchive.com/icons/ariil/alphabet/64/Letter-E-icon.png"));
-     			stage.setTitle("Easy Mission");
-     	        stage.initStyle(StageStyle.UNDECORATED);
-     	        stage.setScene(scene);
-     	        stage.show();
-                
-           	 
-             }
+         		 //alert.showAndWait();
+         		 
+         		 Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+               if (result.get() == javafx.scene.control.ButtonType.OK){
 
-             if(result.get()==javafx.scene.control.ButtonType.CANCEL){
-                 alert.close();
-             }
+               	loginModule l=new loginModule();
+               	try {
+               		Stage stage41 = (Stage) btn1.getScene().getWindow();
+            	    stage41.close();
+            	    frame1Controller.loginContext.logout();
+       	        	 Parent root = FXMLLoader.load(getClass().getResource("frame0.fxml"));
+       	         	Stage stage=new Stage();
+       	 	        Scene scene = new Scene(root);
+       	 	        stage.setResizable(false);
+       	 			stage.getIcons().add(new Image("http://icons.iconarchive.com/icons/ariil/alphabet/64/Letter-E-icon.png"));
+       	 			stage.setTitle("Easy Mission");
+       	 	        stage.initStyle(StageStyle.UNDECORATED);
+       	 	        stage.setScene(scene);
+       	 	        stage.show();
+       				
+       			} catch (LoginException e) {
+       				// TODO Auto-generated catch block
+       				e.printStackTrace();
+       			}
+                  
+           }
                 break;
            
         }
