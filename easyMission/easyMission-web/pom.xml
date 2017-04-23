@@ -21,7 +21,9 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
+			
 		</dependency>
+		
 		<dependency>
 			<groupId>edu.esprit.easyMission</groupId>
 			<artifactId>easyMission-ejb</artifactId>

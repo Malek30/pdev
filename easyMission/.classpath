@@ -12,5 +12,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/JEE/primefaces-6.1.RC1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

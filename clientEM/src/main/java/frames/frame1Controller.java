@@ -31,9 +31,7 @@ import javax.naming.NamingException;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
-import delegate.SecurityServiceDelegate;
 import delegate.UserServiceDelegate;
-import delegate.loginServiceDelegate;
 import entities.Employer;
 import entities.User;
 import entities.Worker;
@@ -41,8 +39,8 @@ import javafx.event.ActionEvent;
 
 public class frame1Controller implements Initializable{
 	UserServiceDelegate delegate= new UserServiceDelegate();
-	SecurityServiceDelegate dd= new SecurityServiceDelegate();
-	loginServiceDelegate d1= new loginServiceDelegate();
+	//SecurityServiceDelegate dd= new SecurityServiceDelegate();
+	//loginServiceDelegate d1= new loginServiceDelegate();
 	public static Employer e=null;
 	public static Worker w=null;
 	public static String x="";

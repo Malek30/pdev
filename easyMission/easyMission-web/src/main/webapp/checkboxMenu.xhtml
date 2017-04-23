@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+                	<h:head></h:head>
+<h:body>
+<h:form>
+<h:panelGrid columns="2" cellpadding="5">
+        
+
+				<h:outputLabel for="multiple" value="Multiple:" />
+        <p:selectCheckboxMenu id="multiple" value="#{authentificationBean.selectedSkills}" label="Cities" multiple="true"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItems value="#{authentificationBean.userskill()}" />
+        </p:selectCheckboxMenu>
+    </h:panelGrid>
+ 
+    <p:commandButton value="Submit" update="displayCities" oncomplete="PF('cityDialog').show()" style="margin-top:10px;" />
+ 
+    <p:dialog header="Selected Cities" modal="true" showEffect="fade" hideEffect="fade" widgetVar="cityDialog" width="250">
+        <p:outputPanel id="displayCities">
+            
+ 
+            <p:dataList value="#{authentificationBean.selectedSkills}" var="city" emptyMessage="No cities selected">
+                <f:facet name="header">
+                    Multiple
+                </f:facet>
+                #{city}
+            </p:dataList>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+</h:body>
+</ui:composition>

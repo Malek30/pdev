@@ -31,7 +31,21 @@ public class User implements Serializable {
 	private String field ;
 	private String picture;
 	private String password ;
+	private String gender;
+	private int type;
 	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	@OneToMany(mappedBy="notified")
 	private List<Notification> notifications=new ArrayList<Notification>();
 	// fetch=FetchType.LAZY 

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Username : "></p:outputLabel>
+				<p:inputText value="#{userBean.user.login}" pt:placeholder="Login" />
+				<p:outputLabel value="Firstname : "></p:outputLabel>
+				<p:inputText value="#{userBean.user.firstName}"
+					pt:placeholder="First Name" />
+				<p:outputLabel value="lastName : "></p:outputLabel>
+				<p:inputText value="#{userBean.user.lastName}"
+					pt:placeholder="Last Name" />
+				<p:outputLabel value="Email : "></p:outputLabel>
+				<p:inputText value="#{userBean.user.email}"
+					pt:placeholder="Email" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:outputLabel for="popup" value="Birthdate:" />
+				<p:calendar id="popup" value="#{userBean.user.birthDate}"
+					pt:placeholder="Birthdate" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="Gender:" />
+				<p:selectOneButton value="#{userBean.user.gender}">
+					<f:selectItem itemLabel="Male" itemValue="Male" />
+					<f:selectItem itemLabel="Female" itemValue="Female" />
+				</p:selectOneButton>
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel for="console1" value="Country :" />
+				<p:selectOneMenu id="console1" value="#{userBean.user.country}"
+					style="width:125px">
+					<f:selectItem itemLabel="Tunisia" itemValue="Tunisia" />
+					<f:selectItem itemLabel="France" itemValue="France" />
+					<f:selectItem itemLabel="Usa" itemValue="USA" />
+					<f:selectItem itemLabel="Canada" itemValue="Canada" />
+					<f:selectItem itemLabel="Germany" itemValue="Germany" />
+					<f:selectItem itemLabel="UK" itemValue="Uk" />
+					<f:selectItem itemLabel="Russia" itemValue="Russia" />
+					<f:selectItem itemLabel="Spain" itemValue="Spain" />
+				</p:selectOneMenu>
+	</h:panelGrid>
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="Type:" />
+				<p:selectOneButton value="#{userBean.user.type}">
+					<f:selectItem itemLabel="Employer" itemValue="1" />
+					<f:selectItem itemLabel="Worker" itemValue="0" />
+				</p:selectOneButton>
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel for="console" value="Field:" />
+				<p:selectOneMenu id="console" value="#{userBean.user.field}"
+					style="width:125px">
+					<f:selectItem itemLabel="It" itemValue="It" />
+					<f:selectItem itemLabel="Design" itemValue="Design" />
+					<f:selectItem itemLabel="Electric" itemValue="Electric" />
+					<f:selectItem itemLabel="Mechanic" itemValue="Mechanic" />
+				</p:selectOneMenu>
+	</h:panelGrid>
+				<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+					<h:outputLabel for="pwd1" value="Password : *" />
+					<p:password id="pwd1" value="#{userBean.user.password}"
+						match="pwd2" label="Password 1" required="true" />
+
+					<h:outputLabel for="pwd2" value="Retype Password : *" />
+					<p:password id="pwd2" value="#{userBean.user.password}"
+						label="Password 2" required="true" />
+				</h:panelGrid>
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
+				<p:commandButton update="matchGrid" action="#{userBean.doSave()}" value="save" />
+				
+		</h:form>
+	</h:body>
+</ui:composition>

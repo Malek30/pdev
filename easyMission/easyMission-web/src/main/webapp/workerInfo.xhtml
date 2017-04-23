@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+                	<h:head></h:head>
+<h:body>
+<h1>Welcome Worker :#{authentificationBean.worker.login} please complete your profile</h1>
+<h:form>
+<h:panelGrid columns="2" cellpadding="5">
+        
+
+				<h:outputLabel for="multiple" value="skills list:" />
+        <p:selectCheckboxMenu id="multiple" value="#{authentificationBean.selectedSkills}" label="Skill" multiple="true"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItems value="#{authentificationBean.userskill()}" />
+        </p:selectCheckboxMenu>
+    </h:panelGrid>
+ 
+    <p:commandButton value="confirm skills list" update="displayCities" oncomplete="PF('cityDialog').show()" style="margin-top:10px;"  />
+ 
+    <p:dialog header="Selected Skills" modal="true" showEffect="fade" hideEffect="fade" widgetVar="cityDialog" width="250">
+        <p:outputPanel id="displayCities">
+            
+ 
+            <p:dataList value="#{authentificationBean.selectedSkills}" var="city" emptyMessage="No Skills selected">
+                <f:facet name="header">
+                    List
+                </f:facet>
+                #{city}
+            </p:dataList>
+        </p:outputPanel>
+    </p:dialog>
+    <p:commandButton  action="#{authentificationBean.doComplete()}" value="save" />
+</h:form>
+</h:body>
+</ui:composition>
