@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h1>Welcome Worker : #{authentificationBean.user.login}</h1>
+		<h:form>
+			<h:selectOneMenu value="#{authentificationBean.userskill()}">
+				<f:selectItems value="#{authentificationBean.userskill()}" />
+			</h:selectOneMenu>
+			
+
+
+
+
+		</h:form>
+		<h4>First name : #{authentificationBean.worker.firstName}</h4>
+		<h4>Last name : #{authentificationBean.worker.lastName}</h4>
+		<h4>Birth date : #{authentificationBean.worker.birthDate}</h4>
+		<h4>Description : #{authentificationBean.worker.description}</h4>
+		<h4>Email : #{authentificationBean.worker.email}</h4>
+		<h:graphicImage value="#{authentificationBean.worker.picture}"></h:graphicImage>
+	</h:body>
+</ui:composition>

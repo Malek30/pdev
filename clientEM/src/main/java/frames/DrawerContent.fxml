@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="box" prefHeight="544.0" prefWidth="200.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frames.DrawerContentController">
+   <children>
+      <ImageView fx:id="iv1" fitHeight="127.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/lg.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btn1" buttonType="RAISED" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Home" />
+      <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Edit" />
+      <JFXButton fx:id="btn3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#change" opacity="0.6" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Recommandation" />
+      <JFXButton fx:id="btn5" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#mission" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Mission" />
+      <JFXButton fx:id="btn6" buttonType="RAISED" onAction="#addMission" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Add Mission" />
+      <JFXButton fx:id="btn61" buttonType="RAISED" onAction="#SendMail" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Send Mail" />
+      <JFXButton fx:id="btn611" buttonType="RAISED" onAction="#logout" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Logout" />
+      <JFXButton fx:id="btn4" buttonType="RAISED" onAction="#exit" opacity="0.6" prefHeight="74.0" prefWidth="200.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="EXIT" />
+   </children>
+</VBox>
